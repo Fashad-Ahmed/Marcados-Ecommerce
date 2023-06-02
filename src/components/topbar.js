@@ -32,7 +32,7 @@ const Topbar = () => {
                     ps={[ "20px", "20px", 0 ]}
                 >
                     <Image src={logo} width="27px" alt="logo"/>
-                    <Link href="/" fontWeight={600} color="black" ms="2" title="logo">Motara</Link>
+                    <Link href="/" fontWeight={600} color="black" ms="2" title="logo">Marcados</Link>
                 </Flex>
 
                 <Box flex="1" display={[ "none", "none", "flex" ]}>

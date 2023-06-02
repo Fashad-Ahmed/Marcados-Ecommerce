@@ -1,5 +1,5 @@
 
-## (Motara) Ecommerce Application
+## (Marcados) Ecommerce Application
 
  A React js ecommerce website.
 <hr>
