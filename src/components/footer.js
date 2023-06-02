@@ -48,7 +48,7 @@ const Footer = () => {
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3" px="3">
           <SocialLinks />
-          <Text>Lagos, Nigeria</Text>
+          {/* <Text>Lagos, Nigeria</Text> */}
           <Link href="mailto:support@marcados.com">Support@marcados.com</Link>
         </Box>
       </Flex>
@@ -62,7 +62,7 @@ const Footer = () => {
         color="white"
         fontSize="14px"
       >
-        <Text>Designed by Abel</Text>
+        <Text></Text>
         <Text>Copyright &copy; {new Date().getFullYear()}</Text>
       </Flex>
     </footer>
