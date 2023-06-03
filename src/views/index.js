@@ -64,7 +64,9 @@ const Home = () => {
             my={["15px", null]}
           >
             <Box p="50px">
-              <Text fontWeight="600">SOFA</Text>
+              <Text fontWeight="600" color="white">
+                MEAT
+              </Text>
               <Text fontWeight="600" color="brand.900" mb="20px">
                 <Badge colorScheme="green">SAVE 30%</Badge>
               </Text>
@@ -79,7 +81,9 @@ const Home = () => {
             my={["15px", null]}
           >
             <Box p="50px">
-              <Text fontWeight="600">NEW ARRIVAL</Text>
+              <Text fontWeight="600" color="white">
+                FRUITS
+              </Text>
               <Text fontWeight="600" color="brand.900" mb="20px">
                 <Badge colorScheme="green">SAVE 50%</Badge>
               </Text>
@@ -94,7 +98,9 @@ const Home = () => {
             my={["15px", null]}
           >
             <Box p="50px">
-              <Text fontWeight="600">CHAIR</Text>
+              <Text fontWeight="600" color="white">
+                VEGETABLES
+              </Text>
               <Text fontWeight="600" color="brand.900" mb="20px">
                 <Badge colorScheme="green">SAVE 20%</Badge>
               </Text>
