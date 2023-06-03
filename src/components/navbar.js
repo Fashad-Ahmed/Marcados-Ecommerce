@@ -30,6 +30,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
 
+  console.log(user);
   const handleLogout = () => {
     const isUserLoggedOut = logOut();
     if (isUserLoggedOut) {
@@ -72,8 +73,11 @@ const Navbar = () => {
           <DrawerHeader my="2" display="flex" alignItems="center">
             <Avatar size="sm" me="2" />
             <Box>
-              <Link href={user.email ? "/dashboard" : "/login"} fontSize="14px">
-                {user.email ? user.email : "Login"}
+              <Link
+                href={user.email?.email ? "/dashboard" : "/login"}
+                fontSize="14px"
+              >
+                {user.email?.email ? user.email.email : "Login"}
               </Link>
               <Text fontSize="12px">Personal balance: $0</Text>
             </Box>

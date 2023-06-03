@@ -142,7 +142,7 @@ const Home = () => {
               Artistic Designs with unique shapes.
             </Text>
             <Text fontSize="14px" fontWeight="600" mb="35px">
-              Purpose of a furniture is to keep you comfortable while also
+              Purpose of a products is to keep you comfortable while also
               beautifying your home
             </Text>
             <Link
