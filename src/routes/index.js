@@ -17,6 +17,7 @@ const Wishlist = lazy(() => import("../views/wishlist"));
 const Dashboard = lazy(() => import("../views/dashboard"));
 const SingleProduct = lazy(() => import("../views/singleProduct"));
 const Account = lazy(() => import("../views/account"));
+const Orders = lazy(() => import("../views/orders"));
 const RoutesProvider = () => {
   const user = useSelector((state) => state.data.user);
 
@@ -36,6 +37,7 @@ const RoutesProvider = () => {
           <Route path="/Wishlist" exact element={<Wishlist />} />
           <Route path="/SingleProduct" exact element={<SingleProduct />} />
           <Route path="/Account" exact element={<Account />} />
+          <Route path="/Orders" exact element={<Orders />} />
           <Route
             path="/Logout"
             exact
