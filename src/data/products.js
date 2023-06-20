@@ -57,7 +57,7 @@ export const data = {
             discountPercentage: 20,
             rating: 2.69,
             stock: 14,
-            category: "Stands",
+            category: "Meat",
             thumbnail: tvBase02_03,
             images: [ tvBase02_01, tvBase02_02, tvBase02_04 ]
         },

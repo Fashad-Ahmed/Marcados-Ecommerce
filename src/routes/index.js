@@ -32,6 +32,7 @@ const RoutesProvider = () => {
           <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
           <Route path="/Cart" exact element={<Cart />} />
           <Route path="/Checkout" exact element={<Checkout />} />
+          <Route path="/Shop" exact element={<Shop />} />
           <Route path="/Wishlist" exact element={<Wishlist />} />
           <Route path="/SingleProduct" exact element={<SingleProduct />} />
           <Route path="/Account" exact element={<Account />} />
