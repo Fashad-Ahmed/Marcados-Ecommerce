@@ -111,11 +111,11 @@ const Navbar = () => {
                   <FiHeart />
                 </NavLink>
               </Box>
-              <Box fontWeight="600" my="2">
+              {/* <Box fontWeight="600" my="2">
                 <NavLink navLocation={"Settings"}>
                   <FaCog />
                 </NavLink>
-              </Box>
+              </Box> */}
               {!user.email ? (
                 ""
               ) : (
