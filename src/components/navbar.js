@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { FiHeart, FiHome, FiShoppingCart } from "react-icons/fi";
+import { FiHeart, FiHome, FiShoppingCart, FiHeadphones } from "react-icons/fi";
 import SearchBar from "./searchbar";
 import SocialLinks from "./sociallinks";
 import NavLink from "./navLink";
@@ -116,6 +116,13 @@ const Navbar = () => {
                   <FaCog />
                 </NavLink>
               </Box>
+
+              <Box fontWeight="600" my="2">
+                <NavLink navLocation={"ContactUs"}>
+                  <FiHeadphones />
+                </NavLink>
+              </Box>
+
               {!user.email ? (
                 ""
               ) : (

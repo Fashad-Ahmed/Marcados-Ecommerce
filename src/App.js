@@ -34,6 +34,7 @@ const App = () => {
     });
   }, [dispatch]);
 
+
   return (
     <ChakraProvider theme={theme}>
       <RoutesProvider />
