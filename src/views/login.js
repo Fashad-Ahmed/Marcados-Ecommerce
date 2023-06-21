@@ -80,6 +80,7 @@ const Login = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your email address"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Flex>
@@ -111,6 +112,7 @@ const Login = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Button

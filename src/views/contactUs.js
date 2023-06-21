@@ -66,6 +66,7 @@ const ContactUs = () => {
                                 fontSize="14px"
                                 borderRadius="0"
                                 border="none"
+                                placeholder="Enter your full name"
                                 onChange={(e) => console.log(e.target.value)}
                             />
                         </Flex>
@@ -97,6 +98,7 @@ const ContactUs = () => {
                                 fontSize="14px"
                                 borderRadius="0"
                                 border="none"
+                                placeholder="Enter your email"
                                 onChange={(e) => setEmail(e.target.value)}
                             />
                         </Flex>
@@ -128,6 +130,7 @@ const ContactUs = () => {
                                 fontSize="14px"
                                 borderRadius="0"
                                 border="none"
+                                placeholder="Enter your subject"
                                 onChange={(e) => console.log(e.target.value)}
                             />
                         </Flex>
@@ -159,6 +162,8 @@ const ContactUs = () => {
                                 fontSize="14px"
                                 borderRadius="0"
                                 border="none"
+                                placeholder="Enter your message"
+
                                 onChange={(e) => console.log(e.target.value)}
                             />
                         </Flex>

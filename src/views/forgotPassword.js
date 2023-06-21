@@ -45,7 +45,7 @@ const ForgotPassword = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Forgot Password!</Heading>
+          <Heading textAlign="center">Forgot Password</Heading>
 
           {/* <Alert status="error">
                         <AlertIcon/>
@@ -78,6 +78,7 @@ const ForgotPassword = () => {
                   fontSize="14px"
                   borderRadius="0"
                   border="none"
+                  placeholder="Enter your email address"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Flex>
@@ -109,6 +110,7 @@ const ForgotPassword = () => {
                   fontSize="14px"
                   borderRadius="0"
                   border="none"
+                  placeholder="Enter the OTP recieved on your email address"
                   onChange={(e) => setOtp(e.target.value)}
                 />
               </Flex>
@@ -141,6 +143,7 @@ const ForgotPassword = () => {
                     fontSize="14px"
                     borderRadius="0"
                     border="none"
+                    placeholder="Enter your new password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Button
@@ -181,6 +184,7 @@ const ForgotPassword = () => {
                     fontSize="14px"
                     borderRadius="0"
                     border="none"
+                    placeholder="Enter your password again"
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                   <Button

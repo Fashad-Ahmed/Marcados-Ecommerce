@@ -28,7 +28,7 @@ const Account = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = () => {};
+  const handleLogin = () => { };
 
   return (
     <Flex m="20px" justify="center" fontSize="14px">
@@ -66,6 +66,7 @@ const Account = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your email address"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Flex>
@@ -97,6 +98,7 @@ const Account = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <Button
@@ -138,6 +140,7 @@ const Account = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your main address"
                 onChange={(e) => console.log(e.target.value)}
               />
             </Flex>
@@ -169,6 +172,7 @@ const Account = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                placeholder="Enter your secondary address"
                 onChange={(e) => console.log(e.target.value)}
               />
             </Flex>

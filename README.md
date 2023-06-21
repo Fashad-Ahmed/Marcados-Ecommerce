@@ -1,5 +1,5 @@
 
-## (Marcados) Ecommerce Application
+## (NJ Marcados) Ecommerce Application
 
  A React js ecommerce website.
 <hr>

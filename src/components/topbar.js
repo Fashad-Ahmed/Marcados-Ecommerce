@@ -37,7 +37,7 @@ const Topbar = () => {
         >
           <Image src={logo} width="27px" alt="logo" />
           <Link href="/" fontWeight={600} color="black" ms="2" title="logo">
-            Marcados
+            NJ Marcados
           </Link>
         </Flex>
 
