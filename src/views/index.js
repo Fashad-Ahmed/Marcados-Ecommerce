@@ -45,7 +45,7 @@ const Home = () => {
         />
       </Flex>
 
-      <Box fontSize="14px" px={[null, "10px", "5%", "10%"]} m="10% 0 50px 0">
+      <Box fontSize="14px" px={[null, "10px", "5%", "10%"]} m="5% 0 50px 0">
         <Heading
           mainText={"GET AWESOME DISCOUNTS ON ALL PURCHASE"}
           subText={"Offers, Incentives and discounts all for you."}
@@ -109,7 +109,7 @@ const Home = () => {
         </Flex>
       </Box>
 
-      <Box py="5%" px={[null, "20px", "5%", "10%"]}>
+      <Box px={[null, "20px", "5%", "10%"]}>
         <Heading
           mainText={"HOT DEALS FOR YOU"}
           subText={"Our customers most loved products you can also get."}
@@ -135,15 +135,14 @@ const Home = () => {
         </Grid>
       </Box>
 
-      <Box py="5%" px={[null, "0", "5%", "10%"]} my="5%">
+      <Box px={[null, "0", "5%", "10%"]} my="5%">
         <Flex justify="space-between" flexWrap="wrap">
           <Box w={[null, "100%", "40%"]} p="5%" ps={["5%", "5%", 0]}>
             <Text fontSize={["20px", "30px"]} fontWeight="700" pb="15px">
-              Artistic Designs with unique shapes.
+              Amazing Fresh Products.
             </Text>
             <Text fontSize="14px" fontWeight="600" mb="35px">
-              Purpose of a products is to keep you comfortable while also
-              beautifying your home
+              Purpose of a products is to keep you comfortable and healthy
             </Text>
             <Link
               href="/Shop"
@@ -168,7 +167,7 @@ const Home = () => {
         </Flex>
       </Box>
 
-      <Box bgColor="gray.100" p="5%" mb="30px" fontSize="14px">
+      <Box bgColor="gray.100" p="5%" fontSize="14px">
         <Heading mainText={"Subscribe To Our Newsletter"} />
 
         <Flex
