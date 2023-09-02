@@ -18,21 +18,21 @@ const theme = extendTheme({ colors });
 const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
-      if (userAuth) {
-        dispatch(
-          userLogin({
-            email: userAuth.email,
-            uid: userAuth.uid,
-            displayName: userAuth.displayName,
-          })
-        );
-      } else {
-        dispatch(userLogout());
-      }
-    });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (userAuth) => {
+  //     if (userAuth) {
+  //       dispatch(
+  //         userLogin({
+  //           email: userAuth.email,
+  //           uid: userAuth.uid,
+  //           displayName: userAuth.displayName,
+  //         })
+  //       );
+  //     } else {
+  //       dispatch(userLogout());
+  //     }
+  //   });
+  // }, [dispatch]);
 
 
   return (

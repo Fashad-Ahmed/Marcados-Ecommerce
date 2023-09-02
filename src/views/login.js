@@ -17,28 +17,28 @@ import { useState } from "react";
 import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../firebase";
-import { userLogin } from "../redux/slice/authSlice";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
   const [type, setType] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = async () => {
-    signIn(email, password)
-      .then((result) => {
-        if (result.email) {
-          dispatch(userLogin(result.email));
-          navigate("/");
-        } else {
-          setErrorMsg("Login error");
-        }
-      })
-      .catch((error) => setErrorMsg(error));
+  const onSubmit = async (formData) => {
+    let data = {
+      email: formData.email,
+      password: formData.password,
+      source: "customer",
+      deviceId: "fcm token",
+    };
+    console.log("Form data", data);
+    // Pass data to your API here
   };
 
   return (
@@ -50,109 +50,126 @@ const Login = () => {
             Enter your email and password.
           </Text>
 
-          {/* <Alert status="error">
-                        <AlertIcon/>
-                        <AlertDescription>{errorMsg}</AlertDescription>
-                    </Alert> */}
-          <FormControl mt="4">
-            <FormLabel fontSize="14px">Email address </FormLabel>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormControl mt="4">
+              <FormLabel fontSize="14px">Email address </FormLabel>
 
-            <Flex
-              align="center"
-              w="100%"
-              p="2px"
-              border="1px"
-              borderColor="gray.100"
-              borderRadius="0"
-            >
-              <Button
-                href="/"
-                bgColor="gray.100"
-                p="3"
+              <Flex
+                align="center"
+                w="100%"
+                p="2px"
                 border="1px"
-                borderRadius="0"
                 borderColor="gray.100"
+                borderRadius="0"
               >
-                <FaEnvelope />
-              </Button>
-              <Input
-                type="email"
-                fontSize="14px"
-                borderRadius="0"
-                border="none"
-                placeholder="Enter your email address"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Flex>
-          </FormControl>
-
-          <FormControl mt="4">
-            <FormLabel fontSize="14px">Password </FormLabel>
-
-            <Flex
-              align="center"
-              w="100%"
-              p="2px"
-              border="1px"
-              borderColor="gray.100"
-              borderRadius="0"
-            >
-              <Button
-                href="/"
-                bgColor="gray.100"
-                p="3"
-                border="1px"
-                borderRadius="0"
-                borderColor="gray.100"
-              >
-                <FaLock />
-              </Button>
-              <Input
-                type={type ? "password" : "text"}
-                fontSize="14px"
-                borderRadius="0"
-                border="none"
-                placeholder="Enter your password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button
-                p="3"
-                border="1px"
-                borderRadius="0"
-                borderColor="gray.100"
-                bgColor="white"
-                onClick={() => setType(!type)}
-              >
-                <FaEye />
-              </Button>
-            </Flex>
-          </FormControl>
-
-          <Flex justify="space-between" my="5">
-            <FormControl display="flex" align="center">
-              <Switch size="sm" id="remember" colorScheme="orange" />
-              <FormLabel htmlFor="remember" ms="2" fontSize="12px">
-                Remember me
-              </FormLabel>
+                <Button
+                  href="/"
+                  bgColor="gray.100"
+                  p="3"
+                  border="1px"
+                  borderRadius="0"
+                  borderColor="gray.100"
+                >
+                  <FaEnvelope />
+                </Button>
+                <Input
+                  type="email"
+                  fontSize="14px"
+                  borderRadius="0"
+                  border="none"
+                  placeholder="Enter your email address"
+                  {...register("email", {
+                    required: "Required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                />
+              </Flex>
+              {errors.email && (
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertDescription>{errors.email.message}</AlertDescription>
+                </Alert>
+              )}
             </FormControl>
-            <Link href="/ForgotPassword" w="150px" fontSize="12px" color="red">
-              Forgot password?
-            </Link>
-          </Flex>
 
-          <Button
-            fontSize="14px"
-            borderRadius="2px"
-            border="1px solid brand.900"
-            bgColor="brand.900"
-            color="white"
-            w="100%"
-            mt="6"
-            _hover={{ bgColor: "orange.400" }}
-            onClick={() => handleLogin()}
-          >
-            Login
-          </Button>
+            <FormControl mt="4">
+              <FormLabel fontSize="14px">Password </FormLabel>
+
+              <Flex
+                align="center"
+                w="100%"
+                p="2px"
+                border="1px"
+                borderColor="gray.100"
+                borderRadius="0"
+              >
+                <Button
+                  href="/"
+                  bgColor="gray.100"
+                  p="3"
+                  border="1px"
+                  borderRadius="0"
+                  borderColor="gray.100"
+                >
+                  <FaLock />
+                </Button>
+                <Input
+                  type={type ? "password" : "text"}
+                  fontSize="14px"
+                  borderRadius="0"
+                  border="none"
+                  placeholder="Enter your password"
+                  {...register("password", {
+                    required: "Required",
+                  })}
+                />
+                <Button
+                  p="3"
+                  border="1px"
+                  borderRadius="0"
+                  borderColor="gray.100"
+                  bgColor="white"
+                  onClick={() => setType(!type)}
+                >
+                  <FaEye />
+                </Button>
+              </Flex>
+              {errors.password && (
+                <Alert status="error">
+                  <AlertIcon />
+                  <AlertDescription>{errors.password.message}</AlertDescription>
+                </Alert>
+              )}
+            </FormControl>
+
+            <Flex justify="space-between" my="5">
+              <FormControl display="flex" align="center"></FormControl>
+              <Link
+                href="/ForgotPassword"
+                w="150px"
+                fontSize="12px"
+                color="red"
+              >
+                Forgot password?
+              </Link>
+            </Flex>
+            <Button
+              fontSize="14px"
+              borderRadius="2px"
+              border="1px solid brand.900"
+              bgColor="brand.900"
+              color="white"
+              w="100%"
+              mt="6"
+              _hover={{ bgColor: "orange.400" }}
+              type="submit"
+            >
+              Login
+            </Button>
+          </form>
 
           <Text mt="4">
             Don't have an account yet?{" "}

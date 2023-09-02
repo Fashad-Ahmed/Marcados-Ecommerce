@@ -19,46 +19,56 @@ const SingleProduct = lazy(() => import("../views/singleProduct"));
 const Account = lazy(() => import("../views/account"));
 const Orders = lazy(() => import("../views/orders"));
 const ContactUs = lazy(() => import("../views/contactUs"));
+
 const RoutesProvider = () => {
-    const user = useSelector((state) => state.data.user);
+  const user = useSelector((state) => state.data.user);
 
-    return (
-        <BrowserRouter>
-            <Topbar />
-            <Suspense fallback={<Loader />}>
-                <Routes>
-                    <Route path="/" exact element={<Home />} />
-                    <Route path="/Home" exact element={<Navigate to="/" replace />} />
-                    <Route path="/Login" exact element={<Login />} />
-                    <Route path="/Register" exact element={<Register />} />
-                    <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
-                    <Route path="/Cart" exact element={<Cart />} />
-                    <Route path="/Checkout" exact element={<Checkout />} />
-                    <Route path="/Shop" exact element={<Shop />} />
-                    <Route path="/Wishlist" exact element={<Wishlist />} />
-                    <Route path="/SingleProduct" exact element={<SingleProduct />} />
-                    <Route path="/Account" exact element={<Account />} />
-                    <Route path="/Orders" exact element={<Orders />} />
-                    <Route path="/ContactUs" exact element={<ContactUs />} />
+  return user.token ? (
+    <BrowserRouter>
+      <Topbar /> 
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/Home" exact element={<Navigate to="/" replace />} />
+          <Route path="/Login" exact element={<Login />} />
+          <Route path="/Cart" exact element={<Cart />} />
+          <Route path="/Checkout" exact element={<Checkout />} />
+          <Route path="/Shop" exact element={<Shop />} />
+          <Route path="/Wishlist" exact element={<Wishlist />} />
+          <Route path="/SingleProduct" exact element={<SingleProduct />} />
+          <Route path="/Account" exact element={<Account />} />
+          <Route path="/Orders" exact element={<Orders />} />
+          <Route path="/ContactUs" exact element={<ContactUs />} />
 
-                    <Route
-                        path="/Logout"
-                        exact
-                        element={<Navigate to="/Login" replace />}
-                    />
-                    <Route
-                        path={"/Dashboard"}
-                        exact
-                        element={
-                            user.email ? <Dashboard /> : <Navigate to="/Login" replace />
-                        }
-                    />
-                </Routes>
-            </Suspense>
-            <MobileBottombar />
-            <Footer />
-        </BrowserRouter>
-    );
+          <Route
+            path="/Logout"
+            exact
+            element={<Navigate to="/Login" replace />}
+          />
+          <Route
+            path={"/Dashboard"}
+            exact
+            element={
+              user.email ? <Dashboard /> : <Navigate to="/Login" replace />
+            }
+          />
+        </Routes>
+      </Suspense>
+      <MobileBottombar />
+      <Footer />
+    </BrowserRouter>
+  ) : (
+    <BrowserRouter>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" exact element={<Login />} />
+          <Route path="/Login" exact element={<Login />} />
+          <Route path="/Register" exact element={<Register />} />
+          <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
 };
 
 export default RoutesProvider;
