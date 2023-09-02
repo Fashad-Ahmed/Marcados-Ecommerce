@@ -23,7 +23,8 @@ const ContactUs = lazy(() => import("../views/contactUs"));
 const RoutesProvider = () => {
   const user = useSelector((state) => state.data.user);
 
-  return user.token ? (
+  console.log(user.payload);
+  return user? (
     <BrowserRouter>
       <Topbar /> 
       <Suspense fallback={<Loader />}>

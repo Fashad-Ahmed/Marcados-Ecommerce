@@ -16,8 +16,8 @@ export const useLoginHook = () => {
         if (response.type === "auth/login/fulfilled") {
           infoToast(response?.payload?.message);
           localStorage.setItem("token", response?.payload?.token);
-          dispatch(login());
-          // navigation.navigate("DrawerNavigator");
+          dispatch(userLogin(response));
+          navigation("/Home");
         }
 
         if (response.type === "auth/login/rejected") {

@@ -1,7 +1,7 @@
 export const VERSION = "1";
 // const BASE_URL = "https://njmercados-be-production.up.railway.app/njmercados/v1/apiAC";
 export const BASE_URL = "https://njmercados-be-production.up.railway.app";
-export const url = BASE_URL + "/njmercados/v" + VERSION + "/apiAC";
+export const url = BASE_URL + "/njmercados/v" + VERSION + "/api";
 export const base_url = url;
 export const custom_url = url;
 export const banner_url = url;

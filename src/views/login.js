@@ -18,6 +18,7 @@ import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useLoginHook } from "../hooks/useLoginHook";
 
 const Login = () => {
   const {
@@ -26,6 +27,7 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const [type, setType] = useState(true);
+  const login = useLoginHook();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,6 +41,8 @@ const Login = () => {
     };
     console.log("Form data", data);
     // Pass data to your API here
+    login(data)
+    
   };
 
   return (
