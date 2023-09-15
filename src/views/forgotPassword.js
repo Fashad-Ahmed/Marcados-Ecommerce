@@ -12,12 +12,17 @@ import {
 import { FaAnchor, FaEnvelope, FaLock, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
+import { useForgetPasswordHook } from "../hooks/useForgetPasswordHook";
+import { useVerifyOtpHook } from "../hooks/useVerifyOtpHook";
+import { useSetPasswordHook } from "../hooks/useSetPasswordHook";
 
 const ForgotPassword = () => {
   const [type, setType] = useState(true);
   const [counter, setCounter] = useState(0);
   const navigate = useNavigate();
-
+  const [forgetPasswordFunc] = useForgetPasswordHook();
+  const [verifyOtpFunc] = useVerifyOtpHook();
+  const [ResetPasswordFunc] = useSetPasswordHook();
   const {
     control,
     handleSubmit,
@@ -26,17 +31,33 @@ const ForgotPassword = () => {
     getValues,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (values) => {
     if (counter === 1 || counter === 0) {
-      setCounter(counter + 1);
+      if (counter === 0) {
+        forgetPasswordFunc({
+          email: values.email,
+        }).then(() => {
+          setCounter(counter + 1);
+        });
+      } else {
+        verifyOtpFunc({
+          email: values.email,
+          otp: values.otp,
+        }).then(() => {
+          setCounter(counter + 1);
+        });
+      }
     } else {
       const password = getValues("password");
       const confirmPassword = getValues("confirmPassword");
 
       if (password === confirmPassword) {
-        navigate("/Login");
+        ResetPasswordFunc({
+          email: values.email,
+          password: values.password,
+        });
       } else {
-        setValue("confirmPassword", "", { shouldValidate: true }); // Clear the field
+        setValue("confirmPassword", "", { shouldValidate: true });
         setValue("password", "", { shouldValidate: true });
       }
     }
@@ -104,11 +125,11 @@ const ForgotPassword = () => {
               <FormControl mt="4">
                 <FormLabel fontSize="14px">OTP</FormLabel>
                 <Controller
-                  name="otp" // Set the field name
+                  name="otp"
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: "OTP is required", // Add required validation
+                    required: "OTP is required",
                   }}
                   render={({ field }) => (
                     <Flex
@@ -130,7 +151,7 @@ const ForgotPassword = () => {
                         <FaAnchor />
                       </Button>
                       <Input
-                        type="text" // Change the type to "text" for OTP
+                        type="text"
                         fontSize="14px"
                         borderRadius="0"
                         border="none"

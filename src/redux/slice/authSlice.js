@@ -16,6 +16,59 @@ export const login = createAsyncThunk("auth/login", async (data) => {
   }
 });
 
+export const signup = createAsyncThunk("user/create", async (data) => {
+  try {
+    let response = await post(configs.endpoints.user.createUser, data, false);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const forgetPassword = createAsyncThunk(
+  "auth/forgetPassword",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.auth.forgetPassword,
+        data,
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const verificationCode = createAsyncThunk(
+  "auth/verificationCode",
+  async (data) => {
+    try {
+      let response = await post(configs.endpoints.auth.verifyOtp, data, false);
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const setPasswword = createAsyncThunk(
+  "auth/resetPassword",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.auth.resetPassword,
+        data,
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

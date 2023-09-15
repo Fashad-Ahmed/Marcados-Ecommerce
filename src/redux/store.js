@@ -2,7 +2,6 @@ import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import productsReducer from "./slice/productSlice";
 import storage from "redux-persist/lib/storage";
-import "firebase/auth";
 import {
   persistReducer,
   persistStore,

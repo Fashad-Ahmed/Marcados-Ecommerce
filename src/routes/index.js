@@ -23,10 +23,10 @@ const ContactUs = lazy(() => import("../views/contactUs"));
 const RoutesProvider = () => {
   const user = useSelector((state) => state.data.user);
 
-  console.log(user.payload);
-  return user? (
+  console.log("user", user?.email?.payload?.token);
+  return user?.email?.payload?.token ? (
     <BrowserRouter>
-      <Topbar /> 
+      <Topbar />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -41,11 +41,11 @@ const RoutesProvider = () => {
           <Route path="/Orders" exact element={<Orders />} />
           <Route path="/ContactUs" exact element={<ContactUs />} />
 
-          <Route
+          {/* <Route
             path="/Logout"
             exact
             element={<Navigate to="/Login" replace />}
-          />
+          /> */}
           <Route
             path={"/Dashboard"}
             exact

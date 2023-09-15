@@ -8,8 +8,6 @@ import {
   RESULTS,
 } from "react-native-permissions";
 import { EventRegister } from "react-native-event-listeners";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
 // import Toast, {DURATION} from 'react-native-easy-toast'
 const TAG = "__API__";
 export const LOG = (label, data) => {
@@ -18,36 +16,11 @@ export const LOG = (label, data) => {
   // }
 };
 
-export const showToast = (msg) => {
-  toast.error(msg, {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-};
-
-export const infoToast = (msg) => {
-  toast.success(msg, {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "light",
-  });
-};
 // export const showGlobalToast = (msg) => {};
 export const presentToast = (message) => {
   //console.log('=== in  presentToast ', message);
   setTimeout(() => {
-    infoToast(message);
+    // infoToast(message);
   }, 500);
 
   // EventRegister.emit(events.showToast, getMessage(message))
@@ -256,7 +229,6 @@ export const checkCameraPermission = async () => {
   //     Platform.OS == "android"
   //       ? PERMISSIONS.ANDROID.CAMERA
   //       : PERMISSIONS.IOS.CAMERA;
-
   //   await checkPermission(permission);
   //   return;
   // } catch (error) {
