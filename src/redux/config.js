@@ -20,6 +20,13 @@ export const endpoints = {
     updateUser: "/user/update",
     changePassword: "/user/change-password",
   },
+
+  inquiry: {
+    createInquiry: "/inquiry/create",
+  },
+  newsletter: {
+    subscribe: "/newsletter/subscribe",
+  },
 };
 
 const configs = {

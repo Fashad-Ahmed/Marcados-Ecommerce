@@ -68,16 +68,16 @@ const Navbar = () => {
             <Avatar size="sm" me="2" />
             <Box>
               <Link
-                href={user.email?.email ? "/dashboard" : "/login"}
+                href={user?.email?.payload?.token? "/dashboard" : "/login"}
                 fontSize="14px"
               >
-                {user.email?.email ? user.email.email : "Login"}
+                {user?.email?.payload?.token ? user?.email?.payload?.data?.fullName : "Login"}
               </Link>
-              <Text fontSize="12px">Personal balance: $0</Text>
+              {/* <Text fontSize="12px">Personal balance: $0</Text> */}
             </Box>
           </DrawerHeader>
           <DrawerBody fontSize="14px">
-            <SearchBar />
+            {/* <SearchBar /> */}
 
             <Box fontSize="15px" my="4" mx="1">
               <Box fontWeight="600" my="2">
@@ -141,7 +141,7 @@ const Navbar = () => {
             </Box>
 
             <Box py="2" mt="4">
-              <Text fontWeight="600">Info@example.com</Text>
+              <Text fontWeight="600">Support@njmarcados.com</Text>
               <SocialLinks />
             </Box>
           </DrawerBody>

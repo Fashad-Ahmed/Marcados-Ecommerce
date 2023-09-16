@@ -69,6 +69,38 @@ export const setPasswword = createAsyncThunk(
   }
 );
 
+export const createFeedback = createAsyncThunk(
+  "inquiry/create",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.inquiry.createInquiry,
+        data,
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const subscribeNewsletter = createAsyncThunk(
+  "newsletter/subscribe",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.newsletter.subscribe,
+        data,
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

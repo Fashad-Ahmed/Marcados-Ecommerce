@@ -7,8 +7,9 @@ import {
   Input,
   Link,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
-import React, { Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import bgsofas2 from "../assets/imgs/bgsofas.webp";
 import bg from "../assets/imgs/bg.jpg";
 import bg1 from "../assets/imgs/bg1.webp";
@@ -18,10 +19,45 @@ import Heading from "../components/heading";
 import { data } from "../data/products";
 import HeroSection from "../components/heroSection";
 import Loader from "../components/loader/loader";
+import { useDispatch, useSelector } from "react-redux";
+import { errorToast, succesToast } from "../utils/toast";
+import { subscribeNewsletter } from "../redux/slice/authSlice";
 
 const Product = React.lazy(() => import("../components/product"));
 
 const Home = () => {
+  const user = useSelector((state) => state.data.user);
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState(
+    user?.email?.payload?.token ? user?.email?.payload?.data?.email : ""
+  );
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleNewsLetter = async () => {
+    setIsLoading(true);
+    try {
+      const response = await dispatch(
+        subscribeNewsletter({
+          email: email,
+        })
+      );
+
+      if (response.type === "newsletter/subscribe/fulfilled") {
+        succesToast(response?.payload?.message);
+        setIsLoading(false);
+      }
+
+      if (response.type === "newsletter/subscribe/rejected") {
+        console.log(response);
+        errorToast(response?.error?.message);
+
+        setIsLoading(false);
+      }
+    } catch (error) {
+      errorToast(error);
+      setIsLoading(false);
+    }
+  };
   return (
     <Box>
       <Flex justify="flex-end" align="center" position="relative">
@@ -182,22 +218,35 @@ const Home = () => {
           borderRadius="0"
         >
           <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email..."
             fontSize="14px"
             borderRadius="0"
             border="none"
             w={["100%", "100%", "300px"]}
           />
-          <Link
-            href="/"
-            bgColor="brand.900"
-            p="10px 25px"
-            border="1px"
-            borderColor="brand.900"
-            color="white"
-          >
-            Subscribe
-          </Link>
+
+          {!isLoading ? (
+            <Link
+              bgColor="brand.900"
+              p="10px 25px"
+              border="1px"
+              borderColor="brand.900"
+              color="white"
+              onClick={() => handleNewsLetter()}
+            >
+              Subscribe
+            </Link>
+          ) : (
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="brand.900"
+              size="lg"
+            />
+          )}
         </Flex>
       </Box>
     </Box>

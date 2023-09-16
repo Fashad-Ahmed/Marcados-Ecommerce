@@ -30,13 +30,13 @@ const Footer = () => {
           </Text>
 
           <NavLink navLocation={"Orders"} />
-          <NavLink navLocation={"History"} />
+          {/* <NavLink navLocation={"History"} />
           <NavLink navLocation={"Rewards"} />
           <NavLink navLocation={"Profile"} />
-          <NavLink navLocation={"Settings"} />
+          <NavLink navLocation={"Settings"} /> */}
         </Box>
 
-        <Box w={["100%", "50%", "30%", "23%"]} my="3">
+        {/* <Box w={["100%", "50%", "30%", "23%"]} my="3">
           <Text fontWeight="700" p="3">
             SUPPORTS
           </Text>
@@ -44,7 +44,7 @@ const Footer = () => {
           <NavLink navLocation={"Support"} />
           <NavLink navLocation={"Returns"} />
           <NavLink navLocation={"Forum"} />
-        </Box>
+        </Box> */}
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3" px="3">
           <SocialLinks />
