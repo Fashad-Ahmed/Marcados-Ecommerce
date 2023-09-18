@@ -144,7 +144,7 @@ const Cart = () => {
               </Flex>
               <Flex justify="space-between" bgColor="white" p="15px">
                 <Text>Discount</Text>
-                <Text as="b">%50</Text>
+                <Text as="b">%0</Text>
               </Flex>
 
               <Divider />
@@ -152,7 +152,7 @@ const Cart = () => {
               <Flex justify="space-between" bgColor="white" p="15px">
                 <Text>Total:</Text>
                 <Text as="b" fontSize="20px" color="brand.900">
-                  ${(subTotal + 50.9) / 2}
+                  ${subTotal + 50.9}
                 </Text>
               </Flex>
             </Box>
@@ -166,6 +166,9 @@ const Cart = () => {
                 borderRadius="2px"
                 color="white"
                 bgColor="brand.900"
+                onClick={() => {
+                  localStorage.setItem("amount", subTotal);
+                }}
               >
                 Checkout now
               </Link>

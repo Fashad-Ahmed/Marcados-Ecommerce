@@ -28,11 +28,17 @@ export const wishlistSlice = createSlice({
         }
       }
     },
+    wishlistLogout: () => {
+      return initialState;
+    },
   },
 });
 
-export const { addProductToWishlist, removeProductFromWishlist } =
-  wishlistSlice.actions;
+export const {
+  addProductToWishlist,
+  removeProductFromWishlist,
+  wishlistLogout,
+} = wishlistSlice.actions;
 
 const wishlistReducer = wishlistSlice.reducer;
 

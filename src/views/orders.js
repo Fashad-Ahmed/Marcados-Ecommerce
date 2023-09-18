@@ -1,48 +1,26 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Link,
-  Button,
-  Switch,
-  Alert,
-  AlertIcon,
-  AlertDescription,
-} from "@chakra-ui/react";
-import { useState } from "react";
-import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { userLogin } from "../redux/slice/authSlice";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import OrderListing from "../components/OrderListing";
+import { useFetchOrdersHook } from "../hooks/useFetchOrdersHook";
+import { useEffect } from "react";
 
 const Orders = () => {
-  const [type, setType] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const orders = [
-    { id: 1, totalPrice: 100, currency: "USD", date: "2023-06-16" },
-    { id: 2, totalPrice: 75, currency: "EUR", date: "2023-06-15" },
-    { id: 1, totalPrice: 100, currency: "USD", date: "2023-06-16" },
-    { id: 2, totalPrice: 75, currency: "EUR", date: "2023-06-15" },
-  ];
+  const [iceData, getIceFunc] = useFetchOrdersHook();
+
+  useEffect(() => {
+    getIceFunc();
+  }, []);
+
+  console.log("iceData", iceData);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          {!orders ? (
+          {!iceData?.data || iceData?.data?.length < 1 ? (
             <Text textAlign="center" fontWeight="600" py="3">
               No orders to show.
             </Text>
           ) : (
-            <OrderListing orders={orders} />
+            <OrderListing orders={iceData?.data} />
           )}
         </Box>
       </Flex>

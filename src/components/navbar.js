@@ -22,16 +22,24 @@ import { BiStore } from "react-icons/bi";
 import { FaCog, FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux/slice/authSlice";
+import { logout } from "../redux/slice/cartSlice";
+import { wishlistLogout } from "../redux/slice/wishlistSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
+  const navigation = useNavigate();
 
   console.log(user);
   const handleLogout = () => {
     dispatch(userLogout());
+    dispatch(logout());
+    dispatch(wishlistLogout());
+    localStorage.removeItem('token')
+    navigation('/Login');
   };
 
   return (
@@ -68,10 +76,12 @@ const Navbar = () => {
             <Avatar size="sm" me="2" />
             <Box>
               <Link
-                href={user?.email?.payload?.token? "/dashboard" : "/login"}
+                href={user?.email?.payload?.token ? "/dashboard" : "/login"}
                 fontSize="14px"
               >
-                {user?.email?.payload?.token ? user?.email?.payload?.data?.fullName : "Login"}
+                {user?.email?.payload?.token
+                  ? user?.email?.payload?.data?.fullName
+                  : "Login"}
               </Link>
               {/* <Text fontSize="12px">Personal balance: $0</Text> */}
             </Box>

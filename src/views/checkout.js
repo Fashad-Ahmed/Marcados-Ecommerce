@@ -11,11 +11,102 @@ import {
 import Heading from "../components/heading";
 import { Country, State, City } from "country-state-city";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 
 const Checkout = () => {
+  const cart = useSelector((state) => state.data.cart);
+  const [checkoutFunc] = usePlaceOrderHook();
   const [countryCode, setCountryCode] = useState("AF");
   const [stateCode, setStateCode] = useState("BDS");
 
+  const [fullname, setFullname] = useState("");
+  const handleFullnameChange = (e) => {
+    setFullname(e.target.value);
+  };
+
+  const [email, setEmail] = useState("");
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const [company, setCompany] = useState("");
+  const handleCompanyChange = (e) => {
+    setCompany(e.target.value);
+  };
+
+  const [shippingAddress, setShippingAddress] = useState("");
+  const handleShippingAddressChange = (e) => {
+    setShippingAddress(e.target.value);
+  };
+
+  const [address, setAddress] = useState("");
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
+
+  const handleCountryChange = (e) => {
+    setCountryCode(e.target.value);
+  };
+
+  const handleStateChange = (e) => {
+    setStateCode(e.target.value);
+  };
+
+  const [city, setCity] = useState("");
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+  };
+
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const [cardName, setCardName] = useState("");
+
+  const handleCardNameChange = (e) => {
+    setCardName(e.target.value);
+  };
+
+  const [cardNumber, setCardNumber] = useState("");
+
+  const handleCardNumberChange = (e) => {
+    setCardNumber(e.target.value);
+  };
+
+  const [cardType, setCardType] = useState("COD");
+  const handleCardTypeChange = (e) => {
+    setCardType(e.target.value);
+  };
+
+  const [expiryDate, setExpiryDate] = useState("");
+
+  const handleExpiryDateChange = (e) => {
+    setExpiryDate(e.target.value);
+  };
+
+  const [cvv, setCvv] = useState("");
+
+  const handleCvvChange = (e) => {
+    setCvv(e.target.value);
+  };
+
+  console.log("cart", cart);
+  const handlePlaceOrder = () => {
+    let data = {
+      products: cart,
+      amount: localStorage.getItem("amount"),
+      status: "PENDING",
+      trackingNumber: uuidv4(),
+      shippingAddress: shippingAddress,
+    };
+
+    console.log(data);
+    checkoutFunc(data);
+  };
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
       <Heading
@@ -58,6 +149,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your full name"
+                        value={fullname}
+                        onChange={handleFullnameChange}
                       />
                     </FormControl>
                     <FormControl my="5">
@@ -76,6 +169,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your email address"
+                        value={email}
+                        onChange={handleEmailChange}
                       />
                     </FormControl>
                     <FormControl my="5">
@@ -94,6 +189,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your company"
+                        value={company}
+                        onChange={handleCompanyChange}
                       />
                     </FormControl>
                   </h2>
@@ -120,6 +217,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your shipping address"
+                        value={shippingAddress}
+                        onChange={handleShippingAddressChange}
                       />
                     </FormControl>
                     <FormControl my="5">
@@ -138,6 +237,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your address"
+                        value={address}
+                        onChange={handleAddressChange}
                       />
                     </FormControl>
                     <FormControl my="5">
@@ -150,10 +251,11 @@ const Checkout = () => {
                         Country:
                       </FormLabel>
                       <Select
-                        onChange={(e) => setCountryCode(e.target.value)}
+                        onChange={handleCountryChange}
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your country"
+                        value={countryCode}
                       >
                         {Country.getAllCountries().map((country, index) => {
                           return (
@@ -174,10 +276,11 @@ const Checkout = () => {
                         State:
                       </FormLabel>
                       <Select
-                        onChange={(e) => setStateCode(e.target.value)}
+                        onChange={handleStateChange}
                         my="1"
                         fontSize="14px"
                         borderRadius="0"
+                        value={stateCode}
                       >
                         {State.getStatesOfCountry(countryCode).map(
                           (state, index) => {
@@ -199,7 +302,12 @@ const Checkout = () => {
                       >
                         City:
                       </FormLabel>
-                      <Select my="1" fontSize="14px" borderRadius="0">
+                      <Select
+                        onChange={handleCityChange}
+                        my="1"
+                        fontSize="14px"
+                        borderRadius="0"
+                      >
                         {City.getCitiesOfState(countryCode, stateCode).map(
                           (city, index) => {
                             return (
@@ -227,6 +335,8 @@ const Checkout = () => {
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your phone number"
+                        value={phoneNumber}
+                        onChange={handlePhoneNumberChange}
                       />
                     </FormControl>
                   </h2>
@@ -244,80 +354,121 @@ const Checkout = () => {
           mx={[0, 0, "2%"]}
         >
           <Box>
-            <FormControl my="5">
+            <FormControl w="25%">
               <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
-                Name on card:
+                Total
               </FormLabel>
               <Input
                 type="text"
-                name="cardName"
+                name="total"
                 borderRadius="0"
-                placeholder="Enter the name on card"
+                isDisabled={true}
+                value={localStorage.getItem("amount")}
               />
             </FormControl>
-            <FormControl my="5">
-              <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
-                Card number:
-              </FormLabel>
-              <Input
-                type="text"
-                name="CardNumber"
-                borderRadius="0"
-                placeholder="Enter the card number"
-              />
-            </FormControl>
-            <Select name="type" borderRadius="0" my="5">
+            <Select
+              onChange={handleCardTypeChange}
+              name="type"
+              borderRadius="0"
+              my="5"
+            >
+              <option>COD</option>
               <option>Visa</option>
               <option>Mastercard</option>
               <option>American Express</option>
             </Select>
-            <Flex my="5" justify="space-between">
-              <FormControl w="70%">
-                <FormLabel
-                  fontSize="12px"
-                  color="gray.400"
-                  top="7px"
-                  left="17px"
-                >
-                  Expiry date:
-                </FormLabel>
-                <Input
-                  type="text"
-                  name="expiry"
-                  my="0"
-                  me="1"
-                  borderRadius="0"
-                  placeholder="Enter the card expiry date"
-                />
-              </FormControl>
-              <FormControl w="25%">
-                <FormLabel
-                  fontSize="12px"
-                  color="gray.400"
-                  top="7px"
-                  left="17px"
-                >
-                  CVV:
-                </FormLabel>
-                <Input
-                  type="text"
-                  name="cvv"
-                  borderRadius="0"
-                  placeholder="Enter CVV"
-                />
-              </FormControl>
-            </Flex>
+            {cardType != "COD" && (
+              <>
+                <FormControl my="5">
+                  <FormLabel
+                    fontSize="12px"
+                    color="gray.400"
+                    top="7px"
+                    left="17px"
+                  >
+                    Name on card:
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    name="cardName"
+                    borderRadius="0"
+                    placeholder="Enter the name on card"
+                    value={cardName}
+                    onChange={handleCardNameChange}
+                  />
+                </FormControl>
+                <FormControl my="5">
+                  <FormLabel
+                    fontSize="12px"
+                    color="gray.400"
+                    top="7px"
+                    left="17px"
+                  >
+                    Card number:
+                  </FormLabel>
+                  <Input
+                    type="text"
+                    name="CardNumber"
+                    borderRadius="0"
+                    placeholder="Enter the card number"
+                    value={cardNumber}
+                    onChange={handleCardNumberChange}
+                  />
+                </FormControl>
+
+                <Flex my="5" justify="space-between">
+                  <FormControl w="70%">
+                    <FormLabel
+                      fontSize="12px"
+                      color="gray.400"
+                      top="7px"
+                      left="17px"
+                    >
+                      Expiry date:
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="expiry"
+                      my="0"
+                      me="1"
+                      borderRadius="0"
+                      placeholder="Enter the card expiry date"
+                      value={expiryDate}
+                      onChange={handleExpiryDateChange}
+                    />
+                  </FormControl>
+                  <FormControl w="25%">
+                    <FormLabel
+                      fontSize="12px"
+                      color="gray.400"
+                      top="7px"
+                      left="17px"
+                    >
+                      CVV:
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="cvv"
+                      borderRadius="0"
+                      placeholder="Enter CVV"
+                      value={cvv}
+                      onChange={handleCvvChange}
+                    />
+                  </FormControl>
+                </Flex>
+              </>
+            )}
           </Box>
 
           <Flex m="20px 0" bgColor="white" p="10px 0">
             <Link
-              href="/"
               p="12px"
               w="100%"
               textAlign="center"
               borderRadius="2px"
               color="white"
               bgColor="brand.900"
+              onClick={handlePlaceOrder}
             >
               Place order
             </Link>

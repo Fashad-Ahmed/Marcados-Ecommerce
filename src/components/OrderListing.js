@@ -6,12 +6,11 @@ const OrderListing = ({ orders }) => {
       {orders.map((order) => (
         <Box key={order.id} borderWidth="1px" borderRadius="md" p="4" mb="4">
           <Text fontWeight="bold" mb="2">
-            Order ID: {order.id}
+            Order ID: {order?.id}
           </Text>
-          <Text>
-            Total Price: {order.totalPrice} {order.currency}
-          </Text>
-          <Text>Date: {order.date}</Text>
+          <Text>Total Price: {order?.amount} $</Text>
+          <Text>Tracking Number: {order?.trackingNumber}</Text>
+          <Text>Shipping Address: {order?.shippingAddress}</Text>
         </Box>
       ))}
     </Flex>

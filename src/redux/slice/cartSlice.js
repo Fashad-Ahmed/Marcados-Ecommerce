@@ -1,8 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { data } from "../../data/products";
 import { errorToast, succesToast } from "../../utils/toast";
+import configs from "../config";
+import { get } from "../../api";
 
 const initialState = [];
+
+export const getOrders = createAsyncThunk("get/order", async (data) => {
+  try {
+    let response = await get(configs.endpoints.checkout.getOrder);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const createOrder = createAsyncThunk("create/order", async (data) => {
+  try {
+    let response = await get(
+      configs.endpoints.checkout.createOrder,
+      data,
+      false
+    );
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -45,6 +69,9 @@ export const cartSlice = createSlice({
         }
       }
     },
+    logout: () => {
+      return initialState;
+    },
   },
 });
 
@@ -53,6 +80,7 @@ export const {
   removeProductFromCart,
   increaseCartQuantity,
   decreaseCartQuantity,
+  logout,
 } = cartSlice.actions;
 
 const cartReducer = cartSlice.reducer;

@@ -19,7 +19,9 @@ const SingleProduct = lazy(() => import("../views/singleProduct"));
 const Account = lazy(() => import("../views/account"));
 const Orders = lazy(() => import("../views/orders"));
 const ContactUs = lazy(() => import("../views/contactUs"));
-
+const AboutUs = lazy(() => import("../views/aboutus"));
+const TermsConditions = lazy(() => import("../views/terms"));
+const PrivacyPolicy = lazy(() => import("../views/privacy"));
 const RoutesProvider = () => {
   const user = useSelector((state) => state.data.user);
 
@@ -40,6 +42,10 @@ const RoutesProvider = () => {
           <Route path="/Account" exact element={<Account />} />
           <Route path="/Orders" exact element={<Orders />} />
           <Route path="/ContactUs" exact element={<ContactUs />} />
+
+          <Route path="/AboutUs" exact element={<AboutUs />} />
+          <Route path="/TermsConditions" exact element={<TermsConditions />} />
+          <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
 
           {/* <Route
             path="/Logout"

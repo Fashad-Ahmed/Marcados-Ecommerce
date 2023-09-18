@@ -17,6 +17,9 @@ import { useState } from "react";
 import { FaEnvelope, FaEye, FaLock } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useLoginHook } from "../hooks/useLoginHook";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getAbout, getPolicy, getTerms } from "../redux/slice/generalSlice";
 
 const Login = () => {
   const {
@@ -24,9 +27,16 @@ const Login = () => {
     register,
     formState: { errors },
   } = useForm();
+  const dispatch = useDispatch();
   const [type, setType] = useState(true);
   const login = useLoginHook();
 
+  useEffect(() => {
+    dispatch(getTerms());
+    dispatch(getAbout());
+    dispatch(getPolicy());
+  }, []);
+  
   const onSubmit = async (formData) => {
     let data = {
       email: formData.email,

@@ -27,6 +27,15 @@ export const endpoints = {
   newsletter: {
     subscribe: "/newsletter/subscribe",
   },
+  content: {
+    aboutUs: "/content/get?type=aboutus",
+    privacyPolicy: "/content/get?type=privacypolicy",
+    terms: "/content/get?type=terms",
+  },
+  checkout: {
+    getOrder: "/order/get",
+    createOrder: "/order/create",
+  },
 };
 
 const configs = {

@@ -15,6 +15,7 @@ import {
 import cartReducer from "./slice/cartSlice";
 import wishlistReducer from "./slice/wishlistSlice";
 import userReducer from "./slice/authSlice";
+import generalReducer from "./slice/generalSlice";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const combinedReducers = combineReducers({
   products: productsReducer,
   cart: cartReducer,
   wishlist: wishlistReducer,
+  general: generalReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers);
@@ -41,7 +43,6 @@ const store = configureStore({
       },
     }),
 });
-
 
 export const persistor = persistStore(store);
 export default store;
