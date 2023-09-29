@@ -101,6 +101,19 @@ export const subscribeNewsletter = createAsyncThunk(
   }
 );
 
+export const changePassword = createAsyncThunk('user/changePassword', async (data) => {
+  try {
+    let response = await post(
+      configs.endpoints.user.changePassword,
+      data,
+      false
+    );
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

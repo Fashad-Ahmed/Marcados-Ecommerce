@@ -17,7 +17,7 @@ import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 
 const Checkout = () => {
   const cart = useSelector((state) => state.data.cart);
-  const [checkoutFunc] = usePlaceOrderHook();
+  // const [checkoutFunc] = usePlaceOrderHook();
   const [countryCode, setCountryCode] = useState("AF");
   const [stateCode, setStateCode] = useState("BDS");
 
@@ -105,7 +105,7 @@ const Checkout = () => {
     };
 
     console.log(data);
-    checkoutFunc(data);
+    // checkoutFunc(data);
   };
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>

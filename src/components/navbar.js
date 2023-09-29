@@ -75,15 +75,15 @@ const Navbar = () => {
           <DrawerHeader my="2" display="flex" alignItems="center">
             <Avatar size="sm" me="2" />
             <Box>
-              <Link
-                href={user?.email?.payload?.token ? "/dashboard" : "/login"}
-                fontSize="14px"
-              >
-                {user?.email?.payload?.token
-                  ? user?.email?.payload?.data?.fullName
-                  : "Login"}
-              </Link>
-              {/* <Text fontSize="12px">Personal balance: $0</Text> */}
+              {user?.email?.payload?.token ?
+                user?.email?.payload?.data?.fullName : (<Link
+                  href={"/login"}
+                  fontSize="14px"
+                >
+                  Login
+                </Link>)
+              }
+
             </Box>
           </DrawerHeader>
           <DrawerBody fontSize="14px">
