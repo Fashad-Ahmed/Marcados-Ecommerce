@@ -23,10 +23,6 @@ const Shop = () => {
   const [loading, setLoading] = useState(false);
   const defaultProducts = useSelector((state) => state.data.products);
 
-  // useEffect(() => {
-  //   fetchProducts()
-  // }, [products]);
-
   useEffect(() => {
     fetchCategory()
     fetchProducts()
@@ -135,8 +131,6 @@ const Shop = () => {
 
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
         <ShopFilters
-          // handleFilters={handleFilters}
-          // clearFilters={() => setProducts(defaultProducts)}
           categories={categories}
           selectedCategories={selectedCategories}
           handleFilters={handleFilters}

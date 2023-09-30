@@ -9,7 +9,7 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useEffect } from "react";
 import bgsofas2 from "../assets/imgs/bgsofas.webp";
 import bg from "../assets/imgs/bg.jpg";
 import bg1 from "../assets/imgs/bg1.webp";
@@ -22,6 +22,8 @@ import Loader from "../components/loader/loader";
 import { useDispatch, useSelector } from "react-redux";
 import { errorToast, succesToast } from "../utils/toast";
 import { subscribeNewsletter } from "../redux/slice/authSlice";
+import configs from "../redux/config";
+import { get } from "../api";
 
 const Product = React.lazy(() => import("../components/product"));
 
@@ -32,7 +34,24 @@ const Home = () => {
     user?.email?.payload?.token ? user?.email?.payload?.data?.email : ""
   );
   const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  useEffect(() => { fetchProducts() }, [])
+  const fetchProducts = async () => {
+
+    setLoading(true)
+    try {
+      let response = await get(configs.endpoints.shop.product);
+      setProducts(response?.data);
+      setLoading(false)
+
+    } catch (error) {
+      errorToast(error)
+      setLoading(false)
+
+    }
+  }
   const handleNewsLetter = async () => {
     setIsLoading(true);
     try {
@@ -161,13 +180,10 @@ const Home = () => {
             "repeat(4, 1fr)",
           ]}
         >
-          {data.products.map((product) => {
-            return (
-              <Suspense key={product.id} fallback={<div>Loading...</div>}>
-                <Product key={product.id} product={product} />
-              </Suspense>
-            );
-          })}
+          {!loading ?
+            products?.slice(0, 4).map((product) => {
+              return <Product key={product.id} product={product} />;
+            }) : (<Loader />)}
         </Grid>
       </Box>
 
