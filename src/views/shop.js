@@ -14,16 +14,18 @@ import { filterProducts } from "../utils/filterProducts";
 import configs from "../redux/config";
 import { get } from "../api";
 import { errorToast } from "../utils/toast";
+import Loader from "../components/loader/loader";
 
 const Shop = () => {
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const defaultProducts = useSelector((state) => state.data.products);
 
-  useEffect(() => {
-    setProducts(defaultProducts);
-  }, [setProducts, defaultProducts]);
+  // useEffect(() => {
+  //   fetchProducts()
+  // }, [products]);
 
   useEffect(() => {
     fetchCategory()
@@ -34,7 +36,6 @@ const Shop = () => {
   const fetchCategory = async () => {
     try {
       let response = await get(configs.endpoints.shop.categories);
-      console.log(response);
       setCategories(response?.data)
     } catch (error) {
       errorToast(error)
@@ -42,12 +43,17 @@ const Shop = () => {
   }
 
   const fetchProducts = async () => {
+
+    setLoading(true)
     try {
       let response = await get(configs.endpoints.shop.product);
-      console.log(response);
-      // setCategories(response?.data)
+      setProducts(response?.data);
+      setLoading(false)
+
     } catch (error) {
       errorToast(error)
+      setLoading(false)
+
     }
   }
   const handleFilters = (filters) => {
@@ -147,10 +153,10 @@ const Shop = () => {
               "repeat(3, 1fr)",
             ]}
           >
-            {products &&
+            {!loading ?
               products.map((product) => {
                 return <Product key={product.id} product={product} />;
-              })}
+              }) : (<Loader />)}
           </Grid>
         </Box>
       </Flex>

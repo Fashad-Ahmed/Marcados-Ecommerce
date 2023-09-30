@@ -9,26 +9,26 @@ const ChangeQuantity = ({ product }) => {
 
     return (
         <Flex justify="flex-end" border="1px solid #e4e4e4" p="3px">
-            <Button 
-                size="sm" 
-                borderColor="gray.100" 
-                fontSize="10px" 
-                borderRadius="0" 
-                p="1"  
-                onClick={() => dispatch(increaseCartQuantity(product.id))}>
-                    <FaPlus />
+            <Button
+                size="sm"
+                borderColor="gray.100"
+                fontSize="10px"
+                borderRadius="0"
+                p="1"
+                onClick={() => dispatch(increaseCartQuantity(product._id))}>
+                <FaPlus />
             </Button>
 
             {
-                cart.filter(item => (item.id === product.id)).map((element, index) => {
+                cart.filter(item => (item._id === product._id)).map((element, index) => {
                     return (
-                        <Button 
+                        <Button
                             key={index}
-                            size="sm" 
-                            type="number" 
-                            borderColor="gray.100" 
-                            fontSize="12px" 
-                            borderRadius="0" 
+                            size="sm"
+                            type="number"
+                            borderColor="gray.100"
+                            fontSize="12px"
+                            borderRadius="0"
                             bgColor="whiteAlpha.500"
                             w="40px">
                             {element.quantity || 1}
@@ -37,14 +37,14 @@ const ChangeQuantity = ({ product }) => {
                 })
             }
 
-            <Button 
-                size="sm" 
-                borderColor="gray.100" 
-                fontSize="10px" 
-                borderRadius="0" 
-                p="1" 
-                onClick={() => dispatch(decreaseCartQuantity(product.id))}>
-                    <FaMinus />
+            <Button
+                size="sm"
+                borderColor="gray.100"
+                fontSize="10px"
+                borderRadius="0"
+                p="1"
+                onClick={() => dispatch(decreaseCartQuantity(product._id))}>
+                <FaMinus />
             </Button>
         </Flex>
     )

@@ -8,36 +8,37 @@ import { addProductToWishlist, removeProductFromWishlist } from "../../redux/sli
 import ChangeQuantity from "./changeQuantity";
 
 const CartWishlist = ({ product }) => {
+    console.log('product wishlist', product);
     const [cartIds, setCartIds] = useState()
     const [wishlistIds, setWishlistIds] = useState()
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.data.cart)
     const wishlist = useSelector((state) => state.data.wishlist)
 
-    
+
     useEffect(() => {
-        setCartIds(cart.map(element => element.id))
-        setWishlistIds(wishlist.map(element => element.id))
+        setCartIds(cart.map(element => element._id))
+        setWishlistIds(wishlist.map(element => element._id))
     }, [cart, wishlist])
 
     return (
         <Flex mt="30px" w="100%">
             {
-            cartIds &&
-            (cartIds.indexOf(product.id) !== -1) ?
-                <Flex flex="1" align="center">
-                    <Button flex="1" me="5px" fontSize="14px" bgColor="gray.100" borderRadius="0" onClick={() => dispatch(removeProductFromCart(product.id))}><FaMinus /></Button>
-                    <ChangeQuantity product={product}/>
-                </Flex>
-            :
-                <Button flex="1" fontSize="14px" bgColor="gray.100" borderRadius="0" onClick={() => dispatch(addProductToCart(product.id))}><FiShoppingCart /></Button>
+                cartIds &&
+                    (cartIds.indexOf(product._id) !== -1) ?
+                    <Flex flex="1" align="center">
+                        <Button flex="1" me="5px" fontSize="14px" bgColor="gray.100" borderRadius="0" onClick={() => dispatch(removeProductFromCart(product._id))}><FaMinus /></Button>
+                        <ChangeQuantity product={product} />
+                    </Flex>
+                    :
+                    <Button flex="1" fontSize="14px" bgColor="gray.100" borderRadius="0" onClick={() => dispatch(addProductToCart(product))}><FiShoppingCart /></Button>
             }
             {
-            wishlistIds &&
-            (wishlistIds.indexOf(product.id) !== -1) ?
-                <Button  fontSize="14px" bgColor="gray.100" color="red" borderRadius="0" ms="1" onClick={() => dispatch(removeProductFromWishlist(product.id))}><FaHeart /></Button>
-            :
-                <Button  fontSize="14px" bgColor="gray.100" borderRadius="0" ms="1" onClick={() => dispatch(addProductToWishlist(product.id))}><FiHeart /></Button>
+                wishlistIds &&
+                    (wishlistIds.indexOf(product._id) !== -1) ?
+                    <Button fontSize="14px" bgColor="gray.100" color="red" borderRadius="0" ms="1" onClick={() => dispatch(removeProductFromWishlist(product._id))}><FaHeart /></Button>
+                    :
+                    <Button fontSize="14px" bgColor="gray.100" borderRadius="0" ms="1" onClick={() => dispatch(addProductToWishlist(product._id))}><FiHeart /></Button>
             }
 
         </Flex>

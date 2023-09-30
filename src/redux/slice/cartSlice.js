@@ -4,9 +4,11 @@ import { errorToast, succesToast } from "../../utils/toast";
 import configs from "../config";
 import { get } from "../../api";
 
-const initialState = [];
+const initialState = {
+  cart: [],
+}
 
-export const getOrders = createAsyncThunk("get/order", async (data) => {
+export const getOrders = createAsyncThunk("get/order", async () => {
   try {
     let response = await get(configs.endpoints.checkout.getOrder);
     return response;
@@ -33,44 +35,44 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProductToCart: (state, action) => {
-      for (let i = 0; i < data.products.length; i++) {
-        if (data.products[i].id === action.payload) {
-          let newProduct = data.products[i];
-          state.unshift(newProduct);
-        }
-      }
+      console.log(state.cart);
+      state.cart.push(action.payload);
       succesToast("Item added to cart");
+      // const product = state.products.find((p) => p._id === action.payload);
+      // if (product) {
+
+      // }
     },
     removeProductFromCart: (state, action) => {
-      console.log(action.payload);
-      errorToast("Item removed from cart");
-
-      return state.filter((product) => product.id !== action.payload);
+      const index = state.cart.findIndex((p) => p._id === action.payload);
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+        errorToast("Item removed from cart");
+      }
     },
     increaseCartQuantity: (state, action) => {
-      for (let i = 0; i < state.length; i++) {
-        if (state[i].id === action.payload) {
-          if (state[i].quantity > 1) {
-            state[i].quantity++;
-          } else {
-            state[i].quantity = 2;
-          }
+      const product = state.cart.find((p) => p._id === action.payload);
+      if (product) {
+        if (product.quantity > 1) {
+          product.quantity++;
+        } else {
+          product.quantity = 2;
         }
       }
     },
+
     decreaseCartQuantity: (state, action) => {
-      for (let i = 0; i < state.length; i++) {
-        if (state[i].id === action.payload) {
-          if (state[i].quantity < 1) {
-            state[i].quantity = 1;
-          } else {
-            state[i].quantity--;
-          }
+      const product = state.cart.find((p) => p._id === action.payload);
+      if (product) {
+        if (product.quantity < 1) {
+          product.quantity = 1;
+        } else {
+          product.quantity--;
         }
       }
     },
     logout: () => {
-      return initialState;
+      return initialState
     },
   },
 });

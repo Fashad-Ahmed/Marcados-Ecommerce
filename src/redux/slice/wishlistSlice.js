@@ -9,23 +9,23 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addProductToWishlist: (state, action) => {
-      for (let i = 0; i < data.products.length; i++) {
-        if (data.products[i].id === action.payload) {
-          state.push(data.products[i]);
-        }
+      const product = state.cart.find((p) => p._id === action.payload);
+      if (product) {
+        state.wishlist.push(product);
       }
       succesToast("Item added to wishlist");
     },
     removeProductFromWishlist: (state, action) => {
-      console.log(action.payload);
-      errorToast("Item removed from wishlist");
-      return state.filter((product) => product.id !== action.payload);
+      const index = state.wishlist.findIndex((p) => p._id === action.payload);
+      if (index !== -1) {
+        state.wishlist.splice(index, 1);
+        errorToast("Item removed from wishlist");
+      }
     },
     increaseWishlistQuantity: (state, action) => {
-      for (let i = 0; i < state.wishlist.length; i++) {
-        if (state[i].id === action.payload.id) {
-          state[i].quantity += 1;
-        }
+      const product = state.wishlist.find((p) => p._id === action.payload);
+      if (product) {
+        product.quantity += 1;
       }
     },
     wishlistLogout: () => {

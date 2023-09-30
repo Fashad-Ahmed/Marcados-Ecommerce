@@ -3,8 +3,10 @@ import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import StarRating from "./starRating";
 import { Link } from "react-router-dom";
 import CartWishlist from "./shopActions/cartWishlist";
+import Loader from '../components/loader/loader'
+import sampleImage from "../assets/imgs/tv-base/product01-03.webp"
 
-const renderLoader = () => <p>Loading</p>;
+const renderLoader = () => <Loader />;
 
 const Product = ({ product }) => {
   return (
@@ -17,30 +19,36 @@ const Product = ({ product }) => {
           top="10px"
           right="10px"
         >
-          {product.discountPercentage}%
+          {product?.category?.name}
+          {/* {product.discountPercentage}% */}
         </Badge>
         <Link
           to={{
             pathname: "/SingleProduct",
-            search: `?id=${product.id}`,
+            search: `?id=${product?._id}`,
           }}
         >
-          <Image w="100%" src={product.thumbnail} alt="product" p="4" />
+          <Image w="100%" h="50%" src={product?.images?.length > 0 ? product?.images[0] : sampleImage} alt="product" p="4" />
         </Link>
         <Box p="4" fontSize="14px">
           <Flex px="5px" align="center" justify="space-between">
             <Text fontSize="16px" fontWeight="600">
               $
-              {product.price -
-                (product.discountPercentage / 100) * product.price}
-              <Badge colorScheme="gray" ms="10px" textDecoration="line-through">
-                ${product.price}
-              </Badge>
+              {product?.price
+                // -(product?.discountPercentage / 100) * product?.price}
+                // <Badge colorScheme="gray" ms="10px" textDecoration="line-through">
+                //   ${product?.price}
+                // </Badge>
+              }
             </Text>
-            <StarRating rating={product.rating} />
+            <StarRating rating={product?.rating} />
           </Flex>
           <Text my="20px" p="3px 6px">
-            {product.title}
+            {product?.name}
+          </Text>
+
+          <Text my="20px" p="3px 6px">
+            {product?.description}
           </Text>
           <CartWishlist product={product} />
         </Box>

@@ -29,7 +29,7 @@ const ShopFilters = ({ categories, selectedCategories, handleFilters, clearFilte
   };
 
   return (
-    <Box w={["100%", "100%", "320px"]} p="2" bgColor={"gray.100"}>
+    <Box w={["100%", "100%", "320px"]} h="100%" p="2" bgColor={"gray.100"}>
       <Text p="20px" border="1px solid gray.100">
         Filter Products
       </Text>
