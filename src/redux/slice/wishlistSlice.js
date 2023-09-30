@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { data } from "../../data/products";
 import { errorToast, succesToast } from "../../utils/toast";
 
-const initialState = [];
-
+const initialState = {
+  wishlist: []
+}
 export const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,

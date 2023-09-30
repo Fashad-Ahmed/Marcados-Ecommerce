@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 
 const Checkout = () => {
-  const cart = useSelector((state) => state.data.cart);
+  const cart = useSelector((state) => state.data.cart.cart)
   // const [checkoutFunc] = usePlaceOrderHook();
   const [countryCode, setCountryCode] = useState("AF");
   const [stateCode, setStateCode] = useState("BDS");

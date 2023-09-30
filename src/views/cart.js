@@ -20,7 +20,7 @@ import ChangeQuantity from "../components/shopActions/changeQuantity";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.data.cart);
+  const cart = useSelector((state) => state.data.cart.cart)
   const [subTotal, setSubTotal] = useState(0);
 
   useEffect(() => {

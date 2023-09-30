@@ -10,8 +10,8 @@ import BottomNavLink from "./bottomNavLink";
 const MobileBottombar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const location = useLocation().pathname;
-    const wishlist = useSelector((state) => state.data.wishlist);
-    const cart = useSelector((state) => state.data.cart)
+    const wishlist = useSelector((state) => state.data.wishlist.wishlist)
+    const cart = useSelector((state) => state.data.cart.cart)
 
     const active = "brand.900"
 

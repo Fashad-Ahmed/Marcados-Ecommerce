@@ -12,8 +12,8 @@ const CartWishlist = ({ product }) => {
     const [wishlistIds, setWishlistIds] = useState()
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.data.cart.cart)
-    const wishlist = useSelector((state) => state.data.wishlist)
-    console.log('CART REDUX', cart);
+    const wishlist = useSelector((state) => state.data.wishlist.wishlist)
+    console.log('WISHLIST REDUX', wishlist);
     useEffect(() => {
         // if (cart && wishlist) {
         setCartIds(cart.map(element => element._id))
