@@ -38,7 +38,7 @@ const CartWishlist = ({ product }) => {
                     (wishlistIds.indexOf(product._id) !== -1) ?
                     <Button fontSize="14px" bgColor="gray.100" color="red" borderRadius="0" ms="1" onClick={() => dispatch(removeProductFromWishlist(product._id))}><FaHeart /></Button>
                     :
-                    <Button fontSize="14px" bgColor="gray.100" borderRadius="0" ms="1" onClick={() => dispatch(addProductToWishlist(product._id))}><FiHeart /></Button>
+                    <Button fontSize="14px" bgColor="gray.100" borderRadius="0" ms="1" onClick={() => dispatch(addProductToWishlist(product))}><FiHeart /></Button>
             }
 
         </Flex>

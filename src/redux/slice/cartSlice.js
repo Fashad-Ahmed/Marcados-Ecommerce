@@ -36,10 +36,8 @@ export const cartSlice = createSlice({
     addProductToCart: (state, action) => {
       const existingProduct = state.cart.find((p) => p._id === action.payload._id);
       if (existingProduct) {
-        // If the product already exists in the cart, increment its quantity
         existingProduct.quantity++;
       } else {
-        // If it's a new product, add it to the cart
         state.cart.push({ ...action.payload, quantity: 1 });
       }
       succesToast("Item added to cart");

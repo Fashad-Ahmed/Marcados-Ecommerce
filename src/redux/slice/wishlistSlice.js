@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { data } from "../../data/products";
 import { errorToast, succesToast } from "../../utils/toast";
 
 const initialState = {
@@ -10,11 +9,15 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addProductToWishlist: (state, action) => {
-      const product = state.cart.find((p) => p._id === action.payload);
-      if (product) {
-        state.wishlist.push(product);
+      const productId = action.payload._id;
+      const existingProduct = state.wishlist.find((product) => product._id === productId);
+
+      if (!existingProduct) {
+        state.wishlist.push(action.payload);
+        succesToast(`${action.payload?.name} added to wishlist`);
+      } else {
+        errorToast(`${action.payload?.name} already exists in wishlist`);
       }
-      succesToast("Item added to wishlist");
     },
     removeProductFromWishlist: (state, action) => {
       const index = state.wishlist.findIndex((p) => p._id === action.payload);
