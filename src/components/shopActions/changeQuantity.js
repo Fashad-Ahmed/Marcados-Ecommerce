@@ -5,7 +5,8 @@ import { decreaseCartQuantity, increaseCartQuantity } from "../../redux/slice/ca
 
 const ChangeQuantity = ({ product }) => {
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.data.cart);
+    const cart = useSelector((state) => state.data.cart.cart);
+    const cartItem = useSelector((state) => state.data.cart.cart.find(item => item._id === product._id));
 
     return (
         <Flex justify="flex-end" border="1px solid #e4e4e4" p="3px">
@@ -21,6 +22,7 @@ const ChangeQuantity = ({ product }) => {
 
             {
                 cart.filter(item => (item._id === product._id)).map((element, index) => {
+                    console.log(element);
                     return (
                         <Button
                             key={index}
@@ -31,7 +33,7 @@ const ChangeQuantity = ({ product }) => {
                             borderRadius="0"
                             bgColor="whiteAlpha.500"
                             w="40px">
-                            {element.quantity || 1}
+                            {cartItem ? cartItem.quantity : 1}
                         </Button>
                     )
                 })

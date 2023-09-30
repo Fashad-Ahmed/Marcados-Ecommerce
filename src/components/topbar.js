@@ -9,15 +9,11 @@ import { useEffect } from "react";
 
 const Topbar = () => {
   const location = useLocation().pathname;
-  const cart = useSelector((state) => state.data.cart);
+  const cart = useSelector((state) => state.data.cart.cart);
   const user = useSelector((state) => state.data.user);
   const active = {
     color: "brand.900",
   };
-
-  useEffect(() => {
-    console.log(user);
-  });
 
   return (
     <nav>

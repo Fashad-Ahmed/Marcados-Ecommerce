@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { data } from "../../data/products";
 import { errorToast, succesToast } from "../../utils/toast";
 import configs from "../config";
 import { get } from "../../api";
@@ -35,14 +34,17 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProductToCart: (state, action) => {
-      console.log(state.cart);
-      state.cart.push(action.payload);
+      const existingProduct = state.cart.find((p) => p._id === action.payload._id);
+      if (existingProduct) {
+        // If the product already exists in the cart, increment its quantity
+        existingProduct.quantity++;
+      } else {
+        // If it's a new product, add it to the cart
+        state.cart.push({ ...action.payload, quantity: 1 });
+      }
       succesToast("Item added to cart");
-      // const product = state.products.find((p) => p._id === action.payload);
-      // if (product) {
-
-      // }
     },
+
     removeProductFromCart: (state, action) => {
       const index = state.cart.findIndex((p) => p._id === action.payload);
       if (index !== -1) {
@@ -52,24 +54,21 @@ export const cartSlice = createSlice({
     },
     increaseCartQuantity: (state, action) => {
       const product = state.cart.find((p) => p._id === action.payload);
-      if (product) {
-        if (product.quantity > 1) {
-          product.quantity++;
-        } else {
-          product.quantity = 2;
-        }
-      }
-    },
+      if (product && product.quantity > 0) {
+        product.quantity++;
+        succesToast(`${product?.name} quantity increased upto ${product?.quantity} cart`);
 
+      }
+
+    },
     decreaseCartQuantity: (state, action) => {
       const product = state.cart.find((p) => p._id === action.payload);
-      if (product) {
-        if (product.quantity < 1) {
-          product.quantity = 1;
-        } else {
-          product.quantity--;
-        }
+      if (product && product.quantity > 1) {
+        product.quantity--;
+        errorToast(`${product?.name} quantity decreased upto ${product?.quantity} cart`);
+
       }
+
     },
     logout: () => {
       return initialState

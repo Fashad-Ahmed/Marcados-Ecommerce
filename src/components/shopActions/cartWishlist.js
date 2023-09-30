@@ -8,17 +8,17 @@ import { addProductToWishlist, removeProductFromWishlist } from "../../redux/sli
 import ChangeQuantity from "./changeQuantity";
 
 const CartWishlist = ({ product }) => {
-    console.log('product wishlist', product);
     const [cartIds, setCartIds] = useState()
     const [wishlistIds, setWishlistIds] = useState()
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.data.cart)
+    const cart = useSelector((state) => state.data.cart.cart)
     const wishlist = useSelector((state) => state.data.wishlist)
-
-
+    console.log('CART REDUX', cart);
     useEffect(() => {
+        // if (cart && wishlist) {
         setCartIds(cart.map(element => element._id))
         setWishlistIds(wishlist.map(element => element._id))
+        // }
     }, [cart, wishlist])
 
     return (
