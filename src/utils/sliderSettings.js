@@ -1,6 +1,6 @@
 const general = {
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 1000,
     speed: 500,
     infinite: true
 }

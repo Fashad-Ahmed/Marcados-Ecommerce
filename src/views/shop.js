@@ -11,8 +11,13 @@ import Product from "../components/product";
 import ShopFilters from "../components/shopActions/shopFilter";
 import { shopSliderSettings } from "../utils/sliderSettings";
 import { filterProducts } from "../utils/filterProducts";
+import configs from "../redux/config";
+import { get } from "../api";
+import { errorToast } from "../utils/toast";
 
 const Shop = () => {
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const defaultProducts = useSelector((state) => state.data.products);
 
@@ -20,9 +25,39 @@ const Shop = () => {
     setProducts(defaultProducts);
   }, [setProducts, defaultProducts]);
 
+  useEffect(() => {
+    fetchCategory()
+    fetchProducts()
+  }, []);
+
+
+  const fetchCategory = async () => {
+    try {
+      let response = await get(configs.endpoints.shop.categories);
+      console.log(response);
+      setCategories(response?.data)
+    } catch (error) {
+      errorToast(error)
+    }
+  }
+
+  const fetchProducts = async () => {
+    try {
+      let response = await get(configs.endpoints.shop.product);
+      console.log(response);
+      // setCategories(response?.data)
+    } catch (error) {
+      errorToast(error)
+    }
+  }
   const handleFilters = (filters) => {
+    setSelectedCategories(filters.categories);
     let filterResult = filterProducts(defaultProducts, filters);
     setProducts(filterResult);
+  };
+
+  const clearFilters = () => {
+    setSelectedCategories([]);
   };
 
   return (
@@ -94,8 +129,12 @@ const Shop = () => {
 
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
         <ShopFilters
+          // handleFilters={handleFilters}
+          // clearFilters={() => setProducts(defaultProducts)}
+          categories={categories}
+          selectedCategories={selectedCategories}
           handleFilters={handleFilters}
-          clearFilters={() => setProducts(defaultProducts)}
+          clearFilters={clearFilters}
         />
 
         <Box w={["100%", "100%", "auto"]} flex="1">

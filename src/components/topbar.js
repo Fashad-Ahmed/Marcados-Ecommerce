@@ -42,7 +42,7 @@ const Topbar = () => {
         </Flex>
 
         <Box flex="1" display={["none", "none", "flex"]}>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </Box>
 
         <Flex align="center" justify="flex-end">

@@ -20,7 +20,6 @@ export const endpoints = {
     updateUser: "/user/update",
     changePassword: "/user/change-password",
   },
-
   inquiry: {
     createInquiry: "/inquiry/create",
   },
@@ -36,6 +35,10 @@ export const endpoints = {
     getOrder: "/order/get",
     createOrder: "/order/create",
   },
+  shop: {
+    categories: '/category/get',
+    product: '/product/get?page=1&rowsPerPage=10'
+  }
 };
 
 const configs = {

@@ -5,14 +5,6 @@ import tvBase02_01 from "../assets/imgs/tv-base/product02-01.webp"
 import tvBase02_02 from "../assets/imgs/tv-base/product02-02.webp"
 import tvBase02_03 from "../assets/imgs/tv-base/product02-03.webp"
 import tvBase02_04 from "../assets/imgs/tv-base/product02-04.webp"
-import tvBase03_01 from "../assets/imgs/tv-base/product03-01.webp"
-import tvBase03_02 from "../assets/imgs/tv-base/product03-02.webp"
-import tvBase03_03 from "../assets/imgs/tv-base/product03-03.webp"
-import tvBase03_04 from "../assets/imgs/tv-base/product03-04.webp"
-import tvBase04_01 from "../assets/imgs/tv-base/product04-01.webp"
-import tvBase04_02 from "../assets/imgs/tv-base/product04-02.webp"
-import tvBase04_03 from "../assets/imgs/tv-base/product04-03.webp"
-import tvBase04_04 from "../assets/imgs/tv-base/product04-04.webp"
 
 
 export const data = {
@@ -37,7 +29,7 @@ export const data = {
             stock: 94,
             category: "Fruits",
             thumbnail: tvBase01_03,
-            images: [ tvBase01_02, tvBase01_01 ]
+            images: [tvBase01_02, tvBase01_01]
         },
         {
             id: 2,
@@ -59,7 +51,7 @@ export const data = {
             stock: 14,
             category: "Meat",
             thumbnail: tvBase02_03,
-            images: [ tvBase02_01, tvBase02_02, tvBase02_04 ]
+            images: [tvBase02_01, tvBase02_02, tvBase02_04]
         },
         // {
         //     id: 3,
