@@ -16,7 +16,6 @@ const data = [
 
 const Dashboard = () => {
   const user = useSelector((state) => state.data.user);
-  console.log(user);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
@@ -25,7 +24,7 @@ const Dashboard = () => {
             ORDERS ANALYSIS
           </Text>
 
-          {user ? (
+          {user && (
             <LineChart
               width={600}
               height={300}
@@ -37,8 +36,6 @@ const Dashboard = () => {
               <XAxis dataKey="name" />
               <YAxis />
             </LineChart>
-          ) : (
-            <></>
           )}
         </Box>
       </Flex>
