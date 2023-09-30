@@ -10,7 +10,7 @@ const renderLoader = () => <Loader />;
 
 const Product = ({ product }) => {
   return (
-    <Box position="relative" shadow="base">
+    <Box position="relative" shadow="base" justifyContent={'center'} alignItems={'center'}>
       <Suspense fallback={renderLoader()}>
         <Badge
           bgColor="brand.900"
@@ -23,12 +23,16 @@ const Product = ({ product }) => {
           {/* {product.discountPercentage}% */}
         </Badge>
         <Link
+
           to={{
             pathname: "/SingleProduct",
             search: `?id=${product?._id}`,
           }}
+          onClick={() => {
+            localStorage.setItem('productId', product?._id)
+          }}
         >
-          <Image w="100%" h="50%" src={product?.images?.length > 0 ? product?.images[0] : sampleImage} alt="product" p="4" />
+          <Image cursor={'pointer'} w="80%" h="50%" src={product?.images?.length > 0 ? product?.images[0] : sampleImage} alt="product" p="4" />
         </Link>
         <Box p="4" fontSize="14px">
           <Flex px="5px" align="center" justify="space-between">

@@ -27,7 +27,6 @@ const ChangePassword = lazy(() => import('../views/changePassword'));
 const RoutesProvider = () => {
   const user = useSelector((state) => state.data.user);
 
-  console.log("user", user?.email?.payload?.token);
   return user?.email?.payload?.token ? (
     <BrowserRouter>
       <Topbar />

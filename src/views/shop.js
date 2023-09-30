@@ -130,12 +130,12 @@ const Shop = () => {
       </Flex>
 
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
-        <ShopFilters
+        {/* <ShopFilters
           categories={categories}
           selectedCategories={selectedCategories}
           handleFilters={handleFilters}
           clearFilters={clearFilters}
-        />
+        /> */}
 
         <Box w={["100%", "100%", "auto"]} flex="1">
           <Grid

@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { data } from "../../data/products";
-import { succesToast } from "../../utils/toast";
 
 const initialState = data.products;
 

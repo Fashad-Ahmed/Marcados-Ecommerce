@@ -37,7 +37,8 @@ export const endpoints = {
   },
   shop: {
     categories: '/category/get',
-    product: '/product/get?page=1&rowsPerPage=10'
+    product: '/product/get?page=1&rowsPerPage=10',
+    productDetail: '/product/get'
   }
 };
 
