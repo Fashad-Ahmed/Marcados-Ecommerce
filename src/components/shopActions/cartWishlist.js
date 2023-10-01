@@ -14,8 +14,8 @@ const CartWishlist = ({ product }) => {
     const cart = useSelector((state) => state.data.cart.cart)
     const wishlist = useSelector((state) => state.data.wishlist.wishlist)
     useEffect(() => {
-        setCartIds(cart.map(element => element._id))
-        setWishlistIds(wishlist.map(element => element._id))
+        setCartIds(cart?.map(element => element._id))
+        setWishlistIds(wishlist?.map(element => element._id))
     }, [cart, wishlist])
 
     return (

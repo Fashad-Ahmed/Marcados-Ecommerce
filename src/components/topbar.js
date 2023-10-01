@@ -9,8 +9,8 @@ import { useEffect } from "react";
 
 const Topbar = () => {
   const location = useLocation().pathname;
-  const cart = useSelector((state) => state.data.cart.cart);
-  const user = useSelector((state) => state.data.user);
+  const cart = useSelector((state) => state?.data?.cart?.cart);
+  const user = useSelector((state) => state?.data?.user);
   const active = {
     color: "brand.900",
   };
@@ -61,8 +61,7 @@ const Topbar = () => {
               top="0"
               right="-5px"
             >
-              {cart.length}
-            </Badge>
+              {cart?.length > 0 ? cart?.length : '0'}            </Badge>
           </Link>
 
           <Link

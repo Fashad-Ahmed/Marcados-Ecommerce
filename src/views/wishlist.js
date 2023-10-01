@@ -14,7 +14,7 @@ const Wishlist = () => {
 
             <Grid gap={4} templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(4, 1fr)"]} px={["20px", "20px", "10%"]}>
                 {
-                    wishlist && wishlist.map(product => {
+                    wishlist && wishlist?.map(product => {
                         return (
                             <Product product={product} key={product._id} />
                         )

@@ -10,22 +10,22 @@ import BottomNavLink from "./bottomNavLink";
 const MobileBottombar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const location = useLocation().pathname;
-    const wishlist = useSelector((state) => state.data.wishlist.wishlist)
-    const cart = useSelector((state) => state.data.cart.cart)
+    const wishlist = useSelector((state) => state?.data?.wishlist?.wishlist)
+    const cart = useSelector((state) => state?.data?.cart?.cart)
 
     const active = "brand.900"
 
     return (
-        <Flex 
-            justify="space-between" align="center" 
-            p="3px 12px" 
-            bgColor="white" 
-            borderColor="gray.100" 
-            w="100%" 
-            display={[ "flex", "flex", "none" ]} 
-            position="fixed" 
-            left="0" 
-            bottom="0" 
+        <Flex
+            justify="space-between" align="center"
+            p="3px 12px"
+            bgColor="white"
+            borderColor="gray.100"
+            w="100%"
+            display={["flex", "flex", "none"]}
+            position="fixed"
+            left="0"
+            bottom="0"
             boxShadow="0 5px 10px black"
         >
 
@@ -39,63 +39,63 @@ const MobileBottombar = () => {
                     </ModalBody>
                 </ModalContent>
             </Modal>
-            <Text 
-                onClick={onOpen} 
-                p="15px" 
-                fontSize="20px" 
-                _hover={{color: active}} 
-                color={ (location === "#")? active : ""} title="search"
+            <Text
+                onClick={onOpen}
+                p="15px"
+                fontSize="20px"
+                _hover={{ color: active }}
+                color={(location === "#") ? active : ""} title="search"
             >
                 <FiSearch />
             </Text>
 
-            <BottomNavLink 
+            <BottomNavLink
                 link="Shop"
                 activeLocations={["/Shop", "/SingleProduct"]}
             >
                 <BiStore />
             </BottomNavLink>
 
-            
-            <BottomNavLink 
+
+            <BottomNavLink
                 link=""
                 activeLocations={["/", "/Login", "/Register", "/Account"]}
             >
                 <FiHome />
             </BottomNavLink>
-            
-            <BottomNavLink 
+
+            <BottomNavLink
                 link="Cart"
                 activeLocations={["/Cart", "/Checkout", "/Order"]}
             >
                 <FiShoppingCart />
-                <Badge 
-                    color="white" 
-                    bgColor="brand.900" 
-                    px="5px" 
-                    position="absolute" top="5px" right="5px" 
-                    borderRadius="10px" 
+                <Badge
+                    color="white"
+                    bgColor="brand.900"
+                    px="5px"
+                    position="absolute" top="5px" right="5px"
+                    borderRadius="10px"
                     border="2px solid white"
-                >{cart.length}</Badge>
+                >{cart?.length > 0 ? cart?.length : '0'}</Badge>
             </BottomNavLink>
-            
-            <BottomNavLink 
+
+            <BottomNavLink
                 link="Wishlist"
                 activeLocations={["/Wishlist"]}
             >
                 <FiHeart />
                 {
-                    (wishlist.length > 0)? 
-                        <Badge 
-                            position="absolute" 
-                            top="12px" 
-                            right="15px" 
-                            bgColor="red" 
-                            p="3px" 
-                            border="2px solid white" 
+                    (wishlist?.length > 0) ?
+                        <Badge
+                            position="absolute"
+                            top="12px"
+                            right="15px"
+                            bgColor="red"
+                            p="3px"
+                            border="2px solid white"
                             borderRadius="50%">
                         </Badge>
-                    : ""
+                        : ""
                 }
             </BottomNavLink>
 
