@@ -8,9 +8,11 @@ const Privacy = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Privacy Policy</Heading>
+          <Heading p="20px" textAlign="center">Privacy Policy</Heading>
+          <Box p="20px" bgColor="#f3f3f3">
 
-          <Text p="20px">{data}</Text>
+            <Text textAlign="justify" p="20px">{data}</Text>
+          </Box>
         </Box>
       </Flex>
     </Flex>
