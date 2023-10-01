@@ -41,13 +41,19 @@ const Footer = () => {
             SUPPORTS
           </Text>
 
-          <Link href="/AboutUs">
+          <Link href="/AboutUs" style={{
+            textDecoration: "none"
+          }}>
             <Text p="3">About Us</Text>
           </Link>
-          <Link href="/TermsConditions">
+          <Link href="/TermsConditions" style={{
+            textDecoration: "none"
+          }}>
             <Text p="3">Terms & Conditions</Text>
           </Link>
-          <Link href="/PrivacyPolicy">
+          <Link href="/PrivacyPolicy" style={{
+            textDecoration: "none"
+          }}>
             <Text p="3">Privacy Policy</Text>
           </Link>
         </Box>
