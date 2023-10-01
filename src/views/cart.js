@@ -25,7 +25,7 @@ const Cart = () => {
 
   useEffect(() => {
     let subTotalSum = 0;
-    cart.map((item) => {
+    cart?.map((item) => {
       return (subTotalSum += item.price * (item.quantity || 1));
     });
     setSubTotal(subTotalSum);
@@ -38,10 +38,10 @@ const Cart = () => {
         subText={"Finish up the order and get a reward."}
       />
 
-      <Flex flexWrap="wrap">
+      <Flex flexWrap="wrap" justifyContent="center" >
         <Box w={["100%", "100%", "60%"]} fontSize="14px">
           <Box p="20px" bgColor="#f3f3f3">
-            {cart && cart.length === 0 ? (
+            {cart && cart?.length === 0 ? (
               <Text p="30px" bgColor="white">
                 Your Cart is empty. Add products from the{" "}
                 <Link href="/shop" color="brand.900">
@@ -49,7 +49,7 @@ const Cart = () => {
                 </Link>
               </Text>
             ) : (
-              cart.map((product) => {
+              cart?.map((product) => {
                 return (
                   <Flex
                     key={product.id}
@@ -175,7 +175,7 @@ const Cart = () => {
             </Flex>
           </Box>
         </Box>
-
+        {/* 
         <Box
           w={["100%", "100%", "36%"]}
           border="1px solid #f4f4f4"
@@ -186,7 +186,7 @@ const Cart = () => {
           <Text fontWeight="700" fontSize="18px" mb="3" color="brand.900">
             ORDER NOW
           </Text>
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );
