@@ -18,18 +18,19 @@ const Dashboard = () => {
   const user = useSelector((state) => state.data.user);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
+
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
-        <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Text textAlign="center" fontWeight="600" py="3">
+
+        <Box py="20px" my="20px" bgColor="white">
+          <Text textAlign="center" justifyContent="center" fontWeight="600" py="6">
             ORDERS ANALYSIS
           </Text>
-
           {user && (
             <LineChart
               width={600}
               height={300}
               data={data}
-              margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
+              margin={{ top: 5, right: 0, bottom: 5, left: 0 }}
             >
               <Line type="monotone" dataKey="uv" stroke="#8884d8" />
               <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
@@ -37,6 +38,7 @@ const Dashboard = () => {
               <YAxis />
             </LineChart>
           )}
+
         </Box>
       </Flex>
     </Flex>
