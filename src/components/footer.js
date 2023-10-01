@@ -40,10 +40,16 @@ const Footer = () => {
           <Text fontWeight="700" p="3">
             SUPPORTS
           </Text>
-          <NavLink navLocation={"AboutUs"} />
-          <NavLink navLocation={"TermsConditions"} />
-          <NavLink navLocation={"PrivacyPolicy"} />
-          {/* <NavLink navLocation={"Forum"} /> */}
+
+          <Link href="/AboutUs">
+            <Text p="3">About Us</Text>
+          </Link>
+          <Link href="/TermsConditions">
+            <Text p="3">Terms & Conditions</Text>
+          </Link>
+          <Link href="/PrivacyPolicy">
+            <Text p="3">Privacy Policy</Text>
+          </Link>
         </Box>
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3" px="3">
