@@ -14,7 +14,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
-
+import { ORDER_STATUS } from '../utils/stattusEnum'
 const Checkout = () => {
   const cart = useSelector((state) => state.data.cart.cart)
   // const [checkoutFunc] = usePlaceOrderHook();
@@ -99,7 +99,7 @@ const Checkout = () => {
     let data = {
       products: cart,
       amount: localStorage.getItem("amount"),
-      status: "PENDING",
+      status: ORDER_STATUS.PENDING,
       trackingNumber: uuidv4(),
       shippingAddress: shippingAddress,
     };

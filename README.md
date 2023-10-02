@@ -4,7 +4,7 @@
  A React js ecommerce website.
 <hr>
 
-visit live site [here](https://motara.netlify.app)
+<!-- visit live site [here](https://motara.netlify.app) -->
 
 <hr>
 

@@ -87,7 +87,6 @@ const Cart = () => {
                         <Text>{product?.category?.name}</Text>
                         <FiTrash
                           onClick={() => {
-                            console.log("sdfgsjdgfygs", product?._id);
                             dispatch(removeProductFromCart(product?._id));
                           }}
                           style={{ cursor: "pointer", color: 'red' }}
