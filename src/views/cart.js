@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { removeProductFromCart } from "../redux/slice/cartSlice";
 import { Link as RouterLink } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
+import sampleImage from "../assets/imgs/tv-base/product01-03.webp"
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Cart = () => {
 
   useEffect(() => {
     let subTotalSum = 0;
+
     cart?.map((item) => {
       return (subTotalSum += item.price * (item.quantity || 1));
     });
@@ -52,7 +54,7 @@ const Cart = () => {
               cart?.map((product) => {
                 return (
                   <Flex
-                    key={product.id}
+                    key={product?._id}
                     align="center"
                     borderBlock="1px solid #f3f3f3"
                     bgColor="white"
@@ -62,23 +64,36 @@ const Cart = () => {
                       to={{
                         pathname: "/singleProduct",
 
-                        search: `?id=${product.id}`,
+                        search: `?id=${product?._id}`,
                       }}
                     >
-                      <Image src={product.thumbnail} w={["100px", "150px"]} />
+                      <Image
+                        w={["100px"]}
+                        src={product?.images?.length > 0 ? product?.images[0] : sampleImage}
+                        alt="product"
+                      />
+
                     </RouterLink>
                     <Box p="30px 10px" flex="1">
                       <Text fontWeight="bold">
-                        {product.title}
-                        <Badge colorScheme="red" p="2" float="right">
-                          <FiTrash
-                            onClick={() =>
-                              dispatch(removeProductFromCart(product.id))
-                            }
-                          />
-                        </Badge>
+                        {product?.name}
                       </Text>
-                      <Text>{product.category}</Text>
+                      <Flex
+                        justify="space-between"
+                        align="flex-end"
+                        flexWrap="wrap"
+                        w="100%"
+                        mt="6">
+                        <Text>{product?.category?.name}</Text>
+                        <FiTrash
+                          onClick={() => {
+                            console.log("sdfgsjdgfygs", product?._id);
+                            dispatch(removeProductFromCart(product?._id));
+                          }}
+                          style={{ cursor: "pointer", color: 'red' }}
+                        />
+
+                      </Flex>
                       <Flex
                         justify="space-between"
                         align="flex-end"
@@ -87,7 +102,7 @@ const Cart = () => {
                         mt="6"
                       >
                         <Text fontSize="18px" fontWeight="bold">
-                          ${product.price}
+                          ${product?.price}
                         </Text>
                         <ChangeQuantity product={product} />
                       </Flex>
