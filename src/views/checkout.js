@@ -99,9 +99,10 @@ const Checkout = () => {
     let data = {
       products: cart,
       amount: localStorage.getItem("amount"),
-      status: ORDER_STATUS.PENDING,
-      trackingNumber: uuidv4(),
       shippingAddress: shippingAddress,
+      zip: address,
+      phoneNumber: phoneNumber,
+      paymentMethod: cardNumber
     };
 
     console.log(data);
@@ -128,73 +129,7 @@ const Checkout = () => {
             </Text>
             <form method="post" action="/">
               <Box bgColor="white" p="20px">
-                <Box>
-                  <h2>
-                    <Box flex="1" p="1" textAlign="left">
-                      Personal Details
-                    </Box>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="7px"
-                        left="17px"
-                      >
-                        Fullname:
-                      </FormLabel>
-                      <Input
-                        type="text"
-                        name="fullname"
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                        placeholder="Enter your full name"
-                        value={fullname}
-                        onChange={handleFullnameChange}
-                      />
-                    </FormControl>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="7px"
-                        left="17px"
-                      >
-                        Email address:
-                      </FormLabel>
-                      <Input
-                        type="text"
-                        name="email"
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                        placeholder="Enter your email address"
-                        value={email}
-                        onChange={handleEmailChange}
-                      />
-                    </FormControl>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="7px"
-                        left="17px"
-                      >
-                        Company (optional):
-                      </FormLabel>
-                      <Input
-                        type="text"
-                        name="company"
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                        placeholder="Enter your company"
-                        value={company}
-                        onChange={handleCompanyChange}
-                      />
-                    </FormControl>
-                  </h2>
-                </Box>
+
 
                 <Box my="4">
                   <h2>
@@ -228,97 +163,20 @@ const Checkout = () => {
                         top="7px"
                         left="17px"
                       >
-                        Address:
+                        Zip Code:
                       </FormLabel>
                       <Input
-                        type="text"
-                        name="state"
+                        type="number"
+                        name="zip"
                         my="1"
                         fontSize="14px"
                         borderRadius="0"
-                        placeholder="Enter your address"
+                        placeholder="Select Zip Code"
                         value={address}
                         onChange={handleAddressChange}
                       />
                     </FormControl>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="0px"
-                        left="17px"
-                      >
-                        Country:
-                      </FormLabel>
-                      <Select
-                        onChange={handleCountryChange}
-                        fontSize="14px"
-                        borderRadius="0"
-                        placeholder="Enter your country"
-                        value={countryCode}
-                      >
-                        {Country.getAllCountries().map((country, index) => {
-                          return (
-                            <option value={country.isoCode} key={index}>
-                              {country.name}
-                            </option>
-                          );
-                        })}
-                      </Select>
-                    </FormControl>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="5px"
-                        left="17px"
-                      >
-                        State:
-                      </FormLabel>
-                      <Select
-                        onChange={handleStateChange}
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                        value={stateCode}
-                      >
-                        {State.getStatesOfCountry(countryCode).map(
-                          (state, index) => {
-                            return (
-                              <option value={state.isoCode} key={index}>
-                                {state.name}
-                              </option>
-                            );
-                          }
-                        )}
-                      </Select>
-                    </FormControl>
-                    <FormControl my="5">
-                      <FormLabel
-                        fontSize="12px"
-                        color="gray.400"
-                        top="7px"
-                        left="17px"
-                      >
-                        City:
-                      </FormLabel>
-                      <Select
-                        onChange={handleCityChange}
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                      >
-                        {City.getCitiesOfState(countryCode, stateCode).map(
-                          (city, index) => {
-                            return (
-                              <option value={city.isoCode} key={index}>
-                                {city.name}
-                              </option>
-                            );
-                          }
-                        )}
-                      </Select>
-                    </FormControl>
+
                     <FormControl my="5">
                       <FormLabel
                         fontSize="12px"
@@ -362,11 +220,25 @@ const Checkout = () => {
                 type="text"
                 name="total"
                 borderRadius="0"
+                fontSize="14px"
                 isDisabled={true}
                 value={localStorage.getItem("amount")}
               />
             </FormControl>
-            <Select
+            <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
+              Payment Method
+            </FormLabel>
+            <Input
+              type="text"
+              name="payment"
+              my="1"
+              fontSize="14px"
+              borderRadius="0"
+
+              value={cardType}
+
+            />
+            {/* <Select
               onChange={handleCardTypeChange}
               name="type"
               borderRadius="0"
@@ -376,8 +248,8 @@ const Checkout = () => {
               <option>Visa</option>
               <option>Mastercard</option>
               <option>American Express</option>
-            </Select>
-            {cardType != "COD" && (
+            </Select> */}
+            {/* {cardType != "COD" && (
               <>
                 <FormControl my="5">
                   <FormLabel
@@ -457,7 +329,7 @@ const Checkout = () => {
                   </FormControl>
                 </Flex>
               </>
-            )}
+            )} */}
           </Box>
 
           <Flex m="20px 0" bgColor="white" p="10px 0">

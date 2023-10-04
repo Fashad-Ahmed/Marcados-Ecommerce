@@ -1,5 +1,5 @@
 export const ORDER_STATUS = {
-    PENDING: "PENDING",
+    PENDING: "inprogress",
     SHIPPED: "SHIPPED",
     DELIVERED: "DELIVERED",
     CANCELED: "CANCELED",
