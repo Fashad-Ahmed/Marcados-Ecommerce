@@ -31,6 +31,7 @@ export const endpoints = {
     privacyPolicy: "/content/get?type=privacypolicy",
     terms: "/content/get?type=terms",
     zip: "/postcode/get",
+    social: "/content/get-social-links",
   },
   checkout: {
     getOrder: "/order/get",

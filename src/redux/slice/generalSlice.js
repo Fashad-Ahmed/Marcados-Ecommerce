@@ -6,6 +6,7 @@ const initialState = {
   terms: null,
   about: null,
   zipCode: null,
+  social: null,
 };
 
 export const getTerms = createAsyncThunk("content/terms", async () => {
@@ -42,6 +43,18 @@ export const getZip = createAsyncThunk("postcode/get", async () => {
   }
 });
 
+export const getSocialLinks = createAsyncThunk(
+  "content/get-social-links",
+  async () => {
+    try {
+      let response = await get(configs.endpoints.content.social);
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
 export const generalSlice = createSlice({
   name: "general",
   initialState,
@@ -58,6 +71,9 @@ export const generalSlice = createSlice({
     },
     [getZip.fulfilled]: (state, { payload }) => {
       state.zipCode = payload?.data;
+    },
+    [getSocialLinks.fulfilled]: (state, { payload }) => {
+      state.social = payload?.data;
     },
   },
 });

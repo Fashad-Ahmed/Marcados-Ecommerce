@@ -38,8 +38,8 @@ const Navbar = () => {
     dispatch(userLogout());
     dispatch(logout());
     dispatch(wishlistLogout());
-    localStorage.removeItem('token')
-    navigation('/Login');
+    localStorage.removeItem("token");
+    navigation("/Login");
   };
 
   return (
@@ -75,15 +75,13 @@ const Navbar = () => {
           <DrawerHeader my="2" display="flex" alignItems="center">
             <Avatar size="sm" me="2" />
             <Box>
-              {user?.email?.payload?.token ?
-                user?.email?.payload?.data?.fullName : (<Link
-                  href={"/login"}
-                  fontSize="14px"
-                >
+              {user?.email?.payload?.token ? (
+                user?.email?.payload?.data?.fullName
+              ) : (
+                <Link href={"/login"} fontSize="14px">
                   Login
-                </Link>)
-              }
-
+                </Link>
+              )}
             </Box>
           </DrawerHeader>
           <DrawerBody fontSize="14px">
@@ -151,7 +149,9 @@ const Navbar = () => {
             </Box>
 
             <Box py="2" mt="4">
-              <Text fontWeight="600">Support@njmarcados.com</Text>
+              <Link href="mailto:info@njmercados.com">
+                <Text fontWeight="600">info@njmercados.com</Text>
+              </Link>
               <SocialLinks />
             </Box>
           </DrawerBody>

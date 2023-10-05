@@ -27,6 +27,7 @@ import { get } from "../api";
 import {
   getAbout,
   getPolicy,
+  getSocialLinks,
   getTerms,
   getZip,
 } from "../redux/slice/generalSlice";
@@ -52,6 +53,7 @@ const Home = () => {
     dispatch(getAbout());
     dispatch(getPolicy());
     dispatch(getZip());
+    dispatch(getSocialLinks());
   }, []);
 
   const fetchProducts = async () => {
