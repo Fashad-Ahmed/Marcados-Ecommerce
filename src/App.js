@@ -3,6 +3,8 @@ import RoutesProvider from "./routes";
 import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { getHomeBanner } from "./redux/slice/generalSlice";
 
 const colors = {
   brand: {
@@ -16,6 +18,9 @@ const theme = extendTheme({ colors });
 const App = () => {
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getHomeBanner());
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <ToastContainer />

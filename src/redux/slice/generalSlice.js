@@ -7,6 +7,8 @@ const initialState = {
   about: null,
   zipCode: null,
   social: null,
+  banner: null,
+  offer: null,
 };
 
 export const getTerms = createAsyncThunk("content/terms", async () => {
@@ -55,6 +57,29 @@ export const getSocialLinks = createAsyncThunk(
   }
 );
 
+export const getHomeBanner = createAsyncThunk(
+  "content/banner-home",
+  async () => {
+    try {
+      let response = await get(configs.endpoints.content.homeBanner);
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
+export const getDiscountBanner = createAsyncThunk(
+  "content/banner-discount",
+  async () => {
+    try {
+      let response = await get(configs.endpoints.content.discountBanner);
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
 export const generalSlice = createSlice({
   name: "general",
   initialState,
@@ -74,6 +99,12 @@ export const generalSlice = createSlice({
     },
     [getSocialLinks.fulfilled]: (state, { payload }) => {
       state.social = payload?.data;
+    },
+    [getHomeBanner.fulfilled]: (state, { payload }) => {
+      state.banner = payload?.data;
+    },
+    [getDiscountBanner.fulfilled]: (state, { payload }) => {
+      state.offer = payload?.data;
     },
   },
 });

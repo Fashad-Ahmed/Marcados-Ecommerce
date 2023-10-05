@@ -40,6 +40,8 @@ const Home = () => {
   const [email, setEmail] = useState(
     user?.email?.payload?.token ? user?.email?.payload?.data?.email : ""
   );
+  const banner = useSelector((state) => state?.data?.general?.banner);
+
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -108,10 +110,8 @@ const Home = () => {
           </Suspense>
         </Box>
         <HeroSection
-          mainText={"Minimalistic and Modern Interior."}
-          subText={
-            "Upgrade your personality with our quality products. You can never go wrong with any of our products."
-          }
+          mainText={banner[0]?.title}
+          subText={banner[0]?.description}
         />
       </Flex>
 
@@ -129,7 +129,7 @@ const Home = () => {
             href="/Shop"
             w={["100%", "48%", "32%"]}
             textAlign="right"
-            backgroundImage={`url(${bg1})`}
+            backgroundImage={`url(${banner[0]?.image})`}
             bgSize="cover"
             my={["15px", null]}
           >

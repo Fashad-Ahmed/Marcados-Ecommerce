@@ -32,6 +32,8 @@ export const endpoints = {
     terms: "/content/get?type=terms",
     zip: "/postcode/get",
     social: "/content/get-social-links",
+    homeBanner: "/banner/get?type=home",
+    discountBanner: "/banner/get?type=offer",
   },
   checkout: {
     getOrder: "/order/get",
