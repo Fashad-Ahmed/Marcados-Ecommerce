@@ -7,6 +7,8 @@ import {
   Text,
   FormControl,
   FormLabel,
+  CircularProgress,
+  Spinner,
 } from "@chakra-ui/react";
 import Heading from "../components/heading";
 import { Country, State, City } from "country-state-city";
@@ -14,10 +16,15 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
-import { ORDER_STATUS } from '../utils/stattusEnum'
+import { ORDER_STATUS } from "../utils/stattusEnum";
+import { errorToast } from "../utils/toast";
+import Loader from "../components/loader/loader";
 const Checkout = () => {
-  const cart = useSelector((state) => state.data.cart.cart)
-  // const [checkoutFunc] = usePlaceOrderHook();
+  const cart = useSelector((state) => state.data.cart.cart);
+  const user = useSelector((state) => state?.data?.user?.email?.payload);
+  const zipCode = useSelector((state) => state?.data?.general?.zipCode);
+
+  const checkoutFunc = usePlaceOrderHook();
   const [countryCode, setCountryCode] = useState("AF");
   const [stateCode, setStateCode] = useState("BDS");
 
@@ -41,7 +48,7 @@ const Checkout = () => {
     setShippingAddress(e.target.value);
   };
 
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(zipCode && zipCode[0]?.code);
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
   };
@@ -59,7 +66,10 @@ const Checkout = () => {
     setCity(e.target.value);
   };
 
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(
+    user?.token ? user?.data?.phoneNumber : ""
+  );
+  console.log("user", user?.data?.phoneNumber);
 
   const handlePhoneNumberChange = (e) => {
     setPhoneNumber(e.target.value);
@@ -94,19 +104,37 @@ const Checkout = () => {
     setCvv(e.target.value);
   };
 
+  const [loading, setLoading] = useState(false);
   console.log("cart", cart);
   const handlePlaceOrder = () => {
+    if (!shippingAddress) {
+      errorToast("Please enter Shipping Address");
+      return;
+    }
+    if (!address) {
+      errorToast("Please select Zip Code");
+      return;
+    }
+    if (!phoneNumber) {
+      errorToast("Please enter Phone Number");
+      return;
+    }
+    setLoading(true);
     let data = {
       products: cart,
       amount: localStorage.getItem("amount"),
       shippingAddress: shippingAddress,
       zip: address,
       phoneNumber: phoneNumber,
-      paymentMethod: cardNumber
+      paymentMethod: cardType,
     };
 
     console.log(data);
-    // checkoutFunc(data);
+    checkoutFunc(data)
+      .then(() => {})
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
@@ -129,8 +157,6 @@ const Checkout = () => {
             </Text>
             <form method="post" action="/">
               <Box bgColor="white" p="20px">
-
-
                 <Box my="4">
                   <h2>
                     <Box flex="1" p="1" textAlign="left">
@@ -165,7 +191,7 @@ const Checkout = () => {
                       >
                         Zip Code:
                       </FormLabel>
-                      <Input
+                      {/* <Input
                         type="number"
                         name="zip"
                         my="1"
@@ -174,7 +200,17 @@ const Checkout = () => {
                         placeholder="Select Zip Code"
                         value={address}
                         onChange={handleAddressChange}
-                      />
+                      /> */}
+                      <Select
+                        onChange={handleAddressChange}
+                        name="type"
+                        borderRadius="0"
+                        my="5"
+                      >
+                        {zipCode?.map((item) => (
+                          <option>{item?.code}</option>
+                        ))}
+                      </Select>
                     </FormControl>
 
                     <FormControl my="5">
@@ -220,6 +256,7 @@ const Checkout = () => {
                 type="text"
                 name="total"
                 borderRadius="0"
+                my="1"
                 fontSize="14px"
                 isDisabled={true}
                 value={localStorage.getItem("amount")}
@@ -232,11 +269,10 @@ const Checkout = () => {
               type="text"
               name="payment"
               my="1"
+              isDisabled={true}
               fontSize="14px"
               borderRadius="0"
-
               value={cardType}
-
             />
             {/* <Select
               onChange={handleCardTypeChange}
@@ -333,17 +369,30 @@ const Checkout = () => {
           </Box>
 
           <Flex m="20px 0" bgColor="white" p="10px 0">
-            <Link
-              p="12px"
-              w="100%"
-              textAlign="center"
-              borderRadius="2px"
-              color="white"
-              bgColor="brand.900"
-              onClick={handlePlaceOrder}
-            >
-              Place order
-            </Link>
+            {loading ? (
+              <Box
+                p="12px"
+                w="100%"
+                textAlign="center"
+                borderRadius="2px"
+                color="white"
+                bgColor="brand.900"
+              >
+                <Spinner value={15} color={"white.900"} />
+              </Box>
+            ) : (
+              <Link
+                p="12px"
+                w="100%"
+                textAlign="center"
+                borderRadius="2px"
+                color="white"
+                bgColor="brand.900"
+                onClick={handlePlaceOrder}
+              >
+                Place order
+              </Link>
+            )}
           </Flex>
         </Box>
       </Flex>

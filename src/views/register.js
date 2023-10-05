@@ -17,6 +17,7 @@ import { useState } from "react";
 import {
   FaEnvelope,
   FaEye,
+  FaEyeSlash,
   FaLandmark,
   FaLock,
   FaPhone,
@@ -145,6 +146,16 @@ const Register = () => {
                 required: "Required",
               })}
             />
+            <Button
+              p="3"
+              border="1px"
+              borderRadius="0"
+              borderColor="gray.100"
+              bgColor="white"
+              onClick={() => setType(!type)}
+            >
+              {type ? <FaEye /> : <FaEyeSlash />}
+            </Button>
           </Flex>
           {errors.password && (
             <Alert status="error">

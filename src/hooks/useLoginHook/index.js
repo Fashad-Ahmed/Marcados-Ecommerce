@@ -21,9 +21,9 @@ export const useLoginHook = () => {
         }
 
         if (response.type === "auth/login/rejected") {
-          console.log(JSON.stringify(response));
+          console.log("response", response);
 
-          errorToast("Login failed");
+          errorToast(response?.error?.message);
         }
       } catch (error) {
         errorToast("An error occurred during login");

@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { errorToast, succesToast } from "../../utils/toast";
 import configs from "../config";
-import { get } from "../../api";
+import { get, post } from "../../api";
 
 const initialState = {
   cart: [],
-}
+};
 
 export const getOrders = createAsyncThunk("get/order", async () => {
   try {
@@ -18,7 +18,7 @@ export const getOrders = createAsyncThunk("get/order", async () => {
 
 export const createOrder = createAsyncThunk("create/order", async (data) => {
   try {
-    let response = await get(
+    let response = await post(
       configs.endpoints.checkout.createOrder,
       data,
       false
@@ -34,7 +34,9 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProductToCart: (state, action) => {
-      const existingProduct = state.cart.find((p) => p._id === action.payload._id);
+      const existingProduct = state.cart.find(
+        (p) => p._id === action.payload._id
+      );
       if (existingProduct) {
         existingProduct.quantity++;
       } else {
@@ -54,22 +56,22 @@ export const cartSlice = createSlice({
       const product = state.cart.find((p) => p._id === action.payload);
       if (product && product.quantity > 0) {
         product.quantity++;
-        succesToast(`${product?.name} quantity increased upto ${product?.quantity} cart`);
-
+        succesToast(
+          `${product?.name} quantity increased upto ${product?.quantity}`
+        );
       }
-
     },
     decreaseCartQuantity: (state, action) => {
       const product = state.cart.find((p) => p._id === action.payload);
       if (product && product.quantity > 1) {
         product.quantity--;
-        errorToast(`${product?.name} quantity decreased upto ${product?.quantity} cart`);
-
+        errorToast(
+          `${product?.name} quantity decreased upto ${product?.quantity}`
+        );
       }
-
     },
     logout: () => {
-      return initialState
+      return initialState;
     },
   },
 });

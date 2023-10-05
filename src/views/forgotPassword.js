@@ -9,7 +9,13 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
-import { FaAnchor, FaEnvelope, FaLock, FaEye } from "react-icons/fa";
+import {
+  FaAnchor,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { useForgetPasswordHook } from "../hooks/useForgetPasswordHook";
@@ -18,6 +24,7 @@ import { useSetPasswordHook } from "../hooks/useSetPasswordHook";
 
 const ForgotPassword = () => {
   const [type, setType] = useState(true);
+  const [typeTwo, setTypeTwo] = useState(true);
   const [counter, setCounter] = useState(0);
   const navigate = useNavigate();
   const [forgetPasswordFunc] = useForgetPasswordHook();
@@ -218,7 +225,7 @@ const ForgotPassword = () => {
                           bgColor="white"
                           onClick={() => setType(!type)}
                         >
-                          <FaEye />
+                          {type ? <FaEye /> : <FaEyeSlash />}
                         </Button>
                       </Flex>
                     )}
@@ -262,7 +269,7 @@ const ForgotPassword = () => {
                           <FaLock />
                         </Button>
                         <Input
-                          type={type ? "password" : "text"}
+                          type={typeTwo ? "password" : "text"}
                           fontSize="14px"
                           borderRadius="0"
                           border="none"
@@ -275,9 +282,9 @@ const ForgotPassword = () => {
                           borderRadius="0"
                           borderColor="gray.100"
                           bgColor="white"
-                          onClick={() => setType(!type)}
+                          onClick={() => setTypeTwo(!typeTwo)}
                         >
-                          <FaEye />
+                          {typeTwo ? <FaEye /> : <FaEyeSlash />}
                         </Button>
                       </Flex>
                     )}

@@ -5,6 +5,7 @@ const initialState = {
   privacy: null,
   terms: null,
   about: null,
+  zipCode: null,
 };
 
 export const getTerms = createAsyncThunk("content/terms", async () => {
@@ -32,6 +33,15 @@ export const getPolicy = createAsyncThunk("content/policy", async () => {
   }
 });
 
+export const getZip = createAsyncThunk("postcode/get", async () => {
+  try {
+    let response = await get(configs.endpoints.content.zip);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 export const generalSlice = createSlice({
   name: "general",
   initialState,
@@ -45,6 +55,9 @@ export const generalSlice = createSlice({
     },
     [getAbout.fulfilled]: (state, { payload }) => {
       state.about = payload?.data?.content;
+    },
+    [getZip.fulfilled]: (state, { payload }) => {
+      state.zipCode = payload?.data;
     },
   },
 });

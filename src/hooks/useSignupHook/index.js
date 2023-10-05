@@ -19,7 +19,7 @@ export const useSignupHook = () => {
         }
 
         if (response.type === "user/create/rejected") {
-          errorToast("Signup failed");
+          errorToast(response?.error?.message);
         }
       } catch (error) {
         errorToast("An error occurred during sign up", error);

@@ -19,12 +19,12 @@ export const usePlaceOrderHook = () => {
         }
 
         if (response.type === "create/order/rejected") {
-          console.log(JSON.stringify(response));
+          console.log("response", response);
 
-          errorToast("checkout failed");
+          errorToast(response?.error?.message);
         }
       } catch (error) {
-        errorToast("An error occurred during checkout");
+        errorToast("An error occurred during placing order");
       }
     },
     [dispatch, navigation]

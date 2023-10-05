@@ -24,6 +24,12 @@ import { errorToast, succesToast } from "../utils/toast";
 import { subscribeNewsletter } from "../redux/slice/authSlice";
 import configs from "../redux/config";
 import { get } from "../api";
+import {
+  getAbout,
+  getPolicy,
+  getTerms,
+  getZip,
+} from "../redux/slice/generalSlice";
 
 const Product = React.lazy(() => import("../components/product"));
 
@@ -37,21 +43,28 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { fetchProducts() }, [])
-  const fetchProducts = async () => {
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-    setLoading(true)
+  useEffect(() => {
+    dispatch(getTerms());
+    dispatch(getAbout());
+    dispatch(getPolicy());
+    dispatch(getZip());
+  }, []);
+
+  const fetchProducts = async () => {
+    setLoading(true);
     try {
       let response = await get(configs.endpoints.shop.product);
       setProducts(response?.data);
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
-      errorToast(error)
-      setLoading(false)
-
+      errorToast(error);
+      setLoading(false);
     }
-  }
+  };
   const handleNewsLetter = async () => {
     setIsLoading(true);
     try {
@@ -180,10 +193,13 @@ const Home = () => {
             "repeat(4, 1fr)",
           ]}
         >
-          {!loading ?
+          {!loading ? (
             products?.slice(0, 4).map((product) => {
               return <Product key={product.id} product={product} />;
-            }) : (<Loader />)}
+            })
+          ) : (
+            <Loader />
+          )}
         </Grid>
       </Box>
 

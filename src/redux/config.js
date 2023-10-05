@@ -30,16 +30,17 @@ export const endpoints = {
     aboutUs: "/content/get?type=aboutus",
     privacyPolicy: "/content/get?type=privacypolicy",
     terms: "/content/get?type=terms",
+    zip: "/postcode/get",
   },
   checkout: {
     getOrder: "/order/get",
     createOrder: "/order/create",
   },
   shop: {
-    categories: '/category/get',
-    product: '/product/get?page=1&rowsPerPage=10',
-    productDetail: '/product/get'
-  }
+    categories: "/category/get",
+    product: "/product/get?page=1&rowsPerPage=10",
+    productDetail: "/product/get",
+  },
 };
 
 const configs = {
