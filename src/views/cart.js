@@ -15,13 +15,17 @@ import { FaHandPointDown } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
 import { removeProductFromCart } from "../redux/slice/cartSlice";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
-import sampleImage from "../assets/imgs/tv-base/product01-03.webp"
+import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
+import { errorToast } from "../utils/toast";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.data.cart.cart)
+  const navigation = useNavigate();
+  const cart = useSelector((state) => state.data.cart.cart);
+  const user = useSelector((state) => state?.data?.user?.email?.payload);
+
   const [subTotal, setSubTotal] = useState(0);
 
   useEffect(() => {
@@ -33,6 +37,17 @@ const Cart = () => {
     setSubTotal(subTotalSum);
   }, [setSubTotal, cart]);
 
+  const handleClick = () => {
+    if (user?.token) {
+      if (cart?.length > 0) {
+        navigation("/checkout");
+      } else {
+        errorToast("Please add products to cart");
+      }
+    } else {
+      // popup to signin
+    }
+  };
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
       <Heading
@@ -40,7 +55,7 @@ const Cart = () => {
         subText={"Finish up the order and get a reward."}
       />
 
-      <Flex flexWrap="wrap" justifyContent="center" >
+      <Flex flexWrap="wrap" justifyContent="center">
         <Box w={["100%", "100%", "60%"]} fontSize="14px">
           <Box p="20px" bgColor="#f3f3f3">
             {cart && cart?.length === 0 ? (
@@ -69,29 +84,30 @@ const Cart = () => {
                     >
                       <Image
                         w={["100px"]}
-                        src={product?.images?.length > 0 ? product?.images[0] : sampleImage}
+                        src={
+                          product?.images?.length > 0
+                            ? product?.images[0]
+                            : sampleImage
+                        }
                         alt="product"
                       />
-
                     </RouterLink>
                     <Box p="30px 10px" flex="1">
-                      <Text fontWeight="bold">
-                        {product?.name}
-                      </Text>
+                      <Text fontWeight="bold">{product?.name}</Text>
                       <Flex
                         justify="space-between"
                         align="flex-end"
                         flexWrap="wrap"
                         w="100%"
-                        mt="6">
+                        mt="6"
+                      >
                         <Text>{product?.category?.name}</Text>
                         <FiTrash
                           onClick={() => {
                             dispatch(removeProductFromCart(product?._id));
                           }}
-                          style={{ cursor: "pointer", color: 'red' }}
+                          style={{ cursor: "pointer", color: "red" }}
                         />
-
                       </Flex>
                       <Flex
                         justify="space-between"
@@ -172,8 +188,7 @@ const Cart = () => {
             </Box>
 
             <Flex m="20px 0" bgColor="white" p="10px">
-              <Link
-                href="/checkout"
+              <Button
                 p="12px"
                 w="100%"
                 textAlign="center"
@@ -181,11 +196,11 @@ const Cart = () => {
                 color="white"
                 bgColor="brand.900"
                 onClick={() => {
-                  localStorage.setItem("amount", subTotal);
+                  handleClick();
                 }}
               >
                 Checkout now
-              </Link>
+              </Button>
             </Flex>
           </Box>
         </Box>
