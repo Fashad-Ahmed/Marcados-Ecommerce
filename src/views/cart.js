@@ -8,25 +8,33 @@ import {
   Image,
   Input,
   Link,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import Heading from "../components/heading";
 import { FaHandPointDown } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { removeProductFromCart } from "../redux/slice/cartSlice";
+import { addDiscount, removeProductFromCart } from "../redux/slice/cartSlice";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
 import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
-import { errorToast } from "../utils/toast";
+import { errorToast, succesToast } from "../utils/toast";
+import { get } from "../api";
+import configs from "../redux/config";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const cart = useSelector((state) => state.data.cart.cart);
+  const discountedValue = useSelector((state) => state.data.cart.discountValue);
+
   const user = useSelector((state) => state?.data?.user?.email?.payload);
 
   const [subTotal, setSubTotal] = useState(0);
+  const [coupon, setCoupon] = useState();
+  const [discount, setDiscount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let subTotalSum = 0;
@@ -37,9 +45,46 @@ const Cart = () => {
     setSubTotal(subTotalSum);
   }, [setSubTotal, cart]);
 
+  const handleApplyCoupon = async () => {
+    if (!coupon) {
+      errorToast("Please enter coupon");
+    }
+    try {
+      await get(configs.endpoints.checkout.applyCoupon)
+        .then((response) => {
+          console.log(response?.data);
+          response?.data?.map((item) => {
+            if (item?.active && item?.title == coupon) {
+              if ((subTotal / 100) * item?.percent < subTotal) {
+                if (discount < 100) {
+                  succesToast(`${item?.title} Coupon Applied`);
+                  dispatch(addDiscount(item?.percent));
+                  setDiscount(item?.percent);
+                } else {
+                  errorToast("Coupon Price limit reached");
+                }
+              }
+            }
+          });
+        })
+        .catch((error) => {
+          errorToast(error?.message);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleClick = () => {
     if (user?.token) {
       if (cart?.length > 0) {
+        let val = discountedValue
+          ? (subTotal / 100) * discountedValue
+          : subTotal;
+        localStorage.setItem("amount", val);
         navigation("/checkout");
       } else {
         errorToast("Please add products to cart");
@@ -129,7 +174,7 @@ const Cart = () => {
 
             <Box justify="space-between" p="10px 0">
               <Flex p="3" pt="5%">
-                <Text>Have a coupon code? Enter here </Text>{" "}
+                <Text>Have a coupon code? Enter here </Text>
                 <Text color="brand.900" p="5px 10px">
                   <FaHandPointDown />
                 </Text>
@@ -148,41 +193,48 @@ const Cart = () => {
                   placeholder="Enter code"
                   fontSize="14px"
                   borderRadius="0"
+                  value={coupon}
+                  onChange={(e) => setCoupon(e.target.value)}
                 />
-                <Button
-                  href="/"
-                  bgColor="gray.100"
-                  fontSize="14px"
-                  p="12px 25px"
-                  border="1px"
-                  borderColor="gray.100"
-                  borderRadius="0"
-                >
-                  Redeem code
-                </Button>
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <Button
+                    onClick={handleApplyCoupon}
+                    bgColor="gray.100"
+                    fontSize="14px"
+                    p="12px 25px"
+                    border="1px"
+                    borderColor="gray.100"
+                    borderRadius="0"
+                  >
+                    Apply coupon
+                  </Button>
+                )}
               </Flex>
-              <Text p="3" color="brand.900">
-                ORDER SUMMARY
-              </Text>
-              <Flex justify="space-between" bgColor="white" p="15px">
+
+              {/* <Flex justify="space-between" bgColor="white" p="15px">
                 <Text>Subtotal</Text>
                 <Text as="b">${subTotal}</Text>
-              </Flex>
-              <Flex justify="space-between" bgColor="white" p="15px">
+              </Flex> */}
+              {/* <Flex justify="space-between" bgColor="white" p="15px">
                 <Text>Delivery</Text>
                 <Text as="b">$50.90</Text>
-              </Flex>
+              </Flex> */}
               <Flex justify="space-between" bgColor="white" p="15px">
                 <Text>Discount</Text>
-                <Text as="b">%0</Text>
+                <Text as="b">{discountedValue ? discountedValue : 0}%</Text>
               </Flex>
 
               <Divider />
 
               <Flex justify="space-between" bgColor="white" p="15px">
-                <Text>Total:</Text>
+                <Text>Sub Total:</Text>
                 <Text as="b" fontSize="20px" color="brand.900">
-                  ${subTotal + 50.9}
+                  $
+                  {discountedValue
+                    ? (subTotal / 100) * discountedValue
+                    : subTotal}
                 </Text>
               </Flex>
             </Box>

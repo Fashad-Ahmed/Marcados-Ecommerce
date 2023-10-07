@@ -3,14 +3,22 @@ import { Badge, Box, Flex, Image, Text } from "@chakra-ui/react";
 import StarRating from "./starRating";
 import { Link } from "react-router-dom";
 import CartWishlist from "./shopActions/cartWishlist";
-import Loader from '../components/loader/loader'
-import sampleImage from "../assets/imgs/tv-base/product01-03.webp"
+import Loader from "../components/loader/loader";
+import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
 
 const renderLoader = () => <Loader />;
 
 const Product = ({ product }) => {
+  console.log("product?.images[0]", product?.images[0]);
   return (
-    <Box h="80%" b position="relative" shadow="base" justifyContent={'center'} alignItems={'center'}>
+    <Box
+      h="80%"
+      b
+      position="relative"
+      shadow="base"
+      justifyContent={"center"}
+      alignItems={"center"}
+    >
       <Suspense fallback={renderLoader()}>
         <Badge
           bgColor="brand.900"
@@ -23,22 +31,29 @@ const Product = ({ product }) => {
           {/* {product.discountPercentage}% */}
         </Badge>
         <Link
-
           to={{
             pathname: "/SingleProduct",
             search: `?id=${product?._id}`,
           }}
           onClick={() => {
-            localStorage.setItem('productId', product?._id)
+            localStorage.setItem("productId", product?._id);
           }}
         >
-          <Image cursor={'pointer'} w="100%" h="60%" src={product?.images?.length > 0 ? product?.images[0] : sampleImage} alt="product" p="4" />
+          <Image
+            cursor={"pointer"}
+            w="100%"
+            h="60%"
+            src={product?.images?.length > 0 ? product?.images[0] : sampleImage}
+            alt="product"
+            p="4"
+          />
         </Link>
         <Box p="4" fontSize="14px">
           <Flex px="5px" align="center" justify="space-between">
             <Text fontSize="16px" fontWeight="600">
               $
-              {product?.price
+              {
+                product?.price
                 // -(product?.discountPercentage / 100) * product?.price}
                 // <Badge colorScheme="gray" ms="10px" textDecoration="line-through">
                 //   ${product?.price}

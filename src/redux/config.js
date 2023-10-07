@@ -38,6 +38,7 @@ export const endpoints = {
   checkout: {
     getOrder: "/order/get",
     createOrder: "/order/create",
+    applyCoupon: '/code/get'
   },
   shop: {
     categories: "/category/get",

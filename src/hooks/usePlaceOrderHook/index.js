@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
-import { createOrder } from "../../redux/slice/cartSlice";
+import { addDiscount, createOrder, logout } from "../../redux/slice/cartSlice";
 
 export const usePlaceOrderHook = () => {
   const navigation = useNavigate();
@@ -14,6 +14,8 @@ export const usePlaceOrderHook = () => {
         const response = await dispatch(createOrder(data));
 
         if (response.type === "create/order/fulfilled") {
+          dispatch(addDiscount(0));
+          dispatch(logout());
           succesToast(response?.payload?.message);
           navigation("/Home");
         }

@@ -13,7 +13,7 @@ import {
 import Heading from "../components/heading";
 import { Country, State, City } from "country-state-city";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 import { ORDER_STATUS } from "../utils/stattusEnum";
@@ -24,6 +24,7 @@ const Checkout = () => {
   const user = useSelector((state) => state?.data?.user?.email?.payload);
   const zipCode = useSelector((state) => state?.data?.general?.zipCode);
 
+  const dispatch = useDispatch();
   const checkoutFunc = usePlaceOrderHook();
   const [countryCode, setCountryCode] = useState("AF");
   const [stateCode, setStateCode] = useState("BDS");
@@ -49,10 +50,24 @@ const Checkout = () => {
   };
 
   const [address, setAddress] = useState(zipCode && zipCode[0]?.code);
+  const [shippingCharges, setShippingCharges] = useState(
+    zipCode ? zipCode[0]?.shippingCharges : 0
+  );
+
   const handleAddressChange = (e) => {
+    console.log(e.target);
+    handleChangeShippingCharges(e.target.value);
+
     setAddress(e.target.value);
   };
 
+  const handleChangeShippingCharges = (value) => {
+    zipCode?.map((item) => {
+      if (item?.code == value) {
+        setShippingCharges(item?.shippingCharges);
+      }
+    });
+  };
   const handleCountryChange = (e) => {
     setCountryCode(e.target.value);
   };
@@ -248,20 +263,22 @@ const Checkout = () => {
           mx={[0, 0, "2%"]}
         >
           <Box>
-            <FormControl w="25%">
-              <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
-                Total
-              </FormLabel>
-              <Input
-                type="text"
-                name="total"
-                borderRadius="0"
-                my="1"
-                fontSize="14px"
-                isDisabled={true}
-                value={localStorage.getItem("amount")}
-              />
-            </FormControl>
+            <Flex justify="space-between" bgColor="white" py="15px">
+              <Text>Shipping Charges</Text>
+              <Text as="b">${shippingCharges}</Text>
+            </Flex>
+
+            <Flex justify="space-between" bgColor="white" py="15px">
+              <Text>Total Amount</Text>
+              <Text as="b">
+                $
+                {shippingCharges
+                  ? parseInt(localStorage.getItem("amount")) +
+                    parseInt(shippingCharges)
+                  : localStorage.getItem("amount")}
+              </Text>
+            </Flex>
+
             <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
               Payment Method
             </FormLabel>

@@ -5,6 +5,7 @@ import { get, post } from "../../api";
 
 const initialState = {
   cart: [],
+  discountValue: 0,
 };
 
 export const getOrders = createAsyncThunk("get/order", async () => {
@@ -23,6 +24,17 @@ export const createOrder = createAsyncThunk("create/order", async (data) => {
       data,
       false
     );
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const applyCoupon = createAsyncThunk("apply/coupon", async (data) => {
+  try {
+    let response = await get(configs.endpoints.checkout.applyCoupon, {
+      title: data,
+    });
     return response;
   } catch (error) {
     throw new Error(error);
@@ -70,6 +82,10 @@ export const cartSlice = createSlice({
         );
       }
     },
+
+    addDiscount: (state, action) => {
+      state.discountValue = action.payload;
+    },
     logout: () => {
       return initialState;
     },
@@ -81,6 +97,7 @@ export const {
   removeProductFromCart,
   increaseCartQuantity,
   decreaseCartQuantity,
+  addDiscount,
   logout,
 } = cartSlice.actions;
 
