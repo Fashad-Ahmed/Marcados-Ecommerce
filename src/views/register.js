@@ -23,11 +23,12 @@ import {
   FaPhone,
   FaUber,
 } from "react-icons/fa";
+import InputMask from "react-input-mask";
 import bg from "../assets/imgs/bg.jpg";
 import { signup } from "../redux/slice/authSlice";
 import { useForm } from "react-hook-form";
 import { useSignupHook } from "../hooks/useSignupHook";
-
+import { errorToast } from "../utils/toast";
 const Register = () => {
   const {
     handleSubmit,
@@ -39,18 +40,41 @@ const Register = () => {
   const signup = useSignupHook();
 
   const handleRegister = async (values) => {
+    const digitCount = phoneNumber?.replace(/\D/g, "").length;
+
+    if (digitCount < 9) {
+      errorToast("Phone number must have at least 9 digits.");
+    }
     let data = {
       email: values.email,
       password: values.password,
       fullName: values.fullName,
       address: values.address,
-      phoneNumber: values.phoneNumber,
+      phoneNumber: digitCount,
     };
     console.log("data", data);
     setLoading(true);
 
     signup(data);
     setLoading(false);
+  };
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const handleChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+  const inputStyles = {
+    width: "100%",
+    padding: "10px",
+    border: "none",
+    borderRadius: "4px",
+    fontSize: "16px",
+    outline: "none",
+    borderColor: "#000",
+  };
+
+  const placeholderStyles = {
+    color: "#ccc",
   };
 
   return (
@@ -100,6 +124,8 @@ const Register = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
+                variant="unstyled"
+                px={3}
                 placeholder="Enter your email address"
                 {...register("email", {
                   required: "Required",
@@ -141,6 +167,8 @@ const Register = () => {
               fontSize="14px"
               borderRadius="0"
               border="none"
+              variant="unstyled"
+              px={3}
               placeholder="Enter your password"
               {...register("password", {
                 required: "Required",
@@ -186,6 +214,8 @@ const Register = () => {
               fontSize="14px"
               borderRadius="0"
               border="none"
+              variant="unstyled"
+              px={3}
               placeholder="Enter your full name"
               {...register("fullName", {
                 required: "Required",
@@ -222,6 +252,8 @@ const Register = () => {
               fontSize="14px"
               borderRadius="0"
               border="none"
+              variant="unstyled"
+              px={3}
               placeholder="Enter your address"
               {...register("address", {
                 required: "Required",
@@ -252,7 +284,7 @@ const Register = () => {
             >
               <FaPhone />
             </Button>
-            <Input
+            {/* <Input
               type="tel"
               fontSize="14px"
               borderRadius="0"
@@ -265,6 +297,17 @@ const Register = () => {
                   message: "Invalid phone number",
                 },
               })}
+            /> */}
+            <InputMask
+              mask="(+351) 999 999 999"
+              maskChar="_"
+              type="tel"
+              name="phone"
+              placeholder="Enter Phone Number"
+              value={phoneNumber}
+              onChange={handleChange}
+              style={inputStyles}
+              placeholderStyle={placeholderStyles}
             />
           </Flex>
           {errors.phoneNumber && (

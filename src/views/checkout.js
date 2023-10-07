@@ -10,6 +10,7 @@ import {
   CircularProgress,
   Spinner,
 } from "@chakra-ui/react";
+import InputMask from "react-input-mask";
 import Heading from "../components/heading";
 import { Country, State, City } from "country-state-city";
 import { useState } from "react";
@@ -81,13 +82,23 @@ const Checkout = () => {
     setCity(e.target.value);
   };
 
-  const [phoneNumber, setPhoneNumber] = useState(
-    user?.token ? user?.data?.phoneNumber : ""
-  );
-  console.log("user", user?.data?.phoneNumber);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
-  const handlePhoneNumberChange = (e) => {
+  const handleChange = (e) => {
     setPhoneNumber(e.target.value);
+  };
+  const inputStyles = {
+    width: "100%",
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    fontSize: "16px",
+    outline: "none", // Remove outline when focused
+    borderColor: "#000", // Change border color when focused
+  };
+
+  const placeholderStyles = {
+    color: "#ccc",
   };
 
   const [cardName, setCardName] = useState("");
@@ -134,6 +145,13 @@ const Checkout = () => {
       errorToast("Please enter Phone Number");
       return;
     }
+
+    const digitCount = phoneNumber.replace(/\D/g, "").length;
+
+    if (digitCount < 9) {
+      errorToast("Phone number must have at least 9 digits.");
+    }
+
     setLoading(true);
     let data = {
       products: cart,
@@ -144,13 +162,14 @@ const Checkout = () => {
       paymentMethod: cardType,
     };
 
-    console.log(data);
+    console.log("data", data);
     checkoutFunc(data)
       .then(() => {})
       .finally(() => {
         setLoading(false);
       });
   };
+
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
       <Heading
@@ -237,15 +256,17 @@ const Checkout = () => {
                       >
                         Phone number:
                       </FormLabel>
-                      <Input
+
+                      <InputMask
+                        mask="(+351) 999 999 999"
+                        maskChar="_"
                         type="tel"
                         name="phone"
-                        my="1"
-                        fontSize="14px"
-                        borderRadius="0"
-                        placeholder="Enter your phone number"
+                        placeholder="Enter Phone Number"
                         value={phoneNumber}
-                        onChange={handlePhoneNumberChange}
+                        onChange={handleChange}
+                        style={inputStyles}
+                        placeholderStyle={placeholderStyles}
                       />
                     </FormControl>
                   </h2>
