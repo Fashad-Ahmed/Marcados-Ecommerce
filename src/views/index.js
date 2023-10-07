@@ -22,7 +22,7 @@ import Loader from "../components/loader/loader";
 import { useDispatch, useSelector } from "react-redux";
 import { errorToast, succesToast } from "../utils/toast";
 import { subscribeNewsletter } from "../redux/slice/authSlice";
-import configs from "../redux/config";
+import configs, { BASE_URL } from "../redux/config";
 import { get } from "../api";
 import {
   getAbout,
@@ -94,6 +94,7 @@ const Home = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <Box>
       <Flex justify="flex-end" align="center" position="relative">
@@ -102,7 +103,9 @@ const Home = () => {
             <Box
               w="100%"
               h="600px"
-              backgroundImage={`url(${bgsofas2})`}
+              backgroundImage={
+                banner ? `${BASE_URL}/${banner[0]?.image}` : `url(${bgsofas2})`
+              }
               backgroundSize="cover"
               bgPosition="50%, 75%"
               alt="bgImage"
@@ -129,7 +132,7 @@ const Home = () => {
             href="/Shop"
             w={["100%", "48%", "32%"]}
             textAlign="right"
-            backgroundImage={`url(${banner[0]?.image})`}
+            backgroundImage={`url(${bg1})`}
             bgSize="cover"
             my={["15px", null]}
           >

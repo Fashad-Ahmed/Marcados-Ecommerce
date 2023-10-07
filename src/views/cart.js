@@ -21,7 +21,7 @@ import ChangeQuantity from "../components/shopActions/changeQuantity";
 import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
 import { errorToast, succesToast } from "../utils/toast";
 import { get } from "../api";
-import configs from "../redux/config";
+import configs, { BASE_URL } from "../redux/config";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -131,7 +131,7 @@ const Cart = () => {
                         w={["100px"]}
                         src={
                           product?.images?.length > 0
-                            ? product?.images[0]
+                            ? `${BASE_URL}/${product?.images[0]}`
                             : sampleImage
                         }
                         alt="product"
@@ -144,7 +144,7 @@ const Cart = () => {
                         align="flex-end"
                         flexWrap="wrap"
                         w="100%"
-                        mt="6"
+                        mt="2"
                       >
                         <Text>{product?.category?.name}</Text>
                         <FiTrash
@@ -159,7 +159,7 @@ const Cart = () => {
                         align="flex-end"
                         flexWrap="wrap"
                         w="100%"
-                        mt="6"
+                        mt="4"
                       >
                         <Text fontSize="18px" fontWeight="bold">
                           ${product?.price}

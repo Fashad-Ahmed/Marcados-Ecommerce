@@ -51,9 +51,10 @@ const Checkout = () => {
   };
 
   const [address, setAddress] = useState(zipCode && zipCode[0]?.code);
-  const [shippingCharges, setShippingCharges] = useState(
-    zipCode ? zipCode[0]?.shippingCharges : 0
-  );
+  const [shippingCharges, setShippingCharges] = useState({
+    val: zipCode ? zipCode[0]?.shippingCharges : 0,
+    id: zipCode && zipCode[0]?._id,
+  });
 
   const handleAddressChange = (e) => {
     console.log(e.target);
@@ -65,7 +66,10 @@ const Checkout = () => {
   const handleChangeShippingCharges = (value) => {
     zipCode?.map((item) => {
       if (item?.code == value) {
-        setShippingCharges(item?.shippingCharges);
+        setShippingCharges({
+          val: item?.shippingCharges,
+          id: item?._id,
+        });
       }
     });
   };
@@ -90,11 +94,10 @@ const Checkout = () => {
   const inputStyles = {
     width: "100%",
     padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
+    // borderRadius: "4px",
     fontSize: "16px",
-    outline: "none", // Remove outline when focused
-    borderColor: "#000", // Change border color when focused
+    outline: "none",
+    // border: "2px solid #3498db",
   };
 
   const placeholderStyles = {
@@ -157,7 +160,7 @@ const Checkout = () => {
       products: cart,
       amount: localStorage.getItem("amount"),
       shippingAddress: shippingAddress,
-      zip: address,
+      zip: shippingCharges?.id,
       phoneNumber: phoneNumber,
       paymentMethod: cardType,
     };
@@ -209,6 +212,8 @@ const Checkout = () => {
                         type="text"
                         name="address"
                         my="1"
+                        border="none"
+                        variant="unstyled"
                         fontSize="14px"
                         borderRadius="0"
                         placeholder="Enter your shipping address"
@@ -240,6 +245,8 @@ const Checkout = () => {
                         name="type"
                         borderRadius="0"
                         my="5"
+                        border="none"
+                        variant="unstyled"
                       >
                         {zipCode?.map((item) => (
                           <option>{item?.code}</option>
@@ -286,16 +293,16 @@ const Checkout = () => {
           <Box>
             <Flex justify="space-between" bgColor="white" py="15px">
               <Text>Shipping Charges</Text>
-              <Text as="b">${shippingCharges}</Text>
+              <Text as="b">${shippingCharges?.val}</Text>
             </Flex>
 
             <Flex justify="space-between" bgColor="white" py="15px">
               <Text>Total Amount</Text>
               <Text as="b">
                 $
-                {shippingCharges
+                {shippingCharges?.val
                   ? parseInt(localStorage.getItem("amount")) +
-                    parseInt(shippingCharges)
+                    parseInt(shippingCharges?.val)
                   : localStorage.getItem("amount")}
               </Text>
             </Flex>

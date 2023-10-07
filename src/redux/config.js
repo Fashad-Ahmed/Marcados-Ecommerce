@@ -19,6 +19,7 @@ export const endpoints = {
     deleteUser: "/user/delete",
     updateUser: "/user/update",
     changePassword: "/user/change-password",
+    addWishlist: "/user/wishlist/",
   },
   inquiry: {
     createInquiry: "/inquiry/create",
@@ -37,8 +38,9 @@ export const endpoints = {
   },
   checkout: {
     getOrder: "/order/get",
+    singleOrder: "/order/get/",
     createOrder: "/order/create",
-    applyCoupon: '/code/get'
+    applyCoupon: "/code/get",
   },
   shop: {
     categories: "/category/get",

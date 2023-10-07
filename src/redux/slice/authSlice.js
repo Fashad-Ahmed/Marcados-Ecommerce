@@ -116,6 +116,22 @@ export const changePassword = createAsyncThunk(
   }
 );
 
+export const addWishlist = createAsyncThunk(
+  "user/wishlistAdd",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.user.addWishlist + data,
+        {},
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,

@@ -38,7 +38,9 @@ export const getPolicy = createAsyncThunk("content/policy", async () => {
 
 export const getZip = createAsyncThunk("postcode/get", async () => {
   try {
-    let response = await get(configs.endpoints.content.zip);
+    let response = await get(configs.endpoints.content.zip, {
+      active: 'yes',
+    });
     return response;
   } catch (error) {
     throw new Error(error);

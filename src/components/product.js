@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import CartWishlist from "./shopActions/cartWishlist";
 import Loader from "../components/loader/loader";
 import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
+import { BASE_URL } from "../redux/config";
 
 const renderLoader = () => <Loader />;
 
 const Product = ({ product }) => {
-  console.log("product?.images[0]", product?.images[0]);
   return (
     <Box
       h="80%"
@@ -43,7 +43,11 @@ const Product = ({ product }) => {
             cursor={"pointer"}
             w="100%"
             h="60%"
-            src={product?.images?.length > 0 ? product?.images[0] : sampleImage}
+            src={
+              product?.images?.length > 0
+                ? `${BASE_URL}/${product?.images[0]}`
+                : sampleImage
+            }
             alt="product"
             p="4"
           />

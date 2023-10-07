@@ -6,6 +6,7 @@ import { get, post } from "../../api";
 const initialState = {
   cart: [],
   discountValue: 0,
+  discountId: null,
 };
 
 export const getOrders = createAsyncThunk("get/order", async () => {
