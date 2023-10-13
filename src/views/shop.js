@@ -24,34 +24,30 @@ const Shop = () => {
   const defaultProducts = useSelector((state) => state.data.products);
 
   useEffect(() => {
-    fetchCategory()
-    fetchProducts()
+    fetchCategory();
+    fetchProducts();
   }, []);
-
 
   const fetchCategory = async () => {
     try {
       let response = await get(configs.endpoints.shop.categories);
-      setCategories(response?.data)
+      setCategories(response?.data);
     } catch (error) {
-      errorToast(error)
+      errorToast(error);
     }
-  }
+  };
 
   const fetchProducts = async () => {
-
-    setLoading(true)
+    setLoading(true);
     try {
       let response = await get(configs.endpoints.shop.product);
       setProducts(response?.data);
-      setLoading(false)
-
+      setLoading(false);
     } catch (error) {
-      errorToast(error)
-      setLoading(false)
-
+      errorToast(error);
+      setLoading(false);
     }
-  }
+  };
   const handleFilters = (filters) => {
     setSelectedCategories(filters.categories);
     let filterResult = filterProducts(defaultProducts, filters);
@@ -61,6 +57,8 @@ const Shop = () => {
   const clearFilters = () => {
     setSelectedCategories([]);
   };
+
+  if (loading) return <Loader />;
 
   return (
     <Box>
@@ -130,12 +128,12 @@ const Shop = () => {
       </Flex>
 
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
-        {/* <ShopFilters
+        <ShopFilters
           categories={categories}
           selectedCategories={selectedCategories}
           handleFilters={handleFilters}
           clearFilters={clearFilters}
-        /> */}
+        />
 
         <Box w={["100%", "100%", "auto"]} flex="1">
           <Grid
@@ -147,10 +145,13 @@ const Shop = () => {
               "repeat(3, 1fr)",
             ]}
           >
-            {!loading ?
+            {!loading ? (
               products.map((product) => {
                 return <Product key={product.id} product={product} />;
-              }) : (<Loader />)}
+              })
+            ) : (
+              <Loader />
+            )}
           </Grid>
         </Box>
       </Flex>

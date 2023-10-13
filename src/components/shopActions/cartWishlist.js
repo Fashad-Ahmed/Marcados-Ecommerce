@@ -21,8 +21,8 @@ const CartWishlist = ({ product }) => {
   const cart = useSelector((state) => state.data.cart.cart);
   const wishlist = useSelector((state) => state.data.wishlist.wishlist);
   useEffect(() => {
-    setCartIds(cart?.map((element) => element._id));
-    setWishlistIds(wishlist?.map((element) => element._id));
+    setCartIds(cart?.map((element) => element?._id));
+    setWishlistIds(wishlist?.map((element) => element?._id));
   }, [cart, wishlist]);
 
   const addToWishlist = async (id) => {
@@ -35,7 +35,7 @@ const CartWishlist = ({ product }) => {
   };
   return (
     <Flex mt="30px" w="100%">
-      {cartIds && cartIds.indexOf(product._id) !== -1 ? (
+      {cartIds && cartIds.indexOf(product?._id) !== -1 ? (
         <Flex flex="1" align="center">
           <Button
             flex="1"
@@ -43,7 +43,7 @@ const CartWishlist = ({ product }) => {
             fontSize="14px"
             bgColor="gray.100"
             borderRadius="0"
-            onClick={() => dispatch(removeProductFromCart(product._id))}
+            onClick={() => dispatch(removeProductFromCart(product?._id))}
           >
             <FaMinus />
           </Button>
@@ -60,14 +60,14 @@ const CartWishlist = ({ product }) => {
           <FiShoppingCart />
         </Button>
       )}
-      {wishlistIds && wishlistIds.indexOf(product._id) !== -1 ? (
+      {wishlistIds && wishlistIds.indexOf(product?._id) !== -1 ? (
         <Button
           fontSize="14px"
           bgColor="gray.100"
           color="red"
           borderRadius="0"
           ms="1"
-          onClick={() => dispatch(removeProductFromWishlist(product._id))}
+          onClick={() => dispatch(removeProductFromWishlist(product?._id))}
         >
           <FaHeart />
         </Button>
@@ -78,7 +78,7 @@ const CartWishlist = ({ product }) => {
           borderRadius="0"
           ms="1"
           onClick={() => {
-            addToWishlist(product._id);
+            addToWishlist(product?._id);
             dispatch(addProductToWishlist(product));
           }}
         >

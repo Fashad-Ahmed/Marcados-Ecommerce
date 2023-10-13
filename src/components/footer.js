@@ -13,16 +13,14 @@ const Footer = () => {
         fontSize="14px"
         bgColor="gray.100"
       >
-        <Box w={["100%", "50%", "30%", "23%"]} my="3">
+        {/* <Box w={["100%", "50%", "30%", "23%"]} my="3">
           <Text fontWeight="700" p="3">
             PAGES
           </Text>
 
           <NavLink navLocation={"Home"} />
-          <NavLink navLocation={"Shop"} />
-          <NavLink navLocation={"Cart"} />
-          <NavLink navLocation={"Wishlist"} />
-        </Box>
+
+        </Box> */}
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3">
           <Text fontWeight="700" p="3">
@@ -30,10 +28,9 @@ const Footer = () => {
           </Text>
 
           <NavLink navLocation={"Orders"} />
-          {/* <NavLink navLocation={"History"} />
-          <NavLink navLocation={"Rewards"} />
-          <NavLink navLocation={"Profile"} />
-          <NavLink navLocation={"Settings"} /> */}
+          <NavLink navLocation={"Shop"} />
+          <NavLink navLocation={"Cart"} />
+          <NavLink navLocation={"Wishlist"} />
         </Box>
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3">
@@ -41,19 +38,28 @@ const Footer = () => {
             SUPPORTS
           </Text>
 
-          <Link href="/AboutUs" style={{
-            textDecoration: "none"
-          }}>
+          <Link
+            href="/AboutUs"
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <Text p="3">About Us</Text>
           </Link>
-          <Link href="/TermsConditions" style={{
-            textDecoration: "none"
-          }}>
+          <Link
+            href="/TermsConditions"
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <Text p="3">Terms & Conditions</Text>
           </Link>
-          <Link href="/PrivacyPolicy" style={{
-            textDecoration: "none"
-          }}>
+          <Link
+            href="/PrivacyPolicy"
+            style={{
+              textDecoration: "none",
+            }}
+          >
             <Text p="3">Privacy Policy</Text>
           </Link>
         </Box>

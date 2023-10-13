@@ -46,6 +46,8 @@ export const endpoints = {
     categories: "/category/get",
     product: "/product/get?page=1&rowsPerPage=10",
     productDetail: "/product/get",
+    postReview: "/review/create",
+    getReview: "/review/get",
   },
 };
 

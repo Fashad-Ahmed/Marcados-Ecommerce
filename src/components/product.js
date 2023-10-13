@@ -51,6 +51,19 @@ const Product = ({ product }) => {
             alt="product"
             p="4"
           />
+
+          {/* <LazyLoadImage
+            src={
+              product?.images?.length > 0
+                ? `${BASE_URL}/${product?.images[0]}`
+                : sampleImage
+            }
+            alt="product"
+            style={{
+              padding: 4,
+              cursor: "pointer",
+            }}
+          /> */}
         </Link>
         <Box p="4" fontSize="14px">
           <Flex px="5px" align="center" justify="space-between">
@@ -64,7 +77,7 @@ const Product = ({ product }) => {
                 // </Badge>
               }
             </Text>
-            <StarRating rating={product?.rating} />
+            {/* <StarRating rating={product?.rating} /> */}
           </Flex>
           <Text my="20px" p="3px 6px">
             {product?.name}

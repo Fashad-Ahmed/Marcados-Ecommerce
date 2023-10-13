@@ -83,6 +83,21 @@ export const createFeedback = createAsyncThunk(
     }
   }
 );
+export const createReview = createAsyncThunk(
+  "inquiry/createReview",
+  async (data) => {
+    try {
+      let response = await post(
+        configs.endpoints.shop.postReview,
+        data,
+        false
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+);
 
 export const subscribeNewsletter = createAsyncThunk(
   "newsletter/subscribe",
