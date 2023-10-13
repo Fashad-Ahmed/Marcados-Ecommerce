@@ -87,6 +87,9 @@ export const cartSlice = createSlice({
     addDiscount: (state, action) => {
       state.discountValue = action.payload;
     },
+    removeDiscount: (state) => {
+      state.discountValue = 0;
+    },
     logout: () => {
       return initialState;
     },
@@ -95,6 +98,7 @@ export const cartSlice = createSlice({
 
 export const {
   addProductToCart,
+  removeDiscount,
   removeProductFromCart,
   increaseCartQuantity,
   decreaseCartQuantity,
