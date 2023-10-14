@@ -1,7 +1,7 @@
 import { Badge, Box, Flex, Image, Text, Input, Button } from "@chakra-ui/react";
 import Heading from "../components/heading";
 import StarRating from "../components/starRating";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -13,8 +13,11 @@ import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
 import Loader from "../components/loader/loader";
 import { useCreateReviewHook } from "../hooks/useCreateReviewHook";
 import { useForm } from "react-hook-form";
-
+import React from "react";
+import GetStar from "../components/getStar";
+import { useSelector } from "react-redux";
 const SingleProduct = () => {
+  const containerRef = useRef();
   const { handleSubmit } = useForm();
   const [createReviewFunc] = useCreateReviewHook();
   const onSubmit = () => {
@@ -52,6 +55,7 @@ const SingleProduct = () => {
     fetchProduct();
   }, []);
 
+  const userId = useSelector((state) => state?.user?.email?.payload?.data?._id);
   const fetchReviews = async () => {
     setLoading(true);
     try {
@@ -71,6 +75,13 @@ const SingleProduct = () => {
     fetchReviews();
   }, []);
 
+  const userReviewExists = fetchReviews.some((item) => item.user.id === userId);
+  if (userReviewExists) {
+    return null; 
+  }
+  
+
+
   var settings = {
     autoplay: true,
     autoplaySpeed: 4000,
@@ -82,7 +93,9 @@ const SingleProduct = () => {
     infinite: true,
     arrows: false,
   };
-
+  if (!review || review.length === 0) {
+    return <div>Loading...</div>;
+  }
   if (loading) return <Loader />;
 
   return (
@@ -130,57 +143,84 @@ const SingleProduct = () => {
         </Box>
       </Flex>
 
+      {/* <Heading ReviewText={"Reviews"} />
       <Flex
         flexDirection={"row"}
         justifyContent={"space-between"}
-        style={{
-          backgroundColor: "red",
-        }}
+        alignItems="center"
+        flexWrap="wrap"
+        mx={["60px", "40px", "20%"]}
+        mb="5%"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex alignItems="center">
+            <Flex alignItems="center">
+              <StarRating rating={rating} onRate={setRating} />
+            </Flex>
             <Input
               type="text"
               fontSize="14px"
               color="black"
-              borderRadius="0"
-              border="none"
+              borderRadius="8px"
+              w="100%"
+              h="40px" // Increase the height
+              border="2px solid darkgreen" // Specify border style
+              borderColor="darkgreen"
               variant="unstyled"
+              ml="40px"
               px={3}
-              placeholder="Enter your comments"
+              pl={3} // Increase the padding-left to show placeholder text fully
+              placeholder="Feedback"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              _placeholder={{
+                color: "darkgreen",
+                fontSize: "16px",
+              }}
             />
-            <StarRating rating={rating} onRate={setRating} />
-            <Button
-              type="submit"
-              fontSize="14px"
-              borderRadius="2px"
-              border="1px solid brand.900"
-              bgColor="brand.900"
-              color="white"
-              w="100%"
-              mt="6"
-              _hover={{ bgColor: "orange.400" }}
-            >
-              Submit
-            </Button>
+            <Flex alignItems="center">
+              <Button
+                type="submit"
+                fontSize="14px"
+                borderRadius="8px"
+                border="2px solid brand.900"
+                bgColor="darkgreen"
+                color="white"
+                w="100%"
+                ml="30px"
+                _hover={{ bgColor: "orange.400" }}
+              >
+                Submit
+              </Button>
+            </Flex>
           </Flex>
         </form>
+      </Flex> */}
+      <Heading ReviewText={"Testimonials"} />
+      <Flex
+        flexDirection="column"
+        ref={containerRef}
+        justifyContent="space-between"
+        flexWrap="wrap"
+        mx={["20px", "20px", "10%"]}
+        mb="5%"
+      >
+        {review.map((item, index) => (
+          <Flex key={index} flexDirection="column" mb="20px">
+            <Text fontSize="25px" fontWeight="600">
+              User Name: {item.user.fullName}
+            </Text>
+            <Flex flexDirection="row">
+              <Text fontSize="25px" fontWeight="600" ml="10px">
+                Comment: {item.comment}
+              </Text>
+              <GetStar rating={item.rating} />
+            </Flex>
+          </Flex>
+        ))}
+        {loading && <div>Loading...</div>}
       </Flex>
-      <Flex alignItems="center">
-          <Heading ReviewText={"Reviews"} />
 
-          <Text fontSize="25px" fontWeight="600" pb="20px" ml="10px">
-            {}
-          </Text>
-          <Text fontSize="25px" fontWeight="600" pb="20px" ml="30px">
-            verygood product
-          </Text>
-          <Text fontSize="25px" fontWeight="600" pb="20px" ml="40px">
-            5 rating
-          </Text>
-        </Flex>
       {/* <Box
         w={["auto", "auto", "50%"]}
         mx={["20px", "20px", "10%"]}

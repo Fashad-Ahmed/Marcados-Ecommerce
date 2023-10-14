@@ -37,6 +37,7 @@ const StarRating = ({ onRate }) => {
             margin: '2px',
             fontSize: '20px',
             cursor: 'pointer',
+            marginLeft: '30px'
           }}
           onClick={() => handleStarClick(star)}
         />
