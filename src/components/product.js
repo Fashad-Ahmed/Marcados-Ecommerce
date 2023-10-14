@@ -4,12 +4,18 @@ import StarRating from "./starRating";
 import { Link } from "react-router-dom";
 import CartWishlist from "./shopActions/cartWishlist";
 import Loader from "../components/loader/loader";
-import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
+import sampleImage from "../assets/imgs/sample.jpeg";
 import { BASE_URL } from "../redux/config";
 
 const renderLoader = () => <Loader />;
 
-const Product = ({ product }) => {
+const Product = ({
+  product,
+  boxStyleProps,
+  badgeStyleProps,
+  imageStyleProps,
+  smallBoxStyleProps,
+}) => {
   return (
     <Box
       h="105%"
@@ -18,7 +24,7 @@ const Product = ({ product }) => {
       shadow="base"
       justifyContent={"center"}
       alignItems={"center"}
-
+      {...boxStyleProps}
     >
       <Suspense fallback={renderLoader()}>
         <Badge
@@ -27,6 +33,7 @@ const Product = ({ product }) => {
           position="absolute"
           top="10px"
           right="10px"
+          {...badgeStyleProps}
         >
           {product?.category?.name}
           {/* {product.discountPercentage}% */}
@@ -42,8 +49,8 @@ const Product = ({ product }) => {
         >
           <Image
             cursor={"pointer"}
-            w='100%'
-            h='200'
+            w="100%"
+            h="200"
             src={
               product?.images?.length > 0
                 ? `${BASE_URL}/${product?.images[0]}`
@@ -51,9 +58,10 @@ const Product = ({ product }) => {
             }
             alt="product"
             p="4"
+            {...imageStyleProps}
           />
         </Link>
-        <Box px="4" fontSize="14px">
+        <Box px="4" fontSize="14px" {...smallBoxStyleProps}>
           <Flex px="5px" align="center" justify="space-between">
             <Text fontSize="16px" fontWeight="600">
               $

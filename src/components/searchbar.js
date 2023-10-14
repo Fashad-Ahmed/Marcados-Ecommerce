@@ -1,34 +1,66 @@
-import { Box, Flex, Input, Link as LP } from "@chakra-ui/react";
+import { Box, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const products = useSelector((state) => state.data.products);
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (query) => {
+    console.log("query", query);
+    navigate(`/TypeSearch?query=${query}`);
+    localStorage.setItem("TypeSearch", query);
+  };
 
   return (
     <Flex
       align="center"
       w="100%"
       p="2px"
-      border="1px"
-      borderColor="gray.100"
-      borderRadius="0"
+      border="2px"
+      borderColor="brand.900"
+      borderRadius="22px"
       position="relative"
     >
       <Input
         placeholder="Search here"
         fontSize="14px"
-        borderRadius="0"
+        borderWidth="0px"
+        focusBorderColor="transparent"
+        errorBorderColor="transparent"
         onChange={(e) => setQuery(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            handleSearch(e.target.value);
+          }
+        }}
       />
-      <LP href="/" bgColor="gray.100" p="3" border="1px" borderColor="gray.100">
-        <FaSearch />
-      </LP>
 
-      <Box
+      {query.length === 0 ? (
+        <Box
+          bgColor="gray.100"
+          p="3"
+          border="1px"
+          borderRadius="22px"
+          borderColor="gray.100"
+        >
+          <FaSearch />
+        </Box>
+      ) : (
+        <div onClick={() => handleSearch(query)}>
+          <Box
+            bgColor="gray.100"
+            p="3"
+            border="1px"
+            borderRadius="22px"
+            borderColor="gray.100"
+          >
+            <FaSearch />
+          </Box>
+        </div>
+      )}
+      {/* <Box
         position="absolute"
         top="100%"
         left="0"
@@ -58,7 +90,7 @@ const SearchBar = () => {
                 </Box>
               );
             })}
-      </Box>
+      </Box> */}
     </Flex>
   );
 };

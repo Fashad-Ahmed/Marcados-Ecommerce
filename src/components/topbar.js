@@ -32,13 +32,18 @@ const Topbar = () => {
           ps={["20px", "20px", 0]}
         >
           <Image src={logo} width="27px" alt="logo" />
-          <Link href="/" fontWeight={600} color="black" ms="2" title="logo">
+          <Link href="/" fontWeight={600} color="black" title="logo">
             NJ Marcados
           </Link>
         </Flex>
 
-        <Box flex="1" display={["none", "none", "flex"]}>
-          {/* <SearchBar /> */}
+        <Box
+          flex="1"
+          marginLeft="10px"
+          marginRight="40px"
+          display={["none", "none", "flex"]}
+        >
+          <SearchBar />
         </Box>
 
         <Flex align="center" justify="flex-end">
@@ -61,7 +66,8 @@ const Topbar = () => {
               top="0"
               right="-5px"
             >
-              {cart?.length > 0 ? cart?.length : '0'}            </Badge>
+              {cart?.length > 0 ? cart?.length : "0"}{" "}
+            </Badge>
           </Link>
 
           <Link

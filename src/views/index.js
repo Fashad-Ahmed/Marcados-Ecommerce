@@ -200,7 +200,7 @@ const Home = () => {
         >
           {!loading ? (
             products?.slice(0, 4).map((product) => {
-              return <Product key={product.id} product={product} />;
+              return <Product key={product._id} product={product} />;
             })
           ) : (
             <Loader />

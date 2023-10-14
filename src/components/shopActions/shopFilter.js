@@ -23,6 +23,7 @@ const ShopFilters = ({
   handleFilters,
   clearFilters,
 }) => {
+  console.log('categories', categories)
   const [filters, setFilters] = useState({
     categories: selectedCategories || [],
   });
@@ -64,7 +65,7 @@ const ShopFilters = ({
           <option>Category</option>
           <option>Price</option>
         </Select>
-        <ButtonGroup spacing={2}>
+        <ButtonGroup spacing={2} flexWrap="wrap" >
           {current == "Category" &&
             categories.map((category) => (
               <Button
@@ -81,6 +82,8 @@ const ShopFilters = ({
                 _hover={{
                   bg: "green.100",
                 }}
+                fontSize={14}
+                marginTop="12px"
               >
                 {category?.name}
               </Button>

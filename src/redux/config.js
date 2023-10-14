@@ -45,6 +45,7 @@ export const endpoints = {
   shop: {
     categories: "/category/get",
     product: "/product/get?page=1&rowsPerPage=10",
+    getProduct: "/product/get?",
     productDetail: "/product/get",
     postReview: "/review/create",
     getReview: "/review/get",
