@@ -20,6 +20,7 @@ export const endpoints = {
     updateUser: "/user/update",
     changePassword: "/user/change-password",
     addWishlist: "/user/wishlist/",
+    getWishlist: "/user/wishlist",
   },
   inquiry: {
     createInquiry: "/inquiry/create",

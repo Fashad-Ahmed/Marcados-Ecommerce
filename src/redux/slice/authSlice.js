@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import configs from "../config";
-import { post } from "../../api";
+import { get, post } from "../../api";
 const initialState = {
   email: null,
   user: null,
@@ -87,11 +87,7 @@ export const createReview = createAsyncThunk(
   "inquiry/createReview",
   async (data) => {
     try {
-      let response = await post(
-        configs.endpoints.shop.postReview,
-        data,
-        false
-      );
+      let response = await post(configs.endpoints.shop.postReview, data, false);
       return response;
     } catch (error) {
       throw new Error(error);

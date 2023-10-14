@@ -31,6 +31,7 @@ import {
   getTerms,
   getZip,
 } from "../redux/slice/generalSlice";
+import { updateWislisht } from "../redux/slice/wishlistSlice";
 
 const Product = React.lazy(() => import("../components/product"));
 
@@ -48,7 +49,12 @@ const Home = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchWishlist();
   }, []);
+
+  // useEffect(() => {
+  //   fetchWishlist();
+  // }, [products]);
 
   useEffect(() => {
     dispatch(getTerms());
@@ -67,6 +73,16 @@ const Home = () => {
     } catch (error) {
       errorToast(error);
       setLoading(false);
+    }
+  };
+
+  const fetchWishlist = async () => {
+    try {
+      let response = await get(configs.endpoints.user.getWishlist);
+      console.log("response", response);
+      dispatch(updateWislisht(response?.data));
+    } catch (error) {
+      errorToast(error);
     }
   };
   const handleNewsLetter = async () => {
