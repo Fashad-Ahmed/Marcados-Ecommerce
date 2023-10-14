@@ -1,4 +1,17 @@
-import { Badge, Box, Flex, Image, Text, Input, Button } from "@chakra-ui/react";
+import {
+  Badge,
+  Box,
+  Flex,
+  Image,
+  Text,
+  Input,
+  Button,
+  Grid,
+  Stack,
+  Spacer,
+  Divider,
+  Spinner,
+} from "@chakra-ui/react";
 import Heading from "../components/heading";
 import StarRating from "../components/starRating";
 import { useEffect, useState, useRef } from "react";
@@ -18,26 +31,38 @@ import GetStar from "../components/getStar";
 import { useSelector } from "react-redux";
 const SingleProduct = () => {
   const containerRef = useRef();
+  const useQuery = () => new URLSearchParams(location);
+  const userId = useSelector((state) => state.data.user);
+
+  const id = localStorage.getItem("productId");
   const { handleSubmit } = useForm();
   const [createReviewFunc] = useCreateReviewHook();
-  const onSubmit = () => {
-    let formData = {
-      productId: id,
-      rating: rating,
-      comment: comment,
-    };
-    // console.log(" data", formData);
-    createReviewFunc(formData);
-  };
+
   const location = useLocation().search;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [product, setProduct] = useState();
   const [review, setReview] = useState();
   const [loading, setLoading] = useState(false);
-  const useQuery = () => new URLSearchParams(location);
-  const id = localStorage.getItem("productId");
-  // console.log(id);
+  const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
+  const [isReviewAllowed, setIsReviewAllowed] = useState(true);
+
+  const onSubmit = () => {
+    setIsReviewSubmitted(true);
+    let formData = {
+      productId: id,
+      rating: rating,
+      comment: comment,
+    };
+    createReviewFunc(formData)
+      .then(() => {
+        fetchReviews();
+      })
+      .finally(() => {
+        setIsReviewSubmitted(false);
+      });
+  };
+
   const fetchProduct = async () => {
     setLoading(true);
     try {
@@ -52,35 +77,34 @@ const SingleProduct = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchProduct();
+    fetchReviews();
   }, []);
 
-  const userId = useSelector((state) => state?.user?.email?.payload?.data?._id);
   const fetchReviews = async () => {
     setLoading(true);
     try {
       let response = await get(
         `${configs.endpoints.shop.getReview}?productId=${id}`
       );
-      console.log("reviewsssssssss", response);
       setReview(response?.data);
+      for (const review of response?.data) {
+        console.log(
+          "========>",
+          review?.user?._id == userId?.email?.payload?.data?._id
+        );
+        if (review?.user?._id == userId?.email?.payload?.data?._id) {
+          setIsReviewAllowed(false);
+        }
+      }
+
       setLoading(false);
     } catch (error) {
       errorToast(error);
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchReviews();
-  }, []);
-
-  const userReviewExists = fetchReviews.some((item) => item.user.id === userId);
-  if (userReviewExists) {
-    return null; 
-  }
-  
-
 
   var settings = {
     autoplay: true,
@@ -93,38 +117,41 @@ const SingleProduct = () => {
     infinite: true,
     arrows: false,
   };
-  if (!review || review.length === 0) {
-    return <div>Loading...</div>;
-  }
-  if (loading) return <Loader />;
+
+  if (loading || !review) return <Loader />;
 
   return (
     <>
       <Heading mainText={"PRODUCT"} />
-      <Flex justify="" flexWrap="wrap" mx={["20px", "20px", "10%"]} mb="5%">
+      <Flex
+        justify=""
+        flexWrap="wrap"
+        mx={["20px", "20px", "10%"]}
+        alignItems="center"
+      >
         <Flex w={["100%", "100%", "40%"]}>
-          {product?.images?.length > 1 ? (
-            <Slider {...settings} style={{ width: "100%", overflow: "hidden" }}>
-              {product?.images?.map((item, index) => {
-                return (
-                  <Image
-                    src={`${BASE_URL}/${item}`}
-                    key={index}
-                    w="100%"
-                    h="100%"
-                    alt="singleProduct"
-                  />
-                );
-              })}
-            </Slider>
-          ) : (
-            <Image
-              src={`${BASE_URL}/${product?.images[0]}`}
-              w="8  0%"
-              h="80%"
-              alt="singleProduct"
-            />
-          )}
+          {/* {product?.images?.length > 1 ? ( */}
+          {/* <Slider {...settings} style={{ width: "100%", overflow: "hidden" }}>
+            {product?.images?.map((item, index) => {
+              return (
+                <Image
+                  src={`${BASE_URL}/${item}`}
+                  key={index}
+                  w="100%"
+                  h="100%"
+                  alt="singleProduct"
+                />
+              );
+            })}
+          </Slider> */}
+          {/* // ) : ( */}
+          <Image
+            src={`${BASE_URL}/${product?.images[0]}`}
+            w="8  0%"
+            h="80%"
+            alt="singleProduct"
+          />
+          {/* // )} */}
         </Flex>
 
         <Box w={["100%", "100%", "60%"]} px={["0", "0", "10%"]}>
@@ -143,90 +170,126 @@ const SingleProduct = () => {
         </Box>
       </Flex>
 
-      {/* <Heading ReviewText={"Reviews"} />
-      <Flex
-        flexDirection={"row"}
-        justifyContent={"space-between"}
-        alignItems="center"
-        flexWrap="wrap"
-        mx={["60px", "40px", "20%"]}
-        mb="5%"
-      >
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Flex alignItems="center">
-            <Flex alignItems="center">
-              <StarRating rating={rating} onRate={setRating} />
-            </Flex>
-            <Input
-              type="text"
-              fontSize="14px"
-              color="black"
-              borderRadius="8px"
-              w="100%"
-              h="40px" // Increase the height
-              border="2px solid darkgreen" // Specify border style
-              borderColor="darkgreen"
-              variant="unstyled"
-              ml="40px"
-              px={3}
-              pl={3} // Increase the padding-left to show placeholder text fully
-              placeholder="Feedback"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              _placeholder={{
-                color: "darkgreen",
-                fontSize: "16px",
-              }}
-            />
-            <Flex alignItems="center">
-              <Button
-                type="submit"
-                fontSize="14px"
-                borderRadius="8px"
-                border="2px solid brand.900"
-                bgColor="darkgreen"
-                color="white"
-                w="100%"
-                ml="30px"
-                _hover={{ bgColor: "orange.400" }}
-              >
-                Submit
-              </Button>
-            </Flex>
-          </Flex>
-        </form>
-      </Flex> */}
-      <Heading ReviewText={"Testimonials"} />
-      <Flex
-        flexDirection="column"
-        ref={containerRef}
-        justifyContent="space-between"
-        flexWrap="wrap"
-        mx={["20px", "20px", "10%"]}
-        mb="5%"
-      >
-        {review.map((item, index) => (
-          <Flex key={index} flexDirection="column" mb="20px">
-            <Text fontSize="25px" fontWeight="600">
-              User Name: {item.user.fullName}
-            </Text>
-            <Flex flexDirection="row">
-              <Text fontSize="25px" fontWeight="600" ml="10px">
-                Comment: {item.comment}
-              </Text>
-              <GetStar rating={item.rating} />
-            </Flex>
-          </Flex>
-        ))}
-        {loading && <div>Loading...</div>}
-      </Flex>
+      {/*  */}
+      {isReviewAllowed ? (
+        <>
+          <Heading ReviewText={"Add Review"} />
 
-      {/* <Box
-        w={["auto", "auto", "50%"]}
-        mx={["20px", "20px", "10%"]}
-        mb="10%"
-        backgroundColor="red"
-      >dl;dsklds</Box> */}
+          <Flex
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mx={["20px", "20px", "10%"]}
+          >
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Flex alignItems="center">
+                <Input
+                  type="text"
+                  fontSize="14px"
+                  color="black"
+                  borderRadius="16px"
+                  w="500px"
+                  h="40px"
+                  border="2px solid darkgreen"
+                  borderColor="darkgreen"
+                  variant="unstyled"
+                  ml="40px"
+                  px={3}
+                  pl={3}
+                  placeholder="Add a review ..."
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  _placeholder={{
+                    color: "darkgreen",
+                    fontSize: "16px",
+                  }}
+                />
+
+                <Flex alignItems="center" marginLeft="140px">
+                  <StarRating rating={rating} onRate={setRating} />
+                  {isReviewSubmitted ? (
+                    <Flex
+                      fontSize="14px"
+                      borderRadius="8px"
+                      border="2px solid brand.900"
+                      bgColor="darkgreen"
+                      color="white"
+                      w="140px"
+                      ml="30px"
+                      justifyContent="center"
+                      alignItems="center"
+                    >
+                      <Spinner color="white" />
+                    </Flex>
+                  ) : (
+                    <Button
+                      type="submit"
+                      fontSize="14px"
+                      borderRadius="8px"
+                      border="2px solid brand.900"
+                      bgColor="darkgreen"
+                      color="white"
+                      w="140px"
+                      ml="30px"
+                      _hover={{ bgColor: "orange.400" }}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </Flex>
+              </Flex>
+            </form>
+          </Flex>
+        </>
+      ) : null}
+      {/*  */}
+      <Heading ReviewText={"Testimonials"} />
+      {review?.length > 0 ? (
+        <Flex
+          flexDirection="column"
+          ref={containerRef}
+          justifyContent="space-between"
+          flexWrap="wrap"
+          mx={["20px", "20px", "10%"]}
+          mb="5%"
+        >
+          <Flex align="center" justify="center" marginTop="4px">
+            <Grid
+              gap={4}
+              templateColumns={[
+                "repeat(1, 1fr)",
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+                "repeat(4, 1fr)",
+              ]}
+            >
+              {review.map((item, index) => (
+                <Box p={4} borderWidth="1px" borderRadius="lg" boxShadow="md">
+                  <Stack spacing={3}>
+                    <Flex
+                      align="center"
+                      flexDirection="row"
+                      justifyContent="space-between"
+                    >
+                      <Text fontWeight="bold">{item?.user?.fullName}</Text>
+                      <Spacer />
+                      <GetStar rating={item?.rating} />
+                    </Flex>
+                    <Divider />
+                    <Text fontStyle="italic">{item?.comment}</Text>
+                  </Stack>
+                </Box>
+              ))}
+            </Grid>
+          </Flex>
+        </Flex>
+      ) : (
+        <Flex justifyContent="center" alignItems="center" mb={"10"}>
+          <Text fontSize="18px" fontWeight="600">
+            No Reviews Available
+          </Text>
+        </Flex>
+      )}
     </>
   );
 };

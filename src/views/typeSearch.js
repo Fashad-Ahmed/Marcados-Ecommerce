@@ -93,7 +93,7 @@ const TypeSearch = () => {
                       p="4"
                     />
                   </Link>
-                  <Box px="4" marginTop="-26px" fontSize="14px">
+                  <Box px="4" marginTop="-40px" fontSize="14px">
                     <Flex px="5px" align="center" justify="space-between">
                       <Text fontSize="16px" fontWeight="600">
                         ${product?.price}
