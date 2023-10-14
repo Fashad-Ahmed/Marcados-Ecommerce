@@ -34,7 +34,7 @@ const CartWishlist = ({ product }) => {
     }
   };
   return (
-    <Flex mt="30px" w="100%">
+    <Flex mt="10px" w="100%">
       {cartIds && cartIds.indexOf(product?._id) !== -1 ? (
         <Flex flex="1" align="center">
           <Button

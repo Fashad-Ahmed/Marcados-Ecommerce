@@ -12,12 +12,13 @@ const renderLoader = () => <Loader />;
 const Product = ({ product }) => {
   return (
     <Box
-      h="80%"
+      h="105%"
       b
       position="relative"
       shadow="base"
       justifyContent={"center"}
       alignItems={"center"}
+
     >
       <Suspense fallback={renderLoader()}>
         <Badge
@@ -41,8 +42,8 @@ const Product = ({ product }) => {
         >
           <Image
             cursor={"pointer"}
-            w="100%"
-            h="60%"
+            w='100%'
+            h='200'
             src={
               product?.images?.length > 0
                 ? `${BASE_URL}/${product?.images[0]}`
@@ -51,21 +52,8 @@ const Product = ({ product }) => {
             alt="product"
             p="4"
           />
-
-          {/* <LazyLoadImage
-            src={
-              product?.images?.length > 0
-                ? `${BASE_URL}/${product?.images[0]}`
-                : sampleImage
-            }
-            alt="product"
-            style={{
-              padding: 4,
-              cursor: "pointer",
-            }}
-          /> */}
         </Link>
-        <Box p="4" fontSize="14px">
+        <Box px="4" fontSize="14px">
           <Flex px="5px" align="center" justify="space-between">
             <Text fontSize="16px" fontWeight="600">
               $
@@ -77,16 +65,15 @@ const Product = ({ product }) => {
                 // </Badge>
               }
             </Text>
+            <Text my="20px" p="3px 6px">
+              {product?.name}
+            </Text>
             {/* <StarRating rating={product?.rating} /> */}
           </Flex>
-          <Text my="20px" p="3px 6px">
-            {product?.name}
-          </Text>
-
+          <CartWishlist product={product} />
           {/* <Text my="20px" p="3px 6px">
             {product?.description}
           </Text> */}
-          <CartWishlist product={product} />
         </Box>
       </Suspense>
     </Box>

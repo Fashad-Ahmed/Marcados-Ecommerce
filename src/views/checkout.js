@@ -20,6 +20,7 @@ import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 import { ORDER_STATUS } from "../utils/stattusEnum";
 import { errorToast } from "../utils/toast";
 import Loader from "../components/loader/loader";
+import { removeDiscount } from "../redux/slice/cartSlice";
 const Checkout = () => {
   const cart = useSelector((state) => state.data.cart.cart);
   const user = useSelector((state) => state?.data?.user?.email?.payload);
@@ -167,7 +168,9 @@ const Checkout = () => {
 
     console.log("data", data);
     checkoutFunc(data)
-      .then(() => {})
+      .then(() => {
+        dispatch(removeDiscount())
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -302,7 +305,7 @@ const Checkout = () => {
                 $
                 {shippingCharges?.val
                   ? parseInt(localStorage.getItem("amount")) +
-                    parseInt(shippingCharges?.val)
+                  parseInt(shippingCharges?.val)
                   : localStorage.getItem("amount")}
               </Text>
             </Flex>
