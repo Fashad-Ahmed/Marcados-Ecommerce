@@ -26,6 +26,8 @@ import configs, { BASE_URL } from "../redux/config";
 import { get } from "../api";
 import {
   getAbout,
+  getDiscountBanner,
+  getHomeBanner,
   getPolicy,
   getSocialLinks,
   getTerms,
@@ -49,12 +51,14 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetchProducts();
     fetchWishlist();
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    dispatch(getHomeBanner());
+    dispatch(getDiscountBanner());
     dispatch(getTerms());
     dispatch(getAbout());
     dispatch(getPolicy());

@@ -18,10 +18,8 @@ const theme = extendTheme({ colors });
 const App = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getHomeBanner());
-    dispatch(getDiscountBanner());
-  }, []);
+  useEffect(() => {}, []);
+
   return (
     <ChakraProvider theme={theme}>
       <ToastContainer />
