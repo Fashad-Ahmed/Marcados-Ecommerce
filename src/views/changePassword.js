@@ -7,15 +7,18 @@ import {
   FormLabel,
   Input,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { FaEye, FaLock } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 import { useChangePasswordHook } from "../hooks/useChangePasswordHook";
 
 const ChangePassword = () => {
   const [type, setType] = useState(true);
-  const changePasswordFunc = useChangePasswordHook();
+  const [typeTwo, setTypeTwo] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [changePasswordFunc] = useChangePasswordHook();
   const {
     control,
     handleSubmit,
@@ -24,10 +27,12 @@ const ChangePassword = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    setLoading(true);
     changePasswordFunc({
       currentPassword: data.password,
       newPassword: data.confirmPassword,
     });
+    setLoading(false);
   };
 
   return (
@@ -82,7 +87,7 @@ const ChangePassword = () => {
                       bgColor="white"
                       onClick={() => setType(!type)}
                     >
-                      <FaEye />
+                      {type ? <FaEye /> : <FaEyeSlash />}
                     </Button>
                   </Flex>
                 )}
@@ -138,9 +143,9 @@ const ChangePassword = () => {
                       borderRadius="0"
                       borderColor="gray.100"
                       bgColor="white"
-                      onClick={() => setType(!type)}
+                      onClick={() => setTypeTwo(!typeTwo)}
                     >
-                      <FaEye />
+                      {typeTwo ? <FaEye /> : <FaEyeSlash />}
                     </Button>
                   </Flex>
                 )}
@@ -150,20 +155,37 @@ const ChangePassword = () => {
                   {errors.confirmPassword.message}
                 </Text>
               )}
-
-              <Button
-                type="submit"
-                fontSize="14px"
-                borderRadius="2px"
-                border="1px solid brand.900"
-                bgColor="brand.900"
-                color="white"
-                w="100%"
-                mt="6"
-                _hover={{ bgColor: "orange.400" }}
-              >
-                Update
-              </Button>
+              {loading ? (
+                <Button
+                  type="submit"
+                  isDisabled={true}
+                  fontSize="14px"
+                  borderRadius="2px"
+                  border="1px solid brand.900"
+                  bgColor="brand.900"
+                  color="white"
+                  w="100%"
+                  mt="6"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <Spinner color="white" />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  fontSize="14px"
+                  borderRadius="2px"
+                  border="1px solid brand.900"
+                  bgColor="brand.900"
+                  color="white"
+                  w="100%"
+                  mt="6"
+                  _hover={{ bgColor: "orange.400" }}
+                >
+                  Update
+                </Button>
+              )}
             </FormControl>
           </form>
         </Box>

@@ -19,7 +19,7 @@ export const useChangePasswordHook = () => {
                 }
                 if (response.type === "user/changePassword/rejected") {
                     console.log(JSON.stringify(response));
-                    errorToast(response?.payload?.message);
+                    errorToast(response?.error?.message);
                 }
             } catch (error) {
                 console.log("An error occurred");
