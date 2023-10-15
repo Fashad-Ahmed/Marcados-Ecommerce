@@ -22,7 +22,7 @@ import {
 } from "../redux/slice/cartSlice";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
-import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
+import sampleImage from "../assets/imgs/sample.jpeg";
 import { errorToast, succesToast } from "../utils/toast";
 import { get } from "../api";
 import configs, { BASE_URL } from "../redux/config";
