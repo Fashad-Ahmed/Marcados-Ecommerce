@@ -48,7 +48,7 @@ const ContactUs = () => {
               <Controller
                 name="fullName"
                 control={control}
-                defaultValue={user?.email?.payload?.data?.fullName}
+                defaultValue={user?.email?.fullName}
                 rules={{ required: "Full Name is required" }}
                 render={({ field }) => (
                   <>
@@ -79,7 +79,7 @@ const ContactUs = () => {
               <Controller
                 name="email"
                 control={control}
-                defaultValue={user?.email?.payload?.data?.email}
+                defaultValue={user?.email?.email}
                 rules={{
                   required: "Email address is required",
                   pattern: {

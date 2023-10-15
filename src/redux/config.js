@@ -12,6 +12,7 @@ export const endpoints = {
     forgetPassword: "/auth/forget-password",
     verifyOtp: "/auth/verify-otp",
     resetPassword: "/auth/reset-password",
+    editProfile: "/user/update/",
   },
   user: {
     createUser: "/user/create",

@@ -15,7 +15,7 @@ const Account = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.data.user);
 
-  console.log(user?.email?.payload?.data);
+  // console.log(user?.email?.payload?.data);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
@@ -45,7 +45,7 @@ const Account = () => {
               </Button>
               <Input
                 isDisabled
-                value={user?.email?.payload?.data?.email}
+                value={user?.email?.email}
                 type="email"
                 fontSize="14px"
                 borderRadius="0"
@@ -78,7 +78,7 @@ const Account = () => {
               </Button>
               <Input
                 isDisabled
-                value={user?.email?.payload?.data?.fullName}
+                value={user?.email?.fullName}
                 type="text"
                 fontSize="14px"
                 borderRadius="0"
@@ -110,7 +110,7 @@ const Account = () => {
               </Button>
               <Input
                 isDisabled
-                value={user?.email?.payload?.data?.address}
+                value={user?.email?.address}
                 type="text"
                 fontSize="14px"
                 borderRadius="0"
@@ -132,7 +132,19 @@ const Account = () => {
           >
             Change Password
           </Button>
-
+          <Button
+            fontSize="14px"
+            borderRadius="2px"
+            border="1px solid brand.900"
+            bgColor="brand.900"
+            color="white"
+            w="100%"
+            mt="6"
+            _hover={{ bgColor: "orange.400" }}
+            onClick={() => navigate("/EditProfile")}
+          >
+            Edit Profile
+          </Button>
         </Box>
       </Flex>
     </Flex>

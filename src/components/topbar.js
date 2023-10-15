@@ -10,7 +10,7 @@ import { useEffect } from "react";
 const Topbar = () => {
   const location = useLocation().pathname;
   const cart = useSelector((state) => state?.data?.cart?.cart);
-  const user = useSelector((state) => state?.data?.user);
+  const token = useSelector((state) => state.data.user.userToken);
   const active = {
     color: "brand.900",
   };
@@ -70,8 +70,8 @@ const Topbar = () => {
             </Badge>
           </Link>
 
-          <Link
-            href={user.email ? "/dashboard" : "/Login"}
+          {/* <Link
+            href={token ? "/dashboard" : "/Login"}
             p="2"
             px="6"
             borderRadius="5"
@@ -86,8 +86,8 @@ const Topbar = () => {
             }
             title="account"
           >
-            {user.email ? "Dashboard" : "Login"}
-          </Link>
+            {token ? "Dashboard" : "Login"}
+          </Link> */}
 
           <Navbar />
         </Flex>

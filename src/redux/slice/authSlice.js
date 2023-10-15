@@ -163,7 +163,9 @@ export const userSlice = createSlice({
     userLogin: (state, action) => {
       state.email = action.payload;
       state.user = action.payload.data;
-      state.userToken = action.token;
+    },
+    setToken: (state, action) => {
+      state.userToken = action.payload;
     },
     userSignup: (state, action) => {
       state.email = action.payload;
@@ -176,7 +178,8 @@ export const userSlice = createSlice({
   },
 });
 
-export const { userLogin, userSignup, userLogout } = userSlice.actions;
+export const { userLogin, setToken, userSignup, userLogout } =
+  userSlice.actions;
 
 const userReducer = userSlice.reducer;
 

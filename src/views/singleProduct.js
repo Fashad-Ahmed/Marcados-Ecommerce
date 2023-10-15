@@ -92,9 +92,9 @@ const SingleProduct = () => {
       for (const review of response?.data) {
         console.log(
           "========>",
-          review?.user?._id == userId?.email?.payload?.data?._id
+          review?.user?._id == userId?.email?._id
         );
-        if (review?.user?._id == userId?.email?.payload?.data?._id) {
+        if (review?.user?._id == userId?.email?._id) {
           setIsReviewAllowed(false);
         }
       }

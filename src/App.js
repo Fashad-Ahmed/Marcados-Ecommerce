@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
-import { getHomeBanner } from "./redux/slice/generalSlice";
+import { getDiscountBanner, getHomeBanner } from "./redux/slice/generalSlice";
 
 const colors = {
   brand: {
@@ -20,6 +20,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getHomeBanner());
+    dispatch(getDiscountBanner());
   }, []);
   return (
     <ChakraProvider theme={theme}>

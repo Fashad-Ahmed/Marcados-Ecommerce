@@ -3,9 +3,9 @@ import { Route, Navigate, Routes } from "react-router-dom"
 import Dashboard from "../views/dashboard";
 
 const PrivateRoutes = () => {
-    const user = useSelector((state) => state.data.user);
+    const token = useSelector((state) => state.data.user.userToken);
 
-    if(user !== null) {
+    if(token) {
         return (
             <Routes>
             

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
-import { login, userLogin } from "../../redux/slice/authSlice";
+import { login, setToken, userLogin } from "../../redux/slice/authSlice";
 
 export const useLoginHook = () => {
   const navigation = useNavigate();
@@ -16,7 +16,9 @@ export const useLoginHook = () => {
         if (response.type === "auth/login/fulfilled") {
           succesToast(response?.payload?.message);
           localStorage.setItem("token", response?.payload?.token);
-          dispatch(userLogin(response));
+          console.log("response from", response?.payload);
+          dispatch(setToken(response?.payload?.token));
+          dispatch(userLogin(response?.payload?.data));
           navigation("/Home");
         }
 

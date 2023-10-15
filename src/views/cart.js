@@ -34,7 +34,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.data.cart.cart);
   const discountedValue = useSelector((state) => state.data.cart.discountValue);
 
-  const user = useSelector((state) => state?.data?.user?.email?.payload);
+  const token = useSelector((state) => state.data.user.userToken);
   const discountID = useSelector((state) => state?.data?.cart?.discountId);
 
   const [subTotal, setSubTotal] = useState(0);
@@ -122,7 +122,7 @@ const Cart = () => {
   };
 
   const handleClick = () => {
-    if (user?.token) {
+    if (token) {
       if (cart?.length > 0) {
         let val = discountedValue
           ? (subTotal / 100) * discountedValue

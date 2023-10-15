@@ -15,7 +15,7 @@ const data = [
 ];
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.data.user);
+  const token = useSelector((state) => state.data.user.userToken);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
 
@@ -25,7 +25,7 @@ const Dashboard = () => {
           <Text textAlign="center" justifyContent="center" fontWeight="600" py="6">
             ORDERS ANALYSIS
           </Text>
-          {user && (
+          {token && (
             <LineChart
               width={600}
               height={300}

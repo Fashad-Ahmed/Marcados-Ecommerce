@@ -39,9 +39,10 @@ const Home = () => {
   const user = useSelector((state) => state.data.user);
   const dispatch = useDispatch();
   const [email, setEmail] = useState(
-    user?.email?.payload?.token ? user?.email?.payload?.data?.email : ""
+    user?.email?._id ? user?.email?.email : ""
   );
   const banner = useSelector((state) => state?.data?.general?.banner);
+  const offer = useSelector((state) => state?.data?.general?.offer);
 
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -51,10 +52,6 @@ const Home = () => {
     fetchProducts();
     fetchWishlist();
   }, []);
-
-  // useEffect(() => {
-  //   fetchWishlist();
-  // }, [products]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -141,61 +138,44 @@ const Home = () => {
           subText={"Offers, Incentives and discounts all for you."}
         />
         <Flex
-          justify="space-between"
+          justifyContent="center"
+          alignItems="center"
           flexWrap="wrap"
           px={["20px", "20px", null]}
         >
-          <Link
-            href="/Shop"
-            w={["100%", "48%", "32%"]}
-            textAlign="right"
-            backgroundImage={`url(${bg1})`}
-            bgSize="cover"
-            my={["15px", null]}
-          >
-            <Box p="50px">
-              <Text fontWeight="600" color="white">
-                MEAT
-              </Text>
-              <Text fontWeight="600" color="brand.900" mb="20px">
-                <Badge colorScheme="green">SAVE 30%</Badge>
-              </Text>
-            </Box>
-          </Link>
-          <Link
-            href="/Shop"
-            w={["100%", "48%", "32%"]}
-            textAlign="right"
-            backgroundImage={`url(${bg2})`}
-            bgSize="cover"
-            my={["15px", null]}
-          >
-            <Box p="50px">
-              <Text fontWeight="600" color="white">
-                FRUITS
-              </Text>
-              <Text fontWeight="600" color="brand.900" mb="20px">
-                <Badge colorScheme="green">SAVE 50%</Badge>
-              </Text>
-            </Box>
-          </Link>
-          <Link
-            href="/Shop"
-            w={["100%", "48%", "32%"]}
-            textAlign="right"
-            backgroundImage={`url(${bg3})`}
-            bgSize="cover"
-            my={["15px", null]}
-          >
-            <Box p="50px">
-              <Text fontWeight="600" color="white">
-                VEGETABLES
-              </Text>
-              <Text fontWeight="600" color="brand.900" mb="20px">
-                <Badge colorScheme="green">SAVE 20%</Badge>
-              </Text>
-            </Box>
-          </Link>
+          {/* <Grid
+            gap={4}
+            w="100%"
+            templateColumns={[
+              "repeat(1, 1fr)",
+              "repeat(2, 1fr)",
+              "repeat(2, 1fr)",
+              "repeat(4, 1fr)",
+            ]}
+          > */}
+          {offer?.map((item, index) => (
+            <Link
+              w={["100%", "48%", "32%"]}
+              textAlign="right"
+              backgroundImage={
+                banner ? `${BASE_URL}/${item?.image}` : `url(${bg2})`
+              }
+              bgSize="cover"
+              my={["15px", null]}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Box py="60px" px="10px">
+                <Text fontWeight="600" color="white">
+                  {item?.title}
+                </Text>
+                <Text fontWeight="600" color="brand.900" mb="20px">
+                  <Badge colorScheme="green">{item?.description}</Badge>
+                </Text>
+              </Box>
+            </Link>
+          ))}
+          {/* </Grid> */}
         </Flex>
       </Box>
 

@@ -62,7 +62,7 @@ const Shop = () => {
 
   return (
     <Box>
-      <Flex justify="center" w="100%">
+      {/* <Flex justify="center" w="100%">
         <Slider
           {...shopSliderSettings}
           style={{ width: "100%", overflow: "hidden", display: "flex" }}
@@ -125,7 +125,7 @@ const Shop = () => {
             </Box>
           </Box>
         </Slider>
-      </Flex>
+      </Flex> */}
 
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
         <ShopFilters

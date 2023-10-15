@@ -30,6 +30,8 @@ const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const user = useSelector((state) => state.data.user);
+  const token = useSelector((state) => state.data.user.userToken);
+
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
@@ -75,8 +77,8 @@ const Navbar = () => {
           <DrawerHeader my="2" display="flex" alignItems="center">
             <Avatar size="sm" me="2" />
             <Box>
-              {user?.email?.payload?.token ? (
-                user?.email?.payload?.data?.fullName
+              {token ? (
+                user?.email?.fullName
               ) : (
                 <Link href={"/login"} fontSize="14px">
                   Login
@@ -120,12 +122,12 @@ const Navbar = () => {
               </Box>
 
               <Box fontWeight="600" my="2">
-                <NavLink navLocation={"ContactUs"}>
+                <NavLink navLocation={"Contact"}>
                   <FiHeadphones />
                 </NavLink>
               </Box>
 
-              {!user.email ? (
+              {!token ? (
                 ""
               ) : (
                 <Box fontWeight="600" my="2">

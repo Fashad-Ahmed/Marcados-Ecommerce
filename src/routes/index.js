@@ -25,10 +25,10 @@ const PrivacyPolicy = lazy(() => import("../views/privacy"));
 const ChangePassword = lazy(() => import("../views/changePassword"));
 const SingleOrder = lazy(() => import("../views/singleOrder"));
 const TypeSearch = lazy(() => import("../views/typeSearch"));
+const EditProfile = lazy(() => import("../views/editProfile"));
 const RoutesProvider = () => {
-  const user = useSelector((state) => state.data.user);
-
-  return user?.email?.payload?.token ? (
+  const token = useSelector((state) => state.data.user.userToken);
+  return token ? (
     <BrowserRouter>
       <Topbar />
       <Suspense fallback={<Loader />}>
@@ -45,17 +45,16 @@ const RoutesProvider = () => {
           <Route path="/Account" exact element={<Account />} />
           <Route path="/Orders" exact element={<Orders />} />
           <Route path="/SingleOrder" exact element={<SingleOrder />} />
-          <Route path="/ContactUs" exact element={<ContactUs />} />
+          <Route path="/Contact" exact element={<ContactUs />} />
           <Route path="/ChangePassword" exact element={<ChangePassword />} />
+          <Route path="/EditProfile" exact element={<EditProfile />} />
           <Route path="/AboutUs" exact element={<AboutUs />} />
           <Route path="/TermsConditions" exact element={<TermsConditions />} />
           <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
           <Route
             path={"/Dashboard"}
             exact
-            element={
-              user.email ? <Dashboard /> : <Navigate to="/Login" replace />
-            }
+            element={token ? <Dashboard /> : <Navigate to="/Login" replace />}
           />
         </Routes>
       </Suspense>
