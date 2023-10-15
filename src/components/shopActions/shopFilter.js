@@ -1,3 +1,4 @@
+// ShopFilters.js
 import {
   Accordion,
   AccordionButton,
@@ -15,25 +16,35 @@ import {
   Select,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ShopFilters = ({
   categories,
   selectedCategories,
+  setSelectedCategories,
   handleFilters,
   clearFilters,
+  current,
+  setCurrent,
 }) => {
-  console.log('categories', categories)
   const [filters, setFilters] = useState({
     categories: selectedCategories || [],
+    price: [1, 1000], // Set the default price range
   });
 
-  const [current, setCurrent] = useState("");
   const [currentCategory, setCurrentCategory] = useState(null);
 
   const handleCategoryClick = (category) => {
+    console.log("handleCategoryClick", category);
+    setSelectedCategories(category?._id);
     setCurrentCategory(category);
   };
+
+  useEffect(() => {
+    // if (current === "Price") {
+    //   handleFilters(filters);
+    // }
+  }, [current, filters, handleFilters]);
 
   const handleCategories = (category) => {
     const updatedCategories = filters.categories.includes(category)
@@ -41,10 +52,6 @@ const ShopFilters = ({
       : [...filters.categories, category];
 
     setFilters({ ...filters, categories: updatedCategories });
-  };
-
-  const submitFilters = () => {
-    handleFilters(filters);
   };
 
   return (
@@ -56,6 +63,7 @@ const ShopFilters = ({
       <Box>
         <Select
           onChange={(e) => setCurrent(e.target.value)}
+          value={current}
           name="current"
           borderRadius="0"
           my="5"
@@ -65,7 +73,7 @@ const ShopFilters = ({
           <option>Category</option>
           <option>Price</option>
         </Select>
-        <ButtonGroup spacing={2} flexWrap="wrap" >
+        <ButtonGroup spacing={2} flexWrap="wrap">
           {current == "Category" &&
             categories.map((category) => (
               <Button
@@ -90,31 +98,13 @@ const ShopFilters = ({
             ))}
         </ButtonGroup>
 
-        {/* // <Checkbox
-            //   key={category._id}
-            //   value={category._id}
-            //   isChecked={selectedCategories.includes(category?._id)}
-            //   onChange={() => handleCategories(category?._id)}
-            //   borderWidth="1px" // Add a border
-            //   borderRadius="md" // Rounded corners
-            //   padding="2" // Padding to create space
-            //   cursor="pointer" // Change cursor to pointer on hover
-            //   _checked={{
-            //     bg: "green.500", // Background color when checked
-            //     color: "white", // Text color when checked
-            //     borderColor: "green.500", // Border color when checked
-            //   }}
-            // >
-            //   {category?.name}
-            // </Checkbox> */}
-
         {current == "Price" && (
           <>
             <RangeSlider
               max={1000}
               aria-label={"price"}
               colorScheme="green"
-              defaultValue={[0, 500]}
+              defaultValue={filters.price}
               onChangeEnd={(val) => setFilters({ ...filters, price: val })}
             >
               <RangeSliderTrack>
@@ -124,8 +114,8 @@ const ShopFilters = ({
               <RangeSliderThumb index={1} />
             </RangeSlider>
             <Flex justify="space-between" w="100%">
-              <Text>Min: {0}</Text>
-              <Text>Max: {20}</Text>
+              <Text>Min: {filters.price[0]}</Text>
+              <Text>Max: {filters.price[1]}</Text>
             </Flex>
           </>
         )}
@@ -138,7 +128,7 @@ const ShopFilters = ({
           flex="1"
           me="2"
           borderRadius="0"
-          onClick={submitFilters}
+          onClick={() => handleFilters(filters)}
           _hover={{
             bgColor: "orange.400",
           }}

@@ -1,17 +1,21 @@
 import { Box, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useMatch } from "react-router-dom";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const isOnRoute = useMatch("/TypeSearch");
 
+  console.log("isOnRoute", isOnRoute);
   const handleSearch = (query) => {
     console.log("query", query);
-    navigate(`/TypeSearch?query=${query}`);
+    navigate(`/TypeSearch`);
     localStorage.setItem("TypeSearch", query);
   };
+
+  if (isOnRoute) return null;
 
   return (
     <Flex

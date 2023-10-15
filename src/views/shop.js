@@ -1,5 +1,6 @@
+// Shop.js
 import { useEffect, useState } from "react";
-import { Box, Flex, Grid, Text } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading, Text } from "@chakra-ui/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,10 +19,12 @@ import Loader from "../components/loader/loader";
 
 const Shop = () => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const defaultProducts = useSelector((state) => state.data.products);
+  const [current, setCurrent] = useState("");
+
+  console.log("current: ", current);
 
   useEffect(() => {
     fetchCategory();
@@ -48,111 +51,112 @@ const Shop = () => {
       setLoading(false);
     }
   };
+
+  const fetchPriceProducts = async (prices) => {
+    setLoading(true);
+    try {
+      let response = await get(configs.endpoints.shop.product, {
+        "price[min]": prices[0],
+        "price[max]": prices[1],
+      });
+      setProducts(response?.data);
+      setLoading(false);
+    } catch (error) {
+      errorToast(error);
+      setLoading(false);
+    }
+    setCurrent("Price");
+  };
+
+  const fetchCategoryProducts = async () => {
+    setLoading(true);
+    try {
+      let response = await get(configs.endpoints.shop.product, {
+        category: [selectedCategories],
+      });
+      setProducts(response?.data);
+      setLoading(false);
+    } catch (error) {
+      errorToast(error);
+      setLoading(false);
+    }
+    setCurrent("Category");
+  };
+
   const handleFilters = (filters) => {
-    setSelectedCategories(filters.categories);
-    let filterResult = filterProducts(defaultProducts, filters);
-    setProducts(filterResult);
+    console.log("filter", current);
+
+    if (!current) {
+      errorToast("Select a filter to apply!");
+    }
+
+    if (current == "Price") {
+      fetchPriceProducts(filters?.price);
+    }
+    if (current == "Category") {
+      fetchCategoryProducts();
+    }
+    // setSelectedCategories(filters.categories);
+    // let filterResult = filterProducts(products, filters);
+    // setProducts(filterResult);
   };
 
   const clearFilters = () => {
-    setSelectedCategories([]);
+    fetchCategory();
+    fetchProducts();
+    setSelectedCategories("");
   };
 
   if (loading) return <Loader />;
 
   return (
     <Box>
-      {/* <Flex justify="center" w="100%">
-        <Slider
-          {...shopSliderSettings}
-          style={{ width: "100%", overflow: "hidden", display: "flex" }}
-        >
-          <Box
-            w="100%"
-            h="250px"
-            backgroundImage={`url(${bg1})`}
-            backgroundSize="cover"
-            bgPosition="50%, 75%"
-          >
-            <Box
-              float="right"
-              p="5% 30px"
-              lineHeight="40px"
-              fontSize="0.8rem"
-              w={["50%"]}
-            >
-              <Text mt="30px" fontSize="20px" fontWeight="700" color="white">
-                Get as low as 60% discount
-              </Text>
-            </Box>
-          </Box>
-          <Box
-            w="100%"
-            h="250px"
-            backgroundImage={`url(${bg2})`}
-            backgroundSize="cover"
-            bgPosition="50%, 75%"
-          >
-            <Box
-              float="right"
-              p="5% 30px"
-              lineHeight="40px"
-              fontSize="0.8rem"
-              w={["50%"]}
-            >
-              <Text mt="30px" fontSize="20px" fontWeight="700" color="white">
-                Free delivery when you purchase
-              </Text>
-            </Box>
-          </Box>
-          <Box
-            w="100%"
-            h="250px"
-            backgroundImage={`url(${bg3})`}
-            backgroundSize="cover"
-            bgPosition="50%, 75%"
-          >
-            <Box
-              float="right"
-              p="5% 30px"
-              lineHeight="40px"
-              fontSize="0.8rem"
-              w={["50%"]}
-            >
-              <Text mt="30px" fontSize="20px" fontWeight="700" color="white">
-                Flash sales ongoing
-              </Text>
-            </Box>
-          </Box>
-        </Slider>
-      </Flex> */}
-
       <Flex my="5%" mx={["20px", "20px", "10%"]} flexWrap="wrap">
         <ShopFilters
           categories={categories}
           selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
           handleFilters={handleFilters}
           clearFilters={clearFilters}
+          current={current}
+          setCurrent={setCurrent}
         />
 
         <Box w={["100%", "100%", "auto"]} flex="1">
-          <Grid
-            gap={4}
-            templateColumns={[
-              "repeat(1, 1fr)",
-              "repeat(1, 1fr)",
-              "repeat(2, 1fr)",
-              "repeat(3, 1fr)",
-            ]}
-          >
-            {!loading ? (
-              products.map((product) => {
-                return <Product key={product.id} product={product} />;
-              })
-            ) : (
-              <Loader />
-            )}
-          </Grid>
+          {products?.length > 0 ? (
+            <Grid
+              gap={4}
+              templateColumns={[
+                "repeat(1, 1fr)",
+                "repeat(1, 1fr)",
+                "repeat(2, 1fr)",
+                "repeat(3, 1fr)",
+              ]}
+            >
+              {!loading ? (
+                products?.map((product) => {
+                  return <Product key={product.id} product={product} />;
+                })
+              ) : (
+                <Loader />
+              )}
+            </Grid>
+          ) : (
+            <Flex m="20px" justify="center" fontSize="14px">
+              <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
+                <Box
+                  w={["100%", "400px", "500px"]}
+                  p="20px"
+                  m="20px"
+                  bgColor="white"
+                >
+                  <Heading p="20px" textAlign="center">
+                    No products available!
+                  </Heading>
+                </Box>
+              </Flex>
+            </Flex>
+          )}
         </Box>
       </Flex>
     </Box>
