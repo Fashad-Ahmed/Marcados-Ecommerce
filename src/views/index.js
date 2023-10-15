@@ -57,6 +57,7 @@ const Home = () => {
   // }, [products]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     dispatch(getTerms());
     dispatch(getAbout());
     dispatch(getPolicy());

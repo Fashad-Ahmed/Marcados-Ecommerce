@@ -15,13 +15,18 @@ import Heading from "../components/heading";
 import { FaHandPointDown } from "react-icons/fa";
 import { FiTrash } from "react-icons/fi";
 import { useSelector, useDispatch } from "react-redux";
-import { addDiscount, removeProductFromCart } from "../redux/slice/cartSlice";
+import {
+  addDiscount,
+  addDiscountId,
+  removeProductFromCart,
+} from "../redux/slice/cartSlice";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
 import sampleImage from "../assets/imgs/tv-base/product01-03.webp";
 import { errorToast, succesToast } from "../utils/toast";
 import { get } from "../api";
 import configs, { BASE_URL } from "../redux/config";
+import { putCoupon } from "../redux/slice/authSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,6 +35,7 @@ const Cart = () => {
   const discountedValue = useSelector((state) => state.data.cart.discountValue);
 
   const user = useSelector((state) => state?.data?.user?.email?.payload);
+  const discountID = useSelector((state) => state?.data?.cart?.discountId);
 
   const [subTotal, setSubTotal] = useState(0);
   const [coupon, setCoupon] = useState();
@@ -48,34 +54,71 @@ const Cart = () => {
   const handleApplyCoupon = async () => {
     if (!coupon) {
       errorToast("Please enter coupon");
+      return;
     }
+
+    if (discountID?.length > 0) {
+      errorToast("Coupon has already been applied");
+      return;
+    }
+
+    setLoading(true);
     try {
-      await get(configs.endpoints.checkout.applyCoupon)
-        .then((response) => {
-          console.log(response?.data);
-          response?.data?.map((item) => {
-            if (item?.active && item?.title == coupon) {
-              if ((subTotal / 100) * item?.percent < subTotal) {
-                if (discount < 100) {
-                  succesToast(`${item?.title} Coupon Applied`);
-                  dispatch(addDiscount(item?.percent));
-                  setDiscount(item?.percent);
-                } else {
-                  errorToast("Coupon Price limit reached");
-                }
-              }
-            }
-          });
+      const response = await dispatch(
+        putCoupon({
+          title: coupon,
         })
-        .catch((error) => {
-          errorToast(error?.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
+      );
+      if (response.type === "coupon/putCoupon/fulfilled") {
+        console.log("response?.payload?.data", response?.payload?.data);
+
+        if ((subTotal / 100) * response?.payload?.data?.percent < subTotal) {
+          if (discount < 100) {
+            succesToast(`${response?.payload?.data?.title} Coupon Applied`);
+            dispatch(addDiscount(response?.payload?.data?.percent));
+            dispatch(addDiscountId(response?.payload?.data?._id));
+            setDiscount(response?.payload?.data?.percent);
+          } else {
+            errorToast("Coupon Price limit reached");
+          }
+        }
+      }
+      if (response.type === "coupon/putCoupon/rejected") {
+        console.log(response);
+        errorToast(response?.error?.message);
+      }
+    } catch (e) {
+      errorToast(e.message);
     }
+
+    setLoading(false);
+    // try {
+    //   await get(configs.endpoints.checkout.applyCoupon)
+    //     .then((response) => {
+    //       console.log(response?.data);
+    //       response?.data?.map((item) => {
+    //         if (item?.active && item?.title == coupon) {
+    //           if ((subTotal / 100) * item?.percent < subTotal) {
+    //             if (discount < 100) {
+    //               succesToast(`${item?.title} Coupon Applied`);
+    //               dispatch(addDiscount(item?.percent));
+    //               setDiscount(item?.percent);
+    //             } else {
+    //               errorToast("Coupon Price limit reached");
+    //             }
+    //           }
+    //         }
+    //       });
+    //     })
+    //     .catch((error) => {
+    //       errorToast(error?.message);
+    //     })
+    //     .finally(() => {
+    //       setLoading(false);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleClick = () => {
@@ -197,7 +240,17 @@ const Cart = () => {
                   onChange={(e) => setCoupon(e.target.value)}
                 />
                 {loading ? (
-                  <Spinner />
+                  <Button
+                    bgColor="gray.100"
+                    fontSize="14px"
+                    p="12px 25px"
+                    border="1px"
+                    borderColor="gray.100"
+                    borderRadius="0"
+                    disabled={true}
+                  >
+                    <Spinner />
+                  </Button>
                 ) : (
                   <Button
                     onClick={handleApplyCoupon}

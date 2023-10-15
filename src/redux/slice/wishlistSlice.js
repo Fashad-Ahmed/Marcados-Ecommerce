@@ -8,10 +8,6 @@ export const wishlistSlice = createSlice({
   name: "wishlist",
   initialState,
   reducers: {
-    // updateWislisht: (state, action) => {
-    //   console.log("action.payload", action.payload);
-    //   state.wishlist = [...state.wishlist, ...action.payload];
-    // },
     updateWislisht: (state, action) => {
       action.payload.forEach((product) => {
         const productId = product?._id;

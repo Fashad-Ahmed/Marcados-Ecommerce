@@ -83,12 +83,17 @@ export const cartSlice = createSlice({
         );
       }
     },
-
     addDiscount: (state, action) => {
       state.discountValue = action.payload;
     },
+    addDiscountId: (state, action) => {
+      state.discountId = action.payload;
+    },
     removeDiscount: (state) => {
       state.discountValue = 0;
+    },
+    removeDiscountId: (state) => {
+      state.discountId = null;
     },
     logout: () => {
       return initialState;
@@ -99,10 +104,12 @@ export const cartSlice = createSlice({
 export const {
   addProductToCart,
   removeDiscount,
+  removeDiscountId,
   removeProductFromCart,
   increaseCartQuantity,
   decreaseCartQuantity,
   addDiscount,
+  addDiscountId,
   logout,
 } = cartSlice.actions;
 

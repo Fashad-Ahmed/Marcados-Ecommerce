@@ -20,11 +20,11 @@ import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 import { ORDER_STATUS } from "../utils/stattusEnum";
 import { errorToast } from "../utils/toast";
 import Loader from "../components/loader/loader";
-import { removeDiscount } from "../redux/slice/cartSlice";
+import { removeDiscount, removeDiscountId } from "../redux/slice/cartSlice";
 const Checkout = () => {
   const cart = useSelector((state) => state.data.cart.cart);
-  const user = useSelector((state) => state?.data?.user?.email?.payload);
   const zipCode = useSelector((state) => state?.data?.general?.zipCode);
+  const discountID = useSelector((state) => state?.data?.cart?.discountId);
 
   const dispatch = useDispatch();
   const checkoutFunc = usePlaceOrderHook();
@@ -164,12 +164,14 @@ const Checkout = () => {
       zip: shippingCharges?.id,
       phoneNumber: phoneNumber,
       paymentMethod: cardType,
+      discountId: discountID,
     };
 
     console.log("data", data);
     checkoutFunc(data)
       .then(() => {
-        dispatch(removeDiscount())
+        dispatch(removeDiscount());
+        dispatch(removeDiscountId());
       })
       .finally(() => {
         setLoading(false);
@@ -305,7 +307,7 @@ const Checkout = () => {
                 $
                 {shippingCharges?.val
                   ? parseInt(localStorage.getItem("amount")) +
-                  parseInt(shippingCharges?.val)
+                    parseInt(shippingCharges?.val)
                   : localStorage.getItem("amount")}
               </Text>
             </Flex>

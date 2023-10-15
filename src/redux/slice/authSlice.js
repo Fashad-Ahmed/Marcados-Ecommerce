@@ -95,6 +95,19 @@ export const createReview = createAsyncThunk(
   }
 );
 
+export const putCoupon = createAsyncThunk("coupon/putCoupon", async (data) => {
+  try {
+    let response = await post(
+      configs.endpoints.checkout.putCoupon,
+      data,
+      false
+    );
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
 export const subscribeNewsletter = createAsyncThunk(
   "newsletter/subscribe",
   async (data) => {

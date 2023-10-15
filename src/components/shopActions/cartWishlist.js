@@ -67,7 +67,10 @@ const CartWishlist = ({ product }) => {
           color="red"
           borderRadius="0"
           ms="1"
-          onClick={() => dispatch(removeProductFromWishlist(product?._id))}
+          onClick={() => {
+            addToWishlist(product?._id);
+            dispatch(removeProductFromWishlist(product?._id));
+          }}
         >
           <FaHeart />
         </Button>
