@@ -131,8 +131,14 @@ const Home = () => {
           </Suspense>
         </Box>
         <HeroSection
-          mainText={banner[0]?.title}
-          subText={banner[0]?.description}
+          mainText={
+            banner ? banner[0]?.title : "Minimalistic and Modern Interior."
+          }
+          subText={
+            banner
+              ? banner[0]?.description
+              : "Upgrade your personality with our quality products. You can never go wrong with any of our products."
+          }
         />
       </Flex>
 
