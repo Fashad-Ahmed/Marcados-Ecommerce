@@ -14,12 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
-import { FiHeart, FiHome, FiShoppingCart, FiHeadphones } from "react-icons/fi";
-import SearchBar from "./searchbar";
+import {
+  FiHeart,
+  FiHome,
+  FiShoppingCart,
+  FiHeadphones,
+  FiUser,
+  FiList,
+} from "react-icons/fi";
 import SocialLinks from "./sociallinks";
 import NavLink from "./navLink";
 import { BiStore } from "react-icons/bi";
-import { FaCog, FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../redux/slice/authSlice";
 import { logout } from "../redux/slice/cartSlice";
@@ -41,6 +47,7 @@ const Navbar = () => {
     dispatch(logout());
     dispatch(wishlistLogout());
     localStorage.removeItem("token");
+    localStorage.clear();
     navigation("/Login");
   };
 
@@ -75,12 +82,13 @@ const Navbar = () => {
             borderRadius="0"
           />
           <DrawerHeader my="2" display="flex" alignItems="center">
-            <Avatar size="sm" me="2" />
+            {/* <Avatar size="sm" me="2" /> */}
+            <Box size="sm" me="2"></Box>
             <Box>
               {token ? (
                 user?.email?.fullName
               ) : (
-                <Link href={"/login"} fontSize="14px">
+                <Link href={"Login"} fontSize="14px">
                   Login
                 </Link>
               )}
@@ -102,30 +110,34 @@ const Navbar = () => {
               </Box>
               <Box fontWeight="600" my="2">
                 <NavLink navLocation={"Cart"}>
-                  <FiHome />
-                </NavLink>
-              </Box>
-              <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Wishlist"}>
                   <FiShoppingCart />
                 </NavLink>
               </Box>
-              <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Account"}>
-                  <FiHeart />
-                </NavLink>
-              </Box>
-              <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Orders"}>
-                  <FaCog />
-                </NavLink>
-              </Box>
+              {token && (
+                <>
+                  <Box fontWeight="600" my="2">
+                    <NavLink navLocation={"Wishlist"}>
+                      <FiHeart />
+                    </NavLink>
+                  </Box>
+                  <Box fontWeight="600" my="2">
+                    <NavLink navLocation={"Account"}>
+                      <FiUser />
+                    </NavLink>
+                  </Box>
+                  <Box fontWeight="600" my="2">
+                    <NavLink navLocation={"Orders"}>
+                      <FiList />
+                    </NavLink>
+                  </Box>
 
-              <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Contact"}>
-                  <FiHeadphones />
-                </NavLink>
-              </Box>
+                  <Box fontWeight="600" my="2">
+                    <NavLink navLocation={"Contact"}>
+                      <FiHeadphones />
+                    </NavLink>
+                  </Box>
+                </>
+              )}
 
               {!token ? (
                 ""

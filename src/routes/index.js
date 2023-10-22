@@ -63,14 +63,26 @@ const RoutesProvider = () => {
     </BrowserRouter>
   ) : (
     <BrowserRouter>
+      <Topbar />
+
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" exact element={<Login />} />
           <Route path="/Login" exact element={<Login />} />
           <Route path="/Register" exact element={<Register />} />
           <Route path="/ForgotPassword" exact element={<ForgotPassword />} />
+          <Route path="/" exact element={<Home />} />
+          <Route path="/Home" exact element={<Navigate to="/" replace />} />
+          <Route path="/Cart" exact element={<Cart />} />
+          <Route path="/Shop" exact element={<Shop />} />
+          <Route path="/SingleProduct" exact element={<SingleProduct />} />
+          <Route path="/TypeSearch" exact element={<TypeSearch />} />
+          <Route path="/AboutUs" exact element={<AboutUs />} />
+          <Route path="/TermsConditions" exact element={<TermsConditions />} />
+          <Route path="/PrivacyPolicy" exact element={<PrivacyPolicy />} />
         </Routes>
       </Suspense>
+      <MobileBottombar />
+      <Footer />
     </BrowserRouter>
   );
 };

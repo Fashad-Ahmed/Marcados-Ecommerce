@@ -13,17 +13,26 @@ import {
 } from "../../redux/slice/wishlistSlice";
 import ChangeQuantity from "./changeQuantity";
 import { addWishlist } from "../../redux/slice/authSlice";
+import LoginModal from "../modal/LoginModal";
 
 const CartWishlist = ({ product }) => {
-  const [cartIds, setCartIds] = useState();
-  const [wishlistIds, setWishlistIds] = useState();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.data.cart.cart);
   const wishlist = useSelector((state) => state.data.wishlist.wishlist);
+  const token = useSelector((state) => state.data.user.userToken);
+
+  const [cartIds, setCartIds] = useState();
+  const [wishlistIds, setWishlistIds] = useState();
+  const [isModalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     setCartIds(cart?.map((element) => element?._id));
     setWishlistIds(wishlist?.map((element) => element?._id));
   }, [cart, wishlist]);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
 
   const addToWishlist = async (id) => {
     try {
@@ -35,6 +44,9 @@ const CartWishlist = ({ product }) => {
   };
   return (
     <Flex mt="10px" w="100%">
+      {isModalOpen && (
+        <LoginModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+      )}
       {cartIds && cartIds.indexOf(product?._id) !== -1 ? (
         <Flex flex="1" align="center">
           <Button
@@ -81,8 +93,12 @@ const CartWishlist = ({ product }) => {
           borderRadius="0"
           ms="1"
           onClick={() => {
-            addToWishlist(product?._id);
-            dispatch(addProductToWishlist(product));
+            if (token) {
+              addToWishlist(product?._id);
+              dispatch(addProductToWishlist(product));
+            } else {
+              openModal();
+            }
           }}
         >
           <FiHeart />

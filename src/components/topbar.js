@@ -1,6 +1,6 @@
 import { Badge, Box, Flex, Image, Link } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
-import { useLocation } from "react-router-dom";
+import { useLocation, useMatch } from "react-router-dom";
 import Navbar from "./navbar";
 import SearchBar from "./searchbar";
 import { useSelector } from "react-redux";
@@ -10,11 +10,17 @@ import { useEffect } from "react";
 const Topbar = () => {
   const location = useLocation().pathname;
   const cart = useSelector((state) => state?.data?.cart?.cart);
-  const token = useSelector((state) => state.data.user.userToken);
+  const isOnRoute = useMatch("/Login");
+  const isonRouteTwo = useMatch("/Register");
+  const isonRouteThree = useMatch("/ForgotPassword");
+
   const active = {
     color: "brand.900",
   };
 
+  if (isOnRoute || isonRouteTwo || isonRouteThree) {
+    return null;
+  }
   return (
     <nav>
       <Flex

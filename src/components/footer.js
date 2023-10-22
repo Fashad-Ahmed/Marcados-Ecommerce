@@ -1,8 +1,19 @@
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import NavLink from "./navLink";
 import SocialLinks from "./sociallinks";
+import { useSelector } from "react-redux";
+import { useMatch } from "react-router-dom";
 
 const Footer = () => {
+  const token = useSelector((state) => state.data.user.userToken);
+  const isOnRoute = useMatch("/Login");
+  const isonRouteTwo = useMatch("/Register");
+  const isonRouteThree = useMatch("/ForgotPassword");
+
+  if (isOnRoute || isonRouteTwo || isonRouteThree) {
+    return null;
+  }
+
   return (
     <footer>
       <Flex
@@ -29,8 +40,12 @@ const Footer = () => {
 
           <NavLink navLocation={"Orders"} />
           <NavLink navLocation={"Shop"} />
-          <NavLink navLocation={"Cart"} />
-          <NavLink navLocation={"Wishlist"} />
+          {token && (
+            <>
+              <NavLink navLocation={"Cart"} />
+              <NavLink navLocation={"Wishlist"} />
+            </>
+          )}
         </Box>
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3">

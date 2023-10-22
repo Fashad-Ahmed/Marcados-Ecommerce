@@ -27,6 +27,7 @@ import { errorToast, succesToast } from "../utils/toast";
 import { get } from "../api";
 import configs, { BASE_URL } from "../redux/config";
 import { putCoupon } from "../redux/slice/authSlice";
+import LoginModal from "../components/modal/LoginModal";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const Cart = () => {
   const [coupon, setCoupon] = useState();
   const [discount, setDiscount] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     let subTotalSum = 0;
@@ -51,7 +53,15 @@ const Cart = () => {
     setSubTotal(subTotalSum);
   }, [setSubTotal, cart]);
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
   const handleApplyCoupon = async () => {
+    if (!token) {
+      openModal();
+      return;
+    }
     if (!coupon) {
       errorToast("Please enter coupon");
       return;
@@ -122,6 +132,11 @@ const Cart = () => {
   };
 
   const handleClick = () => {
+    if (!token) {
+      openModal();
+      return;
+    }
+
     if (token) {
       if (cart?.length > 0) {
         let val = discountedValue
@@ -138,6 +153,14 @@ const Cart = () => {
   };
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
+      {isModalOpen && (
+        <LoginModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          message="You need to login to perform payment checkout"
+        />
+      )}
+
       <Heading
         mainText={"MY CART"}
         subText={"Finish up the order and get a reward."}

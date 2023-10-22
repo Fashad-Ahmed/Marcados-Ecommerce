@@ -174,6 +174,14 @@ const Login = () => {
               Sign up
             </Link>
           </Text>
+
+          <Flex justifyContent={"center"} alignItems={"center"}>
+            <Link href="/Home">
+              <Text color="brand.900" fontWeight="extrabold" mt="4">
+                Continue as a guest
+              </Text>
+            </Link>
+          </Flex>
         </Box>
       </Flex>
     </Flex>

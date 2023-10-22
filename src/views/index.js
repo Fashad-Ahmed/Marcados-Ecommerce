@@ -43,6 +43,7 @@ const Home = () => {
   const [email, setEmail] = useState(
     user?.email?._id ? user?.email?.email : ""
   );
+  const token = useSelector((state) => state.data.user.userToken);
   const banner = useSelector((state) => state?.data?.general?.banner);
   const offer = useSelector((state) => state?.data?.general?.offer);
 
@@ -53,7 +54,10 @@ const Home = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchProducts();
-    fetchWishlist();
+    if (token) {
+      fetchWishlist();
+      dispatch(getZip());
+    }
   }, []);
 
   useEffect(() => {
@@ -62,7 +66,6 @@ const Home = () => {
     dispatch(getTerms());
     dispatch(getAbout());
     dispatch(getPolicy());
-    dispatch(getZip());
     dispatch(getSocialLinks());
   }, []);
 
