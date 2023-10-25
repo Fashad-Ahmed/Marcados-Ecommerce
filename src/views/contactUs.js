@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   Box,
@@ -13,9 +13,10 @@ import {
   AlertIcon,
   AlertDescription,
 } from "@chakra-ui/react";
-import { FaEnvelope, FaPersonBooth, FaTag } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useContactUsHook } from "../hooks/useContactUsHook";
+import ReCAPTCHA from "react-google-recaptcha"; // Import ReCAPTCHA
+import { errorToast } from "../utils/toast";
 
 const ContactUs = () => {
   const {
@@ -25,8 +26,18 @@ const ContactUs = () => {
   } = useForm();
   const user = useSelector((state) => state.data.user);
   const [contactUsFunc] = useContactUsHook();
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
+
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+  };
 
   const onSubmit = (data) => {
+    if (recaptchaValue === null) {
+      errorToast("reCAPTCHA validation failed");
+      return;
+    }
+
     let formData = {
       name: data.fullName,
       email: data.email,
@@ -170,6 +181,17 @@ const ContactUs = () => {
                 )}
               />
             </FormControl>
+            <Flex mt="4" mb="4" justifyContent={"center"} alignItems={"center"}>
+              <ReCAPTCHA
+                sitekey={"6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // TESTING_KEY
+                onChange={handleRecaptchaChange}
+                style={{
+                  display: "inline-block",
+                  height: "40px",
+                  alignSelf: "center",
+                }}
+              />
+            </Flex>
 
             <Button
               type="submit"

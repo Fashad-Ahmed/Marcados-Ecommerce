@@ -46,7 +46,7 @@ export const endpoints = {
     putCoupon: "/code/apply-coupon",
   },
   shop: {
-    categories: "/category/get",
+    categories: "/category/get?active=true",
     product: "/product/get?page=1&rowsPerPage=10",
     getProduct: "/product/get?",
     productDetail: "/product/get",
