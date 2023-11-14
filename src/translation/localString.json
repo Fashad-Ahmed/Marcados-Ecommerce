@@ -1,0 +1,650 @@
+{
+    "ABOUT_US": {
+        "en": "About Us",
+        "pt": "Sobre Nós"
+    },
+    "DATA": {
+        "en": "Data",
+        "pt": "Dados"
+    },
+    "ACCOUNT": {
+        "en": "Account",
+        "pt": "Conta"
+    },
+    "PROFILE": {
+        "en": "Profile",
+        "pt": "Perfil"
+    },
+    "EMAIL_ADDRESS": {
+        "en": "Email Address",
+        "pt": "Endereço de Email"
+    },
+    "ENTER_YOUR_EMAIL_ADDRESS": {
+        "en": "Enter your email address",
+        "pt": "Digite seu endereço de e-mail"
+    },
+    "FULL_NAME": {
+        "en": "Full Name",
+        "pt": "Nome Completo"
+    },
+    "ADDRESS": {
+        "en": "Address",
+        "pt": "Endereço"
+    },
+    "CHANGE_PASSWORD": {
+        "en": "Change Password",
+        "pt": "Alterar Senha"
+    },
+    "EDIT_PROFILE": {
+        "en": "Edit Profile",
+        "pt": "Editar Perfil"
+    },
+    "CART": {
+        "en": "Cart",
+        "pt": "Carrinho"
+    },
+    "SHOPPING_CART": {
+        "en": "Shopping Cart",
+        "pt": "Carrinho de Compras"
+    },
+    "COUPON_PRICE_LIMIT_REACHED": {
+        "en": "Coupon Price Limit Reached",
+        "pt": "Limite de preço do cupom atingido"
+    },
+    "COUPON_APPLIED": {
+        "en": "Coupon Applied",
+        "pt": "Cupom Aplicado"
+    },
+    "COUPON_ALREADY_APPLIED": {
+        "en": "Coupon has already been applied",
+        "pt": "O cupom já foi aplicado"
+    },
+    "PLEASE_ENTER_COUPON": {
+        "en": "Please enter coupon",
+        "pt": "Por favor, digite o cupom"
+    },
+    "PLEASE_ADD_PRODUCTS_TO_CART": {
+        "en": "Please add products to cart",
+        "pt": "Por favor, adicione produtos ao carrinho"
+    },
+    "LOGIN_REQUIRED_FOR_PAYMENT": {
+        "en": "You need to login to perform payment checkout",
+        "pt": "Você precisa fazer login para concluir o pagamento"
+    },
+    "FINISH_ORDER_AND_GET_REWARD": {
+        "en": "Finish up the order and get a reward",
+        "pt": "Finalize o pedido e ganhe uma recompensa"
+    },
+    "EMPTY_CART_MESSAGE": {
+        "en": "Your Cart is empty. Add products from the Shop",
+        "pt": "Seu carrinho está vazio. Adicione produtos da loja"
+    },
+    "APPLY_COUPON": {
+        "en": "Apply coupon",
+        "pt": "Aplicar cupom"
+    },
+    "DISCOUNT": {
+        "en": "Discount",
+        "pt": "Desconto"
+    },
+    "CHECKOUT_NOW": {
+        "en": "Checkout now",
+        "pt": "Finalizar compra agora"
+    },
+    "CHANGE_PASSWORD": {
+        "en": "Change Password",
+        "pt": "Alterar Senha"
+    },
+    "PASSWORD": {
+        "en": "Password",
+        "pt": "Senha"
+    },
+    "PASSWORD_REQUIRED": {
+        "en": "Password is required",
+        "pt": "Senha é obrigatória"
+    },
+    "ENTER_NEW_PASSWORD": {
+        "en": "Enter your new password",
+        "pt": "Digite sua nova senha"
+    },
+    "CONFIRM_PASSWORD": {
+        "en": "Confirm Password",
+        "pt": "Confirmar Senha"
+    },
+    "CONFIRM_PASSWORD_REQUIRED": {
+        "en": "Please confirm your password",
+        "pt": "Confirme sua senha"
+    },
+    "PASSWORDS_DO_NOT_MATCH": {
+        "en": "Passwords do not match",
+        "pt": "Senhas não correspondem"
+    },
+    "ENTER_PASSWORD_AGAIN": {
+        "en": "Enter your password again",
+        "pt": "Digite sua senha novamente"
+    },
+    "UPDATE": {
+        "en": "Update",
+        "pt": "Atualizar"
+    },
+    "PLEASE_ENTER_SHIPPING_ADDRESS": {
+        "en": "Please enter Shipping Address",
+        "pt": "Por favor, digite o endereço de entrega"
+    },
+    "PLEASE_SELECT_ZIP_CODE": {
+        "en": "Please select Zip Code",
+        "pt": "Por favor, selecione o CEP"
+    },
+    "PLEASE_ENTER_PHONE_NUMBER": {
+        "en": "Please enter Phone Number",
+        "pt": "Por favor, digite o número de telefone"
+    },
+    "PHONE_NUMBER_DIGIT_REQUIREMENT": {
+        "en": "Phone number must have at least 9 digits",
+        "pt": "O número de telefone deve ter pelo menos 9 dígitos"
+    },
+    "CHECKOUT": {
+        "en": "CHECKOUT",
+        "pt": "FINALIZAR COMPRA"
+    },
+    "ORDER_PRODUCTS": {
+        "en": "Order your products by filling the necessary information",
+        "pt": "Faça seu pedido preenchendo as informações necessárias"
+    },
+    "ORDER_NOW": {
+        "en": "ORDER NOW",
+        "pt": "FAÇA O PEDIDO AGORA"
+    },
+    "SHIPPING_DETAILS": {
+        "en": "Shipping Details",
+        "pt": "Detalhes do Envio"
+    },
+    "SHIPPING_ADDRESS": {
+        "en": "Shipping address",
+        "pt": "Endereço de entrega"
+    },
+    "ENTER_SHIPPING_ADDRESS": {
+        "en": "Enter your shipping address",
+        "pt": "Digite seu endereço de entrega"
+    },
+    "ZIP_CODE": {
+        "en": "Zip Code",
+        "pt": "CEP"
+    },
+    "PHONE_NUMBER": {
+        "en": "Phone number",
+        "pt": "Número de telefone"
+    },
+    "ENTER_PHONE_NUMBER": {
+        "en": "Enter Phone Number",
+        "pt": "Digite o número de telefone"
+    },
+    "SHIPPING_CHARGES": {
+        "en": "Shipping Charges",
+        "pt": "Taxa de Entrega"
+    },
+    "TOTAL_AMOUNT": {
+        "en": "Total Amount",
+        "pt": "Valor Total"
+    },
+    "PAYMENT_METHOD": {
+        "en": "Payment Method",
+        "pt": "Método de Pagamento"
+    },
+    "COD": {
+        "en": "COD",
+        "pt": "Dinheiro na Entrega"
+    },
+    "CARD": {
+        "en": "Card",
+        "pt": "Cartão"
+    },
+    "PLACE_ORDER": {
+        "en": "Place order",
+        "pt": "Realizar pedido"
+    },
+    "RECAPTCHA_FAILED": {
+        "en": "reCAPTCHA validation failed",
+        "pt": "Falha na validação do reCAPTCHA"
+    },
+    "CONTACT_US": {
+        "en": "Contact Us",
+        "pt": "Fale Conosco"
+    },
+    "FULL_NAME_REQUIRED": {
+        "en": "Full Name is required",
+        "pt": "Nome Completo é obrigatório"
+    },
+    "ENTER_FULL_NAME": {
+        "en": "Enter your full name",
+        "pt": "Digite seu nome completo"
+    },
+    "EMAIL_ADDRESS_REQUIRED": {
+        "en": "Email address is required",
+        "pt": "O endereço de e-mail é obrigatório"
+    },
+    "INVALID_EMAIL_ADDRESS": {
+        "en": "Invalid email address",
+        "pt": "Endereço de e-mail inválido"
+    },
+    "ENTER_EMAIL": {
+        "en": "Enter your email",
+        "pt": "Digite seu e-mail"
+    },
+    "SUBJECT": {
+        "en": "Subject",
+        "pt": "Assunto"
+    },
+    "SUBJECT_REQUIRED": {
+        "en": "Subject is required",
+        "pt": "Assunto é obrigatório"
+    },
+    "ENTER_SUBJECT": {
+        "en": "Enter your subject",
+        "pt": "Digite seu assunto"
+    },
+    "MESSAGE": {
+        "en": "Message",
+        "pt": "Mensagem"
+    },
+    "MESSAGE_REQUIRED": {
+        "en": "Message is required",
+        "pt": "Mensagem é obrigatória"
+    },
+    "ENTER_MESSAGE": {
+        "en": "Enter your message",
+        "pt": "Digite sua mensagem"
+    },
+    "SUBMIT": {
+        "en": "Submit",
+        "pt": "Enviar"
+    },
+    "DASHBOARD": {
+        "en": "Dashboard",
+        "pt": "Painel de Controle"
+    },
+    "ORDERS_ANALYSIS": {
+        "en": "ORDERS ANALYSIS",
+        "pt": "ANÁLISE DE PEDIDOS"
+    },
+    "UPDATE_PROFILE": {
+        "en": "Update Profile",
+        "pt": "Atualizar Perfil"
+    },
+    "FORGOT_PASSWORD": {
+        "en": "Forgot Password",
+        "pt": "Esqueci a Senha"
+    },
+    "ENTER_EMAIL_FOR_OTP": {
+        "en": "Enter your email address",
+        "pt": "Digite seu endereço de e-mail"
+    },
+    "OTP_REQUIRED": {
+        "en": "OTP is required",
+        "pt": "O OTP é obrigatório"
+    },
+    "OTP": {
+        "en": "OTP",
+        "pt": "OTP"
+    },
+    "ENTER_OTP": {
+        "en": "Enter the OTP received on your email address",
+        "pt": "Digite o OTP recebido no seu endereço de e-mail"
+    },
+    "UPDATE_PASSWORD": {
+        "en": "Update Password",
+        "pt": "Atualizar Senha"
+    },
+    "MINIMALISTIC_INTERIOR_TEXT": {
+        "en": "Minimalistic and Modern Interior.",
+        "pt": "Interior Minimalista e Moderno."
+    },
+    "UPGRADE_YOUR_PERSONALITY_TEXT": {
+        "en": "Upgrade your personality with our quality products. You can never go wrong with any of our products.",
+        "pt": "Atualize sua personalidade com nossos produtos de qualidade. Você nunca erra com nenhum de nossos produtos."
+    },
+    "GET_AWESOME_DISCOUNTS_TEXT": {
+        "en": "GET AWESOME DISCOUNTS ON ALL PURCHASE",
+        "pt": "OBTENHA DESCONTOS INCRÍVEIS EM TODA COMPRA"
+    },
+    "OFFERS_INCENTIVES_DISCOUNTS_TEXT": {
+        "en": "Offers, Incentives and discounts all for you.",
+        "pt": "Ofertas, Incentivos e descontos, tudo para você."
+    },
+    "HOT_DEALS_TEXT": {
+        "en": "HOT DEALS FOR YOU",
+        "pt": "OFERTAS QUENTES PARA VOCÊ"
+    },
+    "CUSTOMERS_LOVED_PRODUCTS_TEXT": {
+        "en": "Our customers most loved products you can also get.",
+        "pt": "Nossos produtos mais amados pelos clientes que você também pode obter."
+    },
+    "AMAZING_FRESH_PRODUCTS_TEXT": {
+        "en": "Amazing Fresh Products.",
+        "pt": "Produtos Incrivelmente Frescos."
+    },
+    "PRODUCTS_PURPOSE_TEXT": {
+        "en": "Purpose of a product is to keep you comfortable and healthy",
+        "pt": "O propósito de um produto é mantê-lo confortável e saudável"
+    },
+    "SHOP_NOW": {
+        "en": "Shop now",
+        "pt": "Compre agora"
+    },
+    "SUBSCRIBE_TO_NEWSLETTER": {
+        "en": "Subscribe To Our Newsletter",
+        "pt": "Inscreva-se em nosso boletim informativo"
+    },
+    "ENTER_EMAIL_TO_SUBSCRIBE": {
+        "en": "Enter your email...",
+        "pt": "Digite seu e-mail..."
+    },
+    "SUBSCRIBE": {
+        "en": "Subscribe",
+        "pt": "Inscrever"
+    },
+    "HOME": {
+        "en": "Home",
+        "pt": "Início"
+    },
+    "ENTER_EMAIL_AND_PASSWORD": {
+        "en": "Enter your email and password.",
+        "pt": "Digite seu e-mail e senha."
+    },
+    "WELCOME_BACK": {
+        "en": "Welcome Back!",
+        "pt": "Bem-vindo de volta!"
+    },
+    "FORGOT_PASSWORD": {
+        "en": "Forgot password?",
+        "pt": "Esqueceu a senha?"
+    },
+    "LOGIN": {
+        "en": "Login",
+        "pt": "Entrar"
+    },
+    "CONTINUE_AS_GUEST": {
+        "en": "Continue as a guest",
+        "pt": "Continuar como convidado"
+    },
+    "SIGN_UP": {
+        "en": "Sign up",
+        "pt": "Inscrever-se"
+    },
+    "NO_ORDERS_TO_SHOW": {
+        "en": "No orders to show",
+        "pt": "Nenhum pedido para mostrar"
+    },
+    "ORDERS": {
+        "en": "Orders",
+        "pt": "Pedidos"
+    },
+    "PRIVACY_POLICY": {
+        "en": "Privacy Policy",
+        "pt": "Política de Privacidade"
+    },
+    "PHONE_NUMBER_DIGIT_REQUIREMENT": {
+        "en": "Phone number must have at least 9 digits",
+        "pt": "O número de telefone deve ter pelo menos 9 dígitos"
+    },
+    "FILL_IN_DETAILS_TO_SIGNUP": {
+        "en": "Fill in your details to signup.",
+        "pt": "Preencha seus detalhes para se inscrever."
+    },
+    "REGISTER": {
+        "en": "Register",
+        "pt": "Registrar"
+    },
+    "ENTER_ADDRESS": {
+        "en": "Enter your address",
+        "pt": "Digite seu endereço"
+    },
+    "ENTER_PHONE_NUMBER": {
+        "en": "Enter Phone Number",
+        "pt": "Digite o número do telefone"
+    },
+    "ALREADY_HAVE_ACCOUNT": {
+        "en": "Already have an account?",
+        "pt": "Já tem uma conta?"
+    },
+    "NO_PRODUCTS_AVAILABLE": {
+        "en": "No products available!",
+        "pt": "Nenhum produto disponível!"
+    },
+    "ORDER_DETAILS": {
+        "en": "Order Details",
+        "pt": "Detalhes do Pedido"
+    },
+    "AMOUNT": {
+        "en": "Amount",
+        "pt": "Quantidade"
+    },
+    "STATUS": {
+        "en": "Status",
+        "pt": "Status"
+    },
+    "TRACKING_NUMBER": {
+        "en": "Tracking Number",
+        "pt": "Número de Rastreamento"
+    },
+    "SHIPPING_ADDRESS": {
+        "en": "Shipping Address",
+        "pt": "Endereço de Envio"
+    },
+    "ZIP_CODE": {
+        "en": "Zip Code",
+        "pt": "Código Postal"
+    },
+    "PAYMENT_METHOD": {
+        "en": "Payment Method",
+        "pt": "Método de Pagamento"
+    },
+    "PHONE_NUMBER": {
+        "en": "Phone Number",
+        "pt": "Número de Telefone"
+    },
+    "PRODUCT": {
+        "en": "Product",
+        "pt": "Produto"
+    },
+    "ADD_REVIEW": {
+        "en": "Add Review",
+        "pt": "Adicionar Avaliação"
+    },
+    "ADD_REVIEW_TEXT": {
+        "en": "Add a review ...",
+        "pt": "Adicione uma avaliação ..."
+    },
+    "SUBMIT_REVIEW": {
+        "en": "Submit",
+        "pt": "Enviar"
+    },
+    "TESTIMONIALS": {
+        "en": "Testimonials",
+        "pt": "Depoimentos"
+    },
+    "NO_REVIEWS_AVAILABLE": {
+        "en": "No Reviews Available",
+        "pt": "Nenhuma avaliação disponível"
+    },
+    "TERMS_CONDITIONS": {
+        "en": "Terms & Conditions",
+        "pt": "Termos e Condições"
+    },
+    "SAVED_PRODUCTS_MESSAGE": {
+        "en": "Your saved products are all here. You can add them to the cart from here.",
+        "pt": "Seus produtos salvos estão todos aqui. Você pode adicioná-los ao carrinho daqui."
+    },
+    "MY_WISHLIST": {
+        "en": "MY WISHLIST",
+        "pt": "MINHA LISTA DE DESEJOS"
+    },
+    "ITEM_ADDED_TO_CART": {
+        "en": "Item added to cart",
+        "pt": "Item adicionado ao carrinho"
+    },
+    "ITEM_REMOVED_FROM_CART": {
+        "en": "Item removed from cart",
+        "pt": "Item removido do carrinho"
+    },
+    "QUANTITY_INCREASED": {
+        "en": "quantity increased up to",
+        "pt": "quantidade aumentada para"
+    },
+    "QUANTITY_DECREASED": {
+        "en": "quantity decreased up to",
+        "pt": "quantidade diminuída para"
+    },
+    "ADDED_TO_WISHLIST": {
+        "en": "added to wishlist",
+        "pt": "adicionado à lista de desejos"
+    },
+    "ALREADY_EXISTS_IN_WISHLIST": {
+        "en": "already exists in wishlist",
+        "pt": "já existe na lista de desejos"
+    },
+    "REMOVED_FROM_WISHLIST": {
+        "en": "Item removed from wishlist",
+        "pt": "Item removido da lista de desejos"
+    },
+    "ERROR_OCCURRED": {
+        "en": "An error occurred",
+        "pt": "Ocorreu um erro"
+    },
+    "REVIEW_SUBMITTED_SUCCESSFULLY": {
+        "en": "Review submitted successfully",
+        "pt": "Avaliação enviada com sucesso"
+    },
+    "LOGIN_ERROR": {
+        "en": "An error occurred during login",
+        "pt": "Ocorreu um erro durante o login"
+    },
+    "ORDER_PLACEMENT_ERROR": {
+        "en": "An error occurred during placing order",
+        "pt": "Ocorreu um erro ao fazer o pedido"
+    },
+    "SIGNUP_ERROR": {
+        "en": "An error occurred during sign up",
+        "pt": "Ocorreu um erro durante o registro"
+    },
+    "NO_ACCOUNT": {
+        "en": "Don't have an account yet?",
+        "pt": "Ainda não tem uma conta?"
+    },
+    "NJ_MARCADOS": {
+        "en": "NJ Marcados",
+        "pt": "NJ Marcados"
+    },
+    "SEARCH_HERE": {
+        "en": "Search here",
+        "pt": "Pesquise aqui"
+    },
+    "STATUS": {
+        "en": "Status",
+        "pt": "Status"
+    },
+    "TOTAL_PRICE": {
+        "en": "Total Price",
+        "pt": "Preço Total"
+    },
+    "LOGIN": {
+        "en": "Login",
+        "pt": "Entrar"
+    },
+    "HOME": {
+        "en": "Home",
+        "pt": "Página Inicial"
+    },
+    "SHOP": {
+        "en": "Shop",
+        "pt": "Loja"
+    },
+    "CART": {
+        "en": "Cart",
+        "pt": "Carrinho"
+    },
+    "ACCOUNT": {
+        "en": "Account",
+        "pt": "Conta"
+    },
+    "WISHLIST": {
+        "en": "Wishlist",
+        "pt": "Lista de Desejos"
+    },
+    "ORDERS": {
+        "en": "Orders",
+        "pt": "Pedidos"
+    },
+    "CONTACT": {
+        "en": "Contact",
+        "pt": "Contato"
+    },
+    "LOGOUT": {
+        "en": "Logout",
+        "pt": "Sair"
+    },
+    "INFO_EMAIL": {
+        "en": "info@njmercados.com",
+        "pt": "info@njmercados.com"
+    },
+    "SERVICES": {
+        "en": "SERVICES",
+        "pt": "SERVIÇOS"
+    },
+    "SUPPORT": {
+        "en": "SUPPORTS",
+        "pt": "SUPORTE"
+    },
+    "TERMS_CONDITIONS": {
+        "en": "Terms & Conditions",
+        "pt": "Termos e Condições"
+    },
+    "COPYRIGHT": {
+        "en": "Copyright",
+        "pt": "Direitos Autorais"
+    },
+    "FILTER_PRODUCTS": {
+        "en": "Filter Products",
+        "pt": "Filtrar Produtos"
+    },
+    "SELECT_FILTER": {
+        "en": "-- Select filter --",
+        "pt": "-- Selecione o filtro --"
+    },
+    "CATEGORY": {
+        "en": "Category",
+        "pt": "Categoria"
+    },
+    "PRICE": {
+        "en": "Price",
+        "pt": "Preço"
+    },
+    "MIN": {
+        "en": "Min",
+        "pt": "Mínimo"
+    },
+    "MAX": {
+        "en": "Max",
+        "pt": "Máximo"
+    },
+    "APPLY_FILTERS": {
+        "en": "Apply filters",
+        "pt": "Aplicar filtros"
+    },
+    "CLEAR": {
+        "en": "Clear",
+        "pt": "Limpar"
+    },
+    "LOGIN_REQUIRED_ACTION": {
+        "en": "You need to log in to perform this action",
+        "pt": "Você precisa fazer login para realizar esta ação"
+    },
+    "LOGIN_REQUIRED_TEXT": {
+        "en": "Login Required",
+        "pt": "Login Necessário"
+    },
+    "SEARCH_PRODUCTS_ORDERS_OFFERS": {
+        "en": "Search products, orders and offers here",
+        "pt": "Pesquise produtos, pedidos e ofertas aqui"
+    }
+}
