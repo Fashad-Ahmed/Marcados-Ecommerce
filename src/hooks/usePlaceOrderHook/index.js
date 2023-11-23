@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
 import { addDiscount, createOrder, logout } from "../../redux/slice/cartSlice";
+import { useTranslation } from "react-i18next";
 
 export const usePlaceOrderHook = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation("common");
 
   const checkoutFunc = useCallback(
     async (data) => {
@@ -21,12 +23,10 @@ export const usePlaceOrderHook = () => {
         }
 
         if (response.type === "create/order/rejected") {
-          console.log("response", response);
-
           errorToast(response?.error?.message);
         }
       } catch (error) {
-        errorToast("An error occurred during placing order");
+        errorToast(t("ORDER_PLACEMENT_ERROR"));
       }
     },
     [dispatch, navigation]

@@ -31,12 +31,14 @@ import { userLogout } from "../redux/slice/authSlice";
 import { logout } from "../redux/slice/cartSlice";
 import { wishlistLogout } from "../redux/slice/wishlistSlice";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const user = useSelector((state) => state.data.user);
   const token = useSelector((state) => state.data.user.userToken);
+  const { t } = useTranslation("common");
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -82,14 +84,13 @@ const Navbar = () => {
             borderRadius="0"
           />
           <DrawerHeader my="2" display="flex" alignItems="center">
-            {/* <Avatar size="sm" me="2" /> */}
             <Box size="sm" me="2"></Box>
             <Box>
               {token ? (
                 user?.email?.fullName
               ) : (
-                <Link href={"Login"} fontSize="14px">
-                  Login
+                <Link href={"/Login"} fontSize="14px">
+                  {t("LOGIN")}
                 </Link>
               )}
             </Box>
@@ -99,40 +100,40 @@ const Navbar = () => {
 
             <Box fontSize="15px" my="4" mx="1">
               <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Home"}>
+                <NavLink navLocation={"Home"} name={t("HOME")}>
                   <FiHome />
                 </NavLink>
               </Box>
               <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Shop"}>
+                <NavLink navLocation={"Shop"} name={t("SHOP")}>
                   <BiStore />
                 </NavLink>
               </Box>
               <Box fontWeight="600" my="2">
-                <NavLink navLocation={"Cart"}>
+                <NavLink navLocation={"Cart"} name={t("CART")}>
                   <FiShoppingCart />
                 </NavLink>
               </Box>
               {token && (
                 <>
                   <Box fontWeight="600" my="2">
-                    <NavLink navLocation={"Wishlist"}>
+                    <NavLink navLocation={"Wishlist"} name={t("WISHLIST")}>
                       <FiHeart />
                     </NavLink>
                   </Box>
                   <Box fontWeight="600" my="2">
-                    <NavLink navLocation={"Account"}>
+                    <NavLink navLocation={"Account"} name={t("ACCOUNT")}>
                       <FiUser />
                     </NavLink>
                   </Box>
                   <Box fontWeight="600" my="2">
-                    <NavLink navLocation={"Orders"}>
+                    <NavLink navLocation={"Orders"} name={t("ORDERS")}>
                       <FiList />
                     </NavLink>
                   </Box>
 
                   <Box fontWeight="600" my="2">
-                    <NavLink navLocation={"Contact"}>
+                    <NavLink navLocation={"Contact"} name={t("CONTACT")}>
                       <FiHeadphones />
                     </NavLink>
                   </Box>
@@ -155,7 +156,7 @@ const Navbar = () => {
                   >
                     <FaSignOutAlt />
                     <Text me="3" ml={"10px"}>
-                      Logout
+                      {t("LOGOUT")}
                     </Text>
                   </Box>
                 </Box>
@@ -164,7 +165,7 @@ const Navbar = () => {
 
             <Box py="2" mt="4">
               <Link href="mailto:info@njmercados.com">
-                <Text fontWeight="600">info@njmercados.com</Text>
+                <Text fontWeight="600">{t("INFO_EMAIL")}</Text>
               </Link>
               <SocialLinks />
             </Box>

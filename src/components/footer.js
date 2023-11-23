@@ -3,8 +3,10 @@ import NavLink from "./navLink";
 import SocialLinks from "./sociallinks";
 import { useSelector } from "react-redux";
 import { useMatch } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation("common");
   const token = useSelector((state) => state.data.user.userToken);
   const isOnRoute = useMatch("/Login");
   const isonRouteTwo = useMatch("/Register");
@@ -35,22 +37,51 @@ const Footer = () => {
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3">
           <Text fontWeight="700" p="3">
-            SERVICES
+            {t("SERVICES")}
           </Text>
 
-          <NavLink navLocation={"Orders"} />
-          <NavLink navLocation={"Shop"} />
+          <Link
+            href="/Shop"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Text p="3">{t("SHOP")}</Text>
+          </Link>
+
           {token && (
             <>
-              <NavLink navLocation={"Cart"} />
-              <NavLink navLocation={"Wishlist"} />
+              <Link
+                href="/Orders"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Text p="3">{t("ORDERS")}</Text>
+              </Link>
+              <Link
+                href="/Cart"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Text p="3">{t("CART")}</Text>
+              </Link>
+              <Link
+                href="/Wishlist"
+                style={{
+                  textDecoration: "none",
+                }}
+              >
+                <Text p="3">{t("WISHLIST")}</Text>
+              </Link>
             </>
           )}
         </Box>
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3">
           <Text fontWeight="700" p="3">
-            SUPPORTS
+            {t("SUPPORT")}
           </Text>
 
           <Link
@@ -59,7 +90,7 @@ const Footer = () => {
               textDecoration: "none",
             }}
           >
-            <Text p="3">About Us</Text>
+            <Text p="3">{t("ABOUT_US")}</Text>
           </Link>
           <Link
             href="/TermsConditions"
@@ -67,7 +98,7 @@ const Footer = () => {
               textDecoration: "none",
             }}
           >
-            <Text p="3">Terms & Conditions</Text>
+            <Text p="3">{t("TERMS_CONDITIONS")}</Text>
           </Link>
           <Link
             href="/PrivacyPolicy"
@@ -75,14 +106,14 @@ const Footer = () => {
               textDecoration: "none",
             }}
           >
-            <Text p="3">Privacy Policy</Text>
+            <Text p="3">{t("PRIVACY_POLICY")}</Text>
           </Link>
         </Box>
 
         <Box w={["100%", "50%", "30%", "23%"]} my="3" px="3">
           <SocialLinks />
           {/* <Text>Lagos, Nigeria</Text> */}
-          <Link href="mailto:info@njmercados.com">info@njmercados.com</Link>
+          <Link href="mailto:info@njmercados.com">{t("INFO_EMAIL")}</Link>
         </Box>
       </Flex>
 
@@ -96,7 +127,9 @@ const Footer = () => {
         fontSize="14px"
       >
         <Text></Text>
-        <Text>Copyright &copy; {new Date().getFullYear()}</Text>
+        <Text>
+          {t("COPYRIGHT")} &copy; {new Date().getFullYear()}
+        </Text>
       </Flex>
     </footer>
   );

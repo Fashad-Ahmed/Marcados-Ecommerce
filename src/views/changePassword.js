@@ -13,8 +13,10 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { useForm, Controller } from "react-hook-form";
 import { useChangePasswordHook } from "../hooks/useChangePasswordHook";
+import { useTranslation } from "react-i18next";
 
 const ChangePassword = () => {
+  const { t } = useTranslation("common");
   const [type, setType] = useState(true);
   const [typeTwo, setTypeTwo] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -39,18 +41,18 @@ const ChangePassword = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Change Password</Heading>
+          <Heading textAlign="center">{t("CHANGE_PASSWORD")}</Heading>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Password </FormLabel>
+              <FormLabel fontSize="14px">{t("PASSWORD")} </FormLabel>
 
               <Controller
                 name="password"
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "Password is required",
+                  required: t("PASSWORD_REQUIRED"),
                 }}
                 render={({ field }) => (
                   <Flex
@@ -76,7 +78,7 @@ const ChangePassword = () => {
                       fontSize="14px"
                       borderRadius="0"
                       border="none"
-                      placeholder="Enter your new password"
+                      placeholder={t("ENTER_NEW_PASSWORD")}
                       {...field}
                     />
                     <Button
@@ -99,16 +101,17 @@ const ChangePassword = () => {
               )}
             </FormControl>
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Confirm Password </FormLabel>
+              <FormLabel fontSize="14px">{t("CONFIRM_PASSWORD")} </FormLabel>
 
               <Controller
                 name="confirmPassword"
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: "Please confirm your password",
+                  required: t("CONFIRM_PASSWORD_REQUIRED"),
                   validate: (value) =>
-                    value === getValues("password") || "Passwords do not match",
+                    value === getValues("password") ||
+                    t("PASSWORDS_DO_NOT_MATCH"),
                 }}
                 render={({ field }) => (
                   <Flex
@@ -134,7 +137,7 @@ const ChangePassword = () => {
                       fontSize="14px"
                       borderRadius="0"
                       border="none"
-                      placeholder="Enter your password again"
+                      placeholder={t("ENTER_PASSWORD_AGAIN")}
                       {...field}
                     />
                     <Button
@@ -183,7 +186,7 @@ const ChangePassword = () => {
                   mt="6"
                   _hover={{ bgColor: "orange.400" }}
                 >
-                  Update
+                  {t("key")}
                 </Button>
               )}
             </FormControl>

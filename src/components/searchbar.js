@@ -1,16 +1,16 @@
 import { Box, Flex, Input } from "@chakra-ui/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate, useMatch } from "react-router-dom";
+import { useNavigate, useMatch } from "react-router-dom";
 
 const SearchBar = () => {
+  const { t } = useTranslation("common");
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const isOnRoute = useMatch("/TypeSearch");
 
-  console.log("isOnRoute", isOnRoute);
   const handleSearch = (query) => {
-    console.log("query", query);
     navigate(`/TypeSearch`);
     localStorage.setItem("TypeSearch", query);
   };
@@ -28,7 +28,7 @@ const SearchBar = () => {
       position="relative"
     >
       <Input
-        placeholder="Search here"
+        placeholder={t("SEARCH_HERE")}
         fontSize="14px"
         borderWidth="0px"
         focusBorderColor="transparent"
@@ -64,37 +64,6 @@ const SearchBar = () => {
           </Box>
         </div>
       )}
-      {/* <Box
-        position="absolute"
-        top="100%"
-        left="0"
-        w="100%"
-        bgColor="white"
-        shadow="sm"
-        zIndex="10000"
-      >
-        {products &&
-          products
-            .filter(
-              (product) =>
-                query !== "" &&
-                product.title.toUpperCase().indexOf(query.toUpperCase()) !== -1
-            )
-            .map((item) => {
-              return (
-                <Box p="2" key={item.id}>
-                  <Link
-                    to={{
-                      pathname: "/SingleProduct",
-                      search: `?id=${item.id}`,
-                    }}
-                  >
-                    {item.title}
-                  </Link>
-                </Box>
-              );
-            })}
-      </Box> */}
     </Flex>
   );
 };

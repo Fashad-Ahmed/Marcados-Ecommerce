@@ -19,8 +19,6 @@ export const useSetPasswordHook = () => {
         }
 
         if (response.type === "auth/resetPassword/rejected") {
-          console.log(JSON.stringify(response));
-
           errorToast(response?.payload?.message);
         }
       } catch (error) {

@@ -1,8 +1,10 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 const OrderListing = ({ orders }) => {
-  console.log();
+  const { t } = useTranslation("common");
+
   return (
     <Flex direction="column" w="full">
       {orders.map((order) => (
@@ -30,14 +32,14 @@ const OrderListing = ({ orders }) => {
                 textTransform: "uppercase",
               }}
             >
-              Status: {order?.status}
+              {t("Status")}: {order?.status}
             </Text>
             <div
               style={{
                 marginBottom: 10,
               }}
             >
-              <Text fontWeight="bold">Total Price: </Text>
+              <Text fontWeight="bold">{t("TOTAL_PRICE")}: </Text>
               <Text>{order?.amount} $</Text>
             </div>
             <div
@@ -45,7 +47,7 @@ const OrderListing = ({ orders }) => {
                 marginBottom: 10,
               }}
             >
-              <Text fontWeight="bold">Tracking Number:</Text>
+              <Text fontWeight="bold">{t("TRACKING_NUMBER")}:</Text>
               <Text>{order?.trackingNumber}</Text>
             </div>
             <div
@@ -53,7 +55,7 @@ const OrderListing = ({ orders }) => {
                 marginBottom: 10,
               }}
             >
-              <Text fontWeight="bold">Shipping Address:</Text>
+              <Text fontWeight="bold">{t("SHIPPING_ADDRESS")}:</Text>
               <Text>{order?.shippingAddress}</Text>
             </div>
           </Link>

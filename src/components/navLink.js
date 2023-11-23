@@ -1,7 +1,7 @@
 import { Box, Link, Text } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 
-const NavLink = ({ navLocation, children }) => {
+const NavLink = ({ navLocation, name, children }) => {
   const location = useLocation().pathname;
 
   return (
@@ -18,7 +18,7 @@ const NavLink = ({ navLocation, children }) => {
         <Text me="3" color="gray.400">
           {children}
         </Text>
-        {navLocation}
+        {name}
       </Link>
     </Box>
   );

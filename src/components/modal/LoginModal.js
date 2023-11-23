@@ -11,12 +11,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const LoginModal = ({
-  isOpen,
-  onClose,
-  message = "You need to log in to perform this action.",
-}) => {
+const LoginModal = ({ isOpen, onClose, message = "LOGIN_REQUIRED_ACTION" }) => {
+  const { t } = useTranslation("common");
   const navigation = useNavigate();
 
   function handleClick() {
@@ -31,10 +29,10 @@ const LoginModal = ({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Login Required</ModalHeader>
+        <ModalHeader>{t("LOGIN_REQUIRED_TEXT")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>{message}</Text>
+          <Text>{t(message)}</Text>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -43,7 +41,7 @@ const LoginModal = ({
             _hover={{ bgColor: "orange.400" }}
             color="white"
           >
-            Login
+            {t("LOGIN")}
           </Button>
         </ModalFooter>
       </ModalContent>

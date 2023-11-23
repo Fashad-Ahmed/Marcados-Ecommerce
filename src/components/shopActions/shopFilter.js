@@ -1,13 +1,7 @@
-// ShopFilters.js
 import {
-  Accordion,
-  AccordionButton,
-  AccordionItem,
-  AccordionPanel,
   Box,
   Button,
   ButtonGroup,
-  Checkbox,
   Flex,
   RangeSlider,
   RangeSliderFilledTrack,
@@ -17,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ShopFilters = ({
   categories,
@@ -27,6 +22,7 @@ const ShopFilters = ({
   current,
   setCurrent,
 }) => {
+  const { t } = useTranslation("common");
   const [filters, setFilters] = useState({
     categories: selectedCategories || [],
     price: [1, 1000], // Set the default price range
@@ -35,7 +31,6 @@ const ShopFilters = ({
   const [currentCategory, setCurrentCategory] = useState(null);
 
   const handleCategoryClick = (category) => {
-    console.log("handleCategoryClick", category);
     setSelectedCategories(category?._id);
     setCurrentCategory(category);
   };
@@ -57,7 +52,7 @@ const ShopFilters = ({
   return (
     <Box w={["100%", "100%", "320px"]} h="100%" p="2" bgColor={"gray.100"}>
       <Text p="20px" border="1px solid gray.100">
-        Filter Products
+        {t("FILTER_PRODUCTS")}
       </Text>
 
       <Box>
@@ -69,9 +64,9 @@ const ShopFilters = ({
           my="5"
           backgroundColor="white"
         >
-          <option>-- Select filter --</option>
-          <option>Category</option>
-          <option>Price</option>
+          <option>{t("SELECT_FILTER")}</option>
+          <option>{t("CATEGORY")}</option>
+          <option>{t("PRICE")}</option>
         </Select>
         <ButtonGroup spacing={2} flexWrap="wrap">
           {current == "Category" &&
@@ -114,8 +109,12 @@ const ShopFilters = ({
               <RangeSliderThumb index={1} />
             </RangeSlider>
             <Flex justify="space-between" w="100%">
-              <Text>Min: {filters.price[0]}</Text>
-              <Text>Max: {filters.price[1]}</Text>
+              <Text>
+                {t("MIN")}: {filters.price[0]}
+              </Text>
+              <Text>
+                {t("MAX")}: {filters.price[1]}
+              </Text>
             </Flex>
           </>
         )}
@@ -133,10 +132,10 @@ const ShopFilters = ({
             bgColor: "orange.400",
           }}
         >
-          Apply filters
+          {t("APPLY_FILTERS")}
         </Button>
         <Button bgColor="gray.100" onClick={clearFilters}>
-          Clear
+          {t("CLEAR")}
         </Button>
       </Flex>
     </Box>

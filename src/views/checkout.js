@@ -7,21 +7,20 @@ import {
   Text,
   FormControl,
   FormLabel,
-  CircularProgress,
   Spinner,
 } from "@chakra-ui/react";
 import InputMask from "react-input-mask";
 import Heading from "../components/heading";
-import { Country, State, City } from "country-state-city";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
-import { ORDER_STATUS } from "../utils/stattusEnum";
 import { errorToast } from "../utils/toast";
-import Loader from "../components/loader/loader";
 import { removeDiscount, removeDiscountId } from "../redux/slice/cartSlice";
+import { useTranslation } from "react-i18next";
+
 const Checkout = () => {
+  const { t } = useTranslation("common");
+
   const cart = useSelector((state) => state.data.cart.cart);
   const zipCode = useSelector((state) => state?.data?.general?.zipCode);
   const discountID = useSelector((state) => state?.data?.cart?.discountId);
@@ -138,22 +137,22 @@ const Checkout = () => {
   console.log("cart", cart);
   const handlePlaceOrder = () => {
     if (!shippingAddress) {
-      errorToast("Please enter Shipping Address");
+      errorToast(t("PLEASE_ENTER_SHIPPING_ADDRESS"));
       return;
     }
     if (!address) {
-      errorToast("Please select Zip Code");
+      errorToast(t("PLEASE_SELECT_ZIP_CODE"));
       return;
     }
     if (!phoneNumber) {
-      errorToast("Please enter Phone Number");
+      errorToast(t("PLEASE_ENTER_PHONE_NUMBER"));
       return;
     }
 
     const digitCount = phoneNumber.replace(/\D/g, "").length;
 
     if (digitCount < 9) {
-      errorToast("Phone number must have at least 9 digits.");
+      errorToast(t("PHONE_NUMBER_DIGIT_REQUIREMENT"));
     }
 
     setLoading(true);
@@ -167,7 +166,6 @@ const Checkout = () => {
       discountId: discountID,
     };
 
-    console.log("data", data);
     checkoutFunc(data)
       .then(() => {
         dispatch(removeDiscount());
@@ -180,10 +178,7 @@ const Checkout = () => {
 
   return (
     <Box py="50px" px={["20px", "20px", "10%"]}>
-      <Heading
-        mainText={"CHECKOUT"}
-        subText={"Order your products by filling the neccessary information."}
-      />
+      <Heading mainText={t("CHECKOUT")} subText={t("ORDER_PRODUCTS")} />
 
       <Flex flexWrap="wrap">
         <Box w={["100%", "100%", "60%"]} fontSize="14px">
@@ -195,14 +190,14 @@ const Checkout = () => {
               p="2"
               color="brand.900"
             >
-              ORDER NOW
+              {t("ORDER_NOW")}
             </Text>
             <form method="post" action="/">
               <Box bgColor="white" p="20px">
                 <Box my="4">
                   <h2>
                     <Box flex="1" p="1" textAlign="left">
-                      Shipping Details
+                      {t("SHIPPING_DETAILS")}
                     </Box>
                     <FormControl my="5">
                       <FormLabel
@@ -211,7 +206,7 @@ const Checkout = () => {
                         top="7px"
                         left="17px"
                       >
-                        Shipping address:
+                        {t("SHIPPING_ADDRESS")}:
                       </FormLabel>
                       <Input
                         type="text"
@@ -221,7 +216,7 @@ const Checkout = () => {
                         variant="unstyled"
                         fontSize="14px"
                         borderRadius="0"
-                        placeholder="Enter your shipping address"
+                        placeholder={t("ENTER_SHIPPING_ADDRESS")}
                         value={shippingAddress}
                         onChange={handleShippingAddressChange}
                       />
@@ -233,7 +228,7 @@ const Checkout = () => {
                         top="7px"
                         left="17px"
                       >
-                        Zip Code:
+                        {t("ZIP_CODE")}:
                       </FormLabel>
                       {/* <Input
                         type="number"
@@ -266,7 +261,7 @@ const Checkout = () => {
                         top="7px"
                         left="17px"
                       >
-                        Phone number:
+                        {t("PHONE_NUMBER")}:
                       </FormLabel>
 
                       <InputMask
@@ -274,7 +269,7 @@ const Checkout = () => {
                         maskChar="_"
                         type="tel"
                         name="phone"
-                        placeholder="Enter Phone Number"
+                        placeholder={t("ENTER_PHONE_NUMBER")}
                         value={phoneNumber}
                         onChange={handleChange}
                         style={inputStyles}
@@ -297,12 +292,12 @@ const Checkout = () => {
         >
           <Box>
             <Flex justify="space-between" bgColor="white" py="15px">
-              <Text>Shipping Charges</Text>
+              <Text>{t("SHIPPING_CHARGES")}</Text>
               <Text as="b">${shippingCharges?.val}</Text>
             </Flex>
 
             <Flex justify="space-between" bgColor="white" py="15px">
-              <Text>Total Amount</Text>
+              <Text>{t("TOTAL_AMOUNT")}</Text>
               <Text as="b">
                 $
                 {shippingCharges?.val
@@ -313,7 +308,7 @@ const Checkout = () => {
             </Flex>
 
             <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
-              Payment Method
+              {t("PAYMENT_METHOD")}
             </FormLabel>
             <Input
               type="text"
@@ -440,7 +435,7 @@ const Checkout = () => {
                 bgColor="brand.900"
                 onClick={handlePlaceOrder}
               >
-                Place order
+                {t("PLACE_ORDER")}
               </Link>
             )}
           </Flex>

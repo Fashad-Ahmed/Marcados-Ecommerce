@@ -14,12 +14,14 @@ import {
 import ChangeQuantity from "./changeQuantity";
 import { addWishlist } from "../../redux/slice/authSlice";
 import LoginModal from "../modal/LoginModal";
+import { useTranslation } from "react-i18next";
 
 const CartWishlist = ({ product }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.data.cart.cart);
   const wishlist = useSelector((state) => state.data.wishlist.wishlist);
   const token = useSelector((state) => state.data.user.userToken);
+  const { t } = useTranslation("common");
 
   const [cartIds, setCartIds] = useState();
   const [wishlistIds, setWishlistIds] = useState();
@@ -42,6 +44,7 @@ const CartWishlist = ({ product }) => {
       console.log("error", error);
     }
   };
+
   return (
     <Flex mt="10px" w="100%">
       {isModalOpen && (

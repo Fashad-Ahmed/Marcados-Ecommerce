@@ -18,7 +18,6 @@ export const useVerifyOtpHook = () => {
         }
 
         if (response.type === "auth/verificationCode/rejected") {
-          console.log(JSON.stringify(response));
           errorToast(response?.payload?.message);
         }
       } catch (error) {

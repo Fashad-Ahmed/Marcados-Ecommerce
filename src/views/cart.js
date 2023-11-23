@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Badge,
   Box,
   Button,
   Divider,
@@ -24,19 +23,19 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import ChangeQuantity from "../components/shopActions/changeQuantity";
 import sampleImage from "../assets/imgs/sample.jpeg";
 import { errorToast, succesToast } from "../utils/toast";
-import { get } from "../api";
-import configs, { BASE_URL } from "../redux/config";
+import { BASE_URL } from "../redux/config";
 import { putCoupon } from "../redux/slice/authSlice";
 import LoginModal from "../components/modal/LoginModal";
+import { useTranslation } from "react-i18next";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const cart = useSelector((state) => state.data.cart.cart);
   const discountedValue = useSelector((state) => state.data.cart.discountValue);
-
   const token = useSelector((state) => state.data.user.userToken);
   const discountID = useSelector((state) => state?.data?.cart?.discountId);
+  const { t } = useTranslation("common");
 
   const [subTotal, setSubTotal] = useState(0);
   const [coupon, setCoupon] = useState();
@@ -46,7 +45,6 @@ const Cart = () => {
 
   useEffect(() => {
     let subTotalSum = 0;
-
     cart?.map((item) => {
       return (subTotalSum += item.price * (item.quantity || 1));
     });
@@ -63,12 +61,12 @@ const Cart = () => {
       return;
     }
     if (!coupon) {
-      errorToast("Please enter coupon");
+      errorToast(t("PLEASE_ENTER_COUPON"));
       return;
     }
 
     if (discountID?.length > 0) {
-      errorToast("Coupon has already been applied");
+      errorToast(t("COUPON_ALREADY_APPLIED"));
       return;
     }
 
@@ -80,21 +78,20 @@ const Cart = () => {
         })
       );
       if (response.type === "coupon/putCoupon/fulfilled") {
-        console.log("response?.payload?.data", response?.payload?.data);
-
         if ((subTotal / 100) * response?.payload?.data?.percent < subTotal) {
           if (discount < 100) {
-            succesToast(`${response?.payload?.data?.title} Coupon Applied`);
+            succesToast(
+              `${response?.payload?.data?.title} ${t("COUPON_APPLIED")}`
+            );
             dispatch(addDiscount(response?.payload?.data?.percent));
             dispatch(addDiscountId(response?.payload?.data?._id));
             setDiscount(response?.payload?.data?.percent);
           } else {
-            errorToast("Coupon Price limit reached");
+            errorToast(t("COUPON_PRICE_LIMIT_REACHED"));
           }
         }
       }
       if (response.type === "coupon/putCoupon/rejected") {
-        console.log(response);
         errorToast(response?.error?.message);
       }
     } catch (e) {
@@ -145,7 +142,7 @@ const Cart = () => {
         localStorage.setItem("amount", val);
         navigation("/checkout");
       } else {
-        errorToast("Please add products to cart");
+        errorToast(t("PLEASE_ADD_PRODUCTS_TO_CART"));
       }
     } else {
       // popup to signin
@@ -157,13 +154,13 @@ const Cart = () => {
         <LoginModal
           isOpen={isModalOpen}
           onClose={() => setModalOpen(false)}
-          message="You need to login to perform payment checkout"
+          message="LOGIN_REQUIRED_FOR_PAYMENT"
         />
       )}
 
       <Heading
-        mainText={"MY CART"}
-        subText={"Finish up the order and get a reward."}
+        mainText={t("CART")}
+        subText={t("FINISH_ORDER_AND_GET_REWARD")}
       />
 
       <Flex flexWrap="wrap" justifyContent="center">
@@ -171,9 +168,9 @@ const Cart = () => {
           <Box p="20px" bgColor="#f3f3f3">
             {cart && cart?.length === 0 ? (
               <Text p="30px" bgColor="white">
-                Your Cart is empty. Add products from the{" "}
+                {t("EMPTY_CART_MESSAGE")}{" "}
                 <Link href="/shop" color="brand.900">
-                  Shop
+                  {t("SHOP")}
                 </Link>
               </Text>
             ) : (
@@ -189,7 +186,6 @@ const Cart = () => {
                     <RouterLink
                       to={{
                         pathname: "/singleProduct",
-
                         search: `?id=${product?._id}`,
                       }}
                     >
@@ -240,7 +236,7 @@ const Cart = () => {
 
             <Box justify="space-between" p="10px 0">
               <Flex p="3" pt="5%">
-                <Text>Have a coupon code? Enter here </Text>
+                <Text>{t("CP_MSG")} </Text>
                 <Text color="brand.900" p="5px 10px">
                   <FaHandPointDown />
                 </Text>
@@ -256,7 +252,7 @@ const Cart = () => {
                 borderRadius="0"
               >
                 <Input
-                  placeholder="Enter code"
+                  placeholder={t("CP2_MSG")}
                   fontSize="14px"
                   borderRadius="0"
                   value={coupon}
@@ -284,7 +280,7 @@ const Cart = () => {
                     borderColor="gray.100"
                     borderRadius="0"
                   >
-                    Apply coupon
+                    {t("APPLY_COUPON")}
                   </Button>
                 )}
               </Flex>
@@ -298,7 +294,7 @@ const Cart = () => {
                 <Text as="b">$50.90</Text>
               </Flex> */}
               <Flex justify="space-between" bgColor="white" p="15px">
-                <Text>Discount</Text>
+                <Text>{t("DISCOUNT")}</Text>
                 <Text as="b">{discountedValue ? discountedValue : 0}%</Text>
               </Flex>
 
@@ -327,7 +323,7 @@ const Cart = () => {
                   handleClick();
                 }}
               >
-                Checkout now
+                {t("CHECKOUT_NOW")}
               </Button>
             </Flex>
           </Box>

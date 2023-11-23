@@ -3,10 +3,12 @@ import { useDispatch } from "react-redux";
 import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
 import { login, setToken, userLogin } from "../../redux/slice/authSlice";
+import { useTranslation } from "react-i18next";
 
 export const useLoginHook = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation("common");
 
   const loginFunc = useCallback(
     async (data) => {
@@ -16,19 +18,16 @@ export const useLoginHook = () => {
         if (response.type === "auth/login/fulfilled") {
           succesToast(response?.payload?.message);
           localStorage.setItem("token", response?.payload?.token);
-          console.log("response from", response?.payload);
           dispatch(setToken(response?.payload?.token));
           dispatch(userLogin(response?.payload?.data));
           navigation("/Home");
         }
 
         if (response.type === "auth/login/rejected") {
-          console.log("response", response);
-
           errorToast(response?.error?.message);
         }
       } catch (error) {
-        errorToast("An error occurred during login");
+        errorToast(t("LOGIN_ERROR"));
       }
     },
     [dispatch, navigation]

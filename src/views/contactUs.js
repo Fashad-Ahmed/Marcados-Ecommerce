@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useContactUsHook } from "../hooks/useContactUsHook";
 import ReCAPTCHA from "react-google-recaptcha"; // Import ReCAPTCHA
 import { errorToast } from "../utils/toast";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
   const {
@@ -25,6 +26,7 @@ const ContactUs = () => {
     formState: { errors },
   } = useForm();
   const user = useSelector((state) => state.data.user);
+  const { t } = useTranslation("common");
   const [contactUsFunc] = useContactUsHook();
   const [recaptchaValue, setRecaptchaValue] = useState(null);
 
@@ -34,7 +36,7 @@ const ContactUs = () => {
 
   const onSubmit = (data) => {
     if (recaptchaValue === null) {
-      errorToast("reCAPTCHA validation failed");
+      errorToast(t("RECAPTCHA_FAILED"));
       return;
     }
 
@@ -44,7 +46,6 @@ const ContactUs = () => {
       subject: data.subject,
       message: data.message,
     };
-    console.log(" data", formData);
     contactUsFunc(formData);
   };
 
@@ -52,15 +53,15 @@ const ContactUs = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Contact Us</Heading>
+          <Heading textAlign="center">{t("CONTACT_US")}</Heading>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Full Name</FormLabel>
+              <FormLabel fontSize="14px">{t("FULL_NAME")}</FormLabel>
               <Controller
                 name="fullName"
                 control={control}
                 defaultValue={user?.email?.fullName}
-                rules={{ required: "Full Name is required" }}
+                rules={{ required: t("FULL_NAME_REQUIRED") }}
                 render={({ field }) => (
                   <>
                     <Input
@@ -86,7 +87,7 @@ const ContactUs = () => {
             </FormControl>
 
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Email address</FormLabel>
+              <FormLabel fontSize="14px">{t("EMAIL_ADDRESS")} </FormLabel>
               <Controller
                 name="email"
                 control={control}
@@ -123,12 +124,12 @@ const ContactUs = () => {
             </FormControl>
 
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Subject</FormLabel>
+              <FormLabel fontSize="14px">{t("SUBJECT")}</FormLabel>
               <Controller
                 name="subject"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Subject is required" }}
+                rules={{ required: t("SUBJECT_REQUIRED") }}
                 render={({ field }) => (
                   <>
                     <Input
@@ -137,7 +138,7 @@ const ContactUs = () => {
                       fontSize="14px"
                       borderRadius="0"
                       border="none"
-                      placeholder="Enter your subject"
+                      placeholder={t("ENTER_SUBJECT")}
                     />
                     {errors.subject && (
                       <Alert status="error" fontSize="12px">
@@ -153,12 +154,12 @@ const ContactUs = () => {
             </FormControl>
 
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Message</FormLabel>
+              <FormLabel fontSize="14px">{t("MESSAGE")}</FormLabel>
               <Controller
                 name="message"
                 control={control}
                 defaultValue=""
-                rules={{ required: "Message is required" }}
+                rules={{ required: t("MESSAGE_REQUIRED") }}
                 render={({ field }) => (
                   <>
                     <Input
@@ -167,7 +168,7 @@ const ContactUs = () => {
                       fontSize="14px"
                       borderRadius="0"
                       border="none"
-                      placeholder="Enter your message"
+                      placeholder={t("ENTER_MESSAGE")}
                     />
                     {errors.message && (
                       <Alert status="error" fontSize="12px">
@@ -204,7 +205,7 @@ const ContactUs = () => {
               mt="6"
               _hover={{ bgColor: "orange.400" }}
             >
-              Submit
+              {t("SUBMIT")}
             </Button>
           </form>
         </Box>

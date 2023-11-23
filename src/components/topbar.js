@@ -5,10 +5,11 @@ import Navbar from "./navbar";
 import SearchBar from "./searchbar";
 import { useSelector } from "react-redux";
 import logo from "../assets/imgs/logo.png";
-import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const Topbar = () => {
   const location = useLocation().pathname;
+  const { t } = useTranslation("common");
   const cart = useSelector((state) => state?.data?.cart?.cart);
   const isOnRoute = useMatch("/Login");
   const isonRouteTwo = useMatch("/Register");
@@ -39,7 +40,7 @@ const Topbar = () => {
         >
           <Image src={logo} width="27px" alt="logo" />
           <Link href="/" fontWeight={600} color="black" title="logo">
-            NJ Marcados
+            {t("NJ_MARCADOS")}
           </Link>
         </Flex>
 
@@ -72,7 +73,7 @@ const Topbar = () => {
               top="0"
               right="-5px"
             >
-              {cart?.length > 0 ? cart?.length : "0"}{" "}
+              {cart?.length > 0 ? cart?.length : "0"}
             </Badge>
           </Link>
 

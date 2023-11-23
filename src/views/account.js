@@ -7,6 +7,7 @@ import {
   Input,
   Button,
 } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import { FaEnvelope, FaSearchLocation } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,16 +15,16 @@ import { useNavigate } from "react-router-dom";
 const Account = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.data.user);
+  const { t } = useTranslation("common");
 
-  // console.log(user?.email?.payload?.data);
   return (
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Profile</Heading>
+          <Heading textAlign="center">{t("PROFILE")}</Heading>
 
           <FormControl mt="4">
-            <FormLabel fontSize="14px">Email address </FormLabel>
+            <FormLabel fontSize="14px">{t("EMAIL_ADDRESS")} </FormLabel>
 
             <Flex
               align="center"
@@ -50,13 +51,13 @@ const Account = () => {
                 fontSize="14px"
                 borderRadius="0"
                 border="none"
-                placeholder="Enter your email address"
+                placeholder={t("ENTER_EMAIL_FOR_OTP")}
               />
             </Flex>
           </FormControl>
 
           <FormControl mt="4">
-            <FormLabel fontSize="14px">Full Name</FormLabel>
+            <FormLabel fontSize="14px">{t("FULL_NAME")}</FormLabel>
 
             <Flex
               align="center"
@@ -88,7 +89,7 @@ const Account = () => {
           </FormControl>
 
           <FormControl mt="4">
-            <FormLabel fontSize="14px">Address</FormLabel>
+            <FormLabel fontSize="14px">{t("ADDRESS")}</FormLabel>
 
             <Flex
               align="center"
@@ -130,7 +131,7 @@ const Account = () => {
             _hover={{ bgColor: "orange.400" }}
             onClick={() => navigate("/ChangePassword")}
           >
-            Change Password
+            {t("CHANGE_PASSWORD")}
           </Button>
           <Button
             fontSize="14px"
@@ -143,7 +144,7 @@ const Account = () => {
             _hover={{ bgColor: "orange.400" }}
             onClick={() => navigate("/EditProfile")}
           >
-            Edit Profile
+            {t("EDIT_PROFILE")}
           </Button>
         </Box>
       </Flex>

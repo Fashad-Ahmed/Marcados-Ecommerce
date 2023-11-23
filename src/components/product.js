@@ -64,24 +64,13 @@ const Product = ({
         <Box px="4" fontSize="14px" {...smallBoxStyleProps}>
           <Flex px="5px" align="center" justify="space-between">
             <Text fontSize="16px" fontWeight="600">
-              $
-              {
-                product?.price
-                // -(product?.discountPercentage / 100) * product?.price}
-                // <Badge colorScheme="gray" ms="10px" textDecoration="line-through">
-                //   ${product?.price}
-                // </Badge>
-              }
+              ${product?.price}
             </Text>
             <Text my="20px" p="3px 6px">
               {product?.name}
             </Text>
-            {/* <StarRating rating={product?.rating} /> */}
           </Flex>
           <CartWishlist product={product} />
-          {/* <Text my="20px" p="3px 6px">
-            {product?.description}
-          </Text> */}
         </Box>
       </Suspense>
     </Box>
