@@ -25,25 +25,29 @@ import {
 } from "react-icons/fa";
 import InputMask from "react-input-mask";
 import bg from "../assets/imgs/bg.jpg";
-import { signup } from "../redux/slice/authSlice";
 import { useForm } from "react-hook-form";
 import { useSignupHook } from "../hooks/useSignupHook";
 import { errorToast } from "../utils/toast";
+import { useTranslation } from "react-i18next";
+
 const Register = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
+  const { t } = useTranslation("common");
   const [type, setType] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const signup = useSignupHook();
 
   const handleRegister = async (values) => {
     const digitCount = phoneNumber?.replace(/\D/g, "").length;
 
     if (digitCount < 9) {
-      errorToast("Phone number must have at least 9 digits.");
+      errorToast(t("PHONE_NUMBER_DIGIT_REQUIREMENT"));
     }
     let data = {
       email: values.email,
@@ -52,13 +56,11 @@ const Register = () => {
       address: values.address,
       phoneNumber: digitCount,
     };
-    console.log("data", data);
     setLoading(true);
 
     signup(data);
     setLoading(false);
   };
-  const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleChange = (e) => {
     setPhoneNumber(e.target.value);
@@ -94,13 +96,12 @@ const Register = () => {
           bgColor="white"
           onSubmit={handleSubmit(handleRegister)}
         >
-          <Heading textAlign="center">Register!</Heading>
+          <Heading textAlign="center">{t("REGISTER")}!</Heading>
           <Text textAlign="center" fontWeight="600" py="3">
-            Fill in your details to signup.
+            {t("FILL_IN_DETAILS_TO_SIGNUP")}
           </Text>
 
           <FormControl mt="4" isInvalid={errors.email}>
-            <FormLabel fontSize="14px">Email address </FormLabel>
             <Flex
               align="center"
               w="100%"
@@ -126,12 +127,12 @@ const Register = () => {
                 border="none"
                 variant="unstyled"
                 px={3}
-                placeholder="Enter your email address"
+                placeholder={t("ENTER_EMAIL_FOR_OTP")}
                 {...register("email", {
-                  required: "Required",
+                  required: t("EMAIL_ADDRESS_REQUIRED"),
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: "Invalid email address",
+                    message: t("INVALID_EMAIL_ADDRESS"),
                   },
                 })}
               />
@@ -169,9 +170,9 @@ const Register = () => {
               border="none"
               variant="unstyled"
               px={3}
-              placeholder="Enter your password"
+              placeholder={t("EP")}
               {...register("password", {
-                required: "Required",
+                required: t("PASSWORD_REQUIRED"),
               })}
             />
             <Button
@@ -216,9 +217,9 @@ const Register = () => {
               border="none"
               variant="unstyled"
               px={3}
-              placeholder="Enter your full name"
+              placeholder={t("ENTER_FULL_NAME")}
               {...register("fullName", {
-                required: "Required",
+                required: t("FULL_NAME_REQUIRED"),
               })}
             />
           </Flex>
@@ -254,9 +255,9 @@ const Register = () => {
               border="none"
               variant="unstyled"
               px={3}
-              placeholder="Enter your address"
+              placeholder={t("ENTER_ADDRESS")}
               {...register("address", {
-                required: "Required",
+                required: t("ENTER_ADDRESS"),
               })}
             />
           </Flex>
@@ -303,7 +304,7 @@ const Register = () => {
               maskChar="_"
               type="tel"
               name="phone"
-              placeholder="Enter Phone Number"
+              placeholder={t("PLEASE_ENTER_PHONE_NUMBER")}
               value={phoneNumber}
               onChange={handleChange}
               style={inputStyles}
@@ -337,9 +338,9 @@ const Register = () => {
           </Button>
 
           <Text mt="4">
-            Already have an account?{" "}
+            {t("ALREADY_HAVE_ACCOUNT")}
             <Link href="/Login" color="brand.900">
-              Login
+              {t("LOGIN")}
             </Link>
           </Text>
         </Box>

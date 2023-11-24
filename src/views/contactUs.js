@@ -70,7 +70,7 @@ const ContactUs = () => {
                       fontSize="14px"
                       borderRadius="0"
                       border="none"
-                      placeholder="Enter your full name"
+                      placeholder={t("ENTER_EMAIL")}
                       isDisabled={true}
                     />
                     {errors.fullName && (

@@ -8,6 +8,8 @@ import {
   YAxis,
   Tooltip,
 } from "recharts";
+import { useTranslation } from "react-i18next";
+
 const data = [
   { name: "Meat Orders", uv: 400, pv: 2400, amt: 2400 },
   { name: "Fruit Orders", uv: 100, pv: 1400, amt: 2400 },
@@ -16,14 +18,19 @@ const data = [
 
 const Dashboard = () => {
   const token = useSelector((state) => state.data.user.userToken);
+  const { t } = useTranslation("common");
+
   return (
     <Flex m="20px" justify="center" fontSize="14px">
-
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
-
         <Box py="20px" my="20px" bgColor="white">
-          <Text textAlign="center" justifyContent="center" fontWeight="600" py="6">
-            ORDERS ANALYSIS
+          <Text
+            textAlign="center"
+            justifyContent="center"
+            fontWeight="600"
+            py="6"
+          >
+            {t("ORDERS_ANALYSIS")}
           </Text>
           {token && (
             <LineChart
@@ -38,7 +45,6 @@ const Dashboard = () => {
               <YAxis />
             </LineChart>
           )}
-
         </Box>
       </Flex>
     </Flex>

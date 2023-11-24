@@ -147,5 +147,7 @@
     "SEARCH_PRODUCTS_ORDERS_OFFERS": "Search products, orders and offers here",
     "UPDATE_PASSWORD": "Update Password",
     "CP_MSG": "Have a coupon code? Enter here",
-    "CP2_MSG": "Enter code"
+    "CP2_MSG": "Enter code",
+    "EP": "Enter New Password",
+    "SFTP": "Select a filter to apply!"
 }

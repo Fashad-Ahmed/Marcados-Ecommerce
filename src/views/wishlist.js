@@ -2,17 +2,17 @@ import { Box, Grid } from "@chakra-ui/react";
 import Heading from "../components/heading";
 import { useSelector } from "react-redux";
 import Product from "../components/product";
+import { useTranslation } from "react-i18next";
 
 const Wishlist = () => {
   const wishlist = useSelector((state) => state.data.wishlist.wishlist);
+  const { t } = useTranslation("common");
 
   return (
     <Box py="30px">
       <Heading
-        mainText={"MY WISHLIST"}
-        subText={
-          "Your saved products are all here. You can add them to cart from here."
-        }
+        mainText={t("MY_WISHLIST")}
+        subText={t("SAVED_PRODUCTS_MESSAGE")}
       />
 
       <Grid

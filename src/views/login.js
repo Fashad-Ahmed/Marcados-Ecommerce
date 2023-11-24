@@ -17,6 +17,7 @@ import { useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useLoginHook } from "../hooks/useLoginHook";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const {
@@ -26,6 +27,7 @@ const Login = () => {
   } = useForm();
   const [type, setType] = useState(true);
   const login = useLoginHook();
+  const { t } = useTranslation("common");
 
   const onSubmit = async (formData) => {
     let data = {
@@ -34,7 +36,6 @@ const Login = () => {
       source: "customer",
       deviceId: "fcm token",
     };
-    console.log("Form data", data);
     login(data);
   };
 
@@ -42,14 +43,14 @@ const Login = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Welcome back!</Heading>
+          <Heading textAlign="center">{t("WELCOME_BACK")}</Heading>
           <Text textAlign="center" fontWeight="600" py="3">
-            Enter your email and password.
+            {t("ENTER_EMAIL_AND_PASSWORD")}
           </Text>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Email address </FormLabel>
+              <FormLabel fontSize="14px">{t("EMAIL_ADDRESS")} </FormLabel>
 
               <Flex
                 align="center"
@@ -74,12 +75,12 @@ const Login = () => {
                   fontSize="14px"
                   borderRadius="0"
                   border="none"
-                  placeholder="Enter your email address"
+                  placeholder={t("ENTER_EMAIL_FOR_OTP")}
                   {...register("email", {
-                    required: "Required",
+                    required: t("EMAIL_ADDRESS_REQUIRED"),
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "Invalid email address",
+                      message: t("INVALID_EMAIL_ADDRESS"),
                     },
                   })}
                 />
@@ -93,7 +94,7 @@ const Login = () => {
             </FormControl>
 
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Password </FormLabel>
+              <FormLabel fontSize="14px">{t("PASSWORD")} </FormLabel>
 
               <Flex
                 align="center"
@@ -118,9 +119,9 @@ const Login = () => {
                   fontSize="14px"
                   borderRadius="0"
                   border="none"
-                  placeholder="Enter your password"
+                  placeholder={t("EP")}
                   {...register("password", {
-                    required: "Required",
+                    required: t("PASSWORD_REQUIRED"),
                   })}
                 />
                 <Button
@@ -150,7 +151,7 @@ const Login = () => {
                 fontSize="12px"
                 color="red"
               >
-                Forgot password?
+                {t("FORGOT_PASSWORD")}?
               </Link>
             </Flex>
             <Button
@@ -164,21 +165,21 @@ const Login = () => {
               _hover={{ bgColor: "orange.400" }}
               type="submit"
             >
-              Login
+              {t("LOGIN")}
             </Button>
           </form>
 
           <Text mt="4">
-            Don't have an account yet?{" "}
+            {t("NO_ACCOUNT")}
             <Link href="/Register" color="brand.900">
-              Sign up
+              {t("SIGN_UP")}
             </Link>
           </Text>
 
           <Flex justifyContent={"center"} alignItems={"center"}>
             <Link href="/Home">
               <Text color="brand.900" fontWeight="extrabold" mt="4">
-                Continue as a guest
+                {t("CONTINUE_AS_GUEST")}
               </Text>
             </Link>
           </Flex>

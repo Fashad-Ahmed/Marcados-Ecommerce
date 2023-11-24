@@ -17,12 +17,15 @@ import { errorToast, succesToast } from "../utils/toast";
 import { put } from "../api";
 import configs from "../redux/config";
 import { userLogin } from "../redux/slice/authSlice";
+import { useTranslation } from "react-i18next";
+
 const EditProfile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.data.user);
   const [loading, setLoading] = useState(false);
   const { handleSubmit, control, setValue } = useForm();
+  const { t } = useTranslation("common");
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -54,11 +57,11 @@ const EditProfile = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Edit Profile</Heading>
+          <Heading textAlign="center">{t("EDIT_PROFILE")}</Heading>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Full Name</FormLabel>
+              <FormLabel fontSize="14px">{t("FULL_NAME")}</FormLabel>
               <Flex
                 align="center"
                 w="100%"
@@ -95,7 +98,7 @@ const EditProfile = () => {
             </FormControl>
 
             <FormControl mt="4">
-              <FormLabel fontSize="14px">Address</FormLabel>
+              <FormLabel fontSize="14px">{t("ADDRESS")}</FormLabel>
               <Flex
                 align="center"
                 w="100%"
@@ -158,7 +161,7 @@ const EditProfile = () => {
                 mt="6"
                 _hover={{ bgColor: "orange.400" }}
               >
-                Update Profile
+                {t("UPDATE_PROFILE")}
               </Button>
             )}
           </form>

@@ -16,15 +16,15 @@ import configs from "../redux/config";
 import { get } from "../api";
 import { errorToast } from "../utils/toast";
 import Loader from "../components/loader/loader";
+import { useTranslation } from "react-i18next";
 
 const Shop = () => {
+  const { t } = useTranslation("common");
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState("");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [current, setCurrent] = useState("");
-
-  console.log("current: ", current);
 
   useEffect(() => {
     fetchCategory();
@@ -84,10 +84,8 @@ const Shop = () => {
   };
 
   const handleFilters = (filters) => {
-    console.log("filter", current);
-
     if (!current) {
-      errorToast("Select a filter to apply!");
+      errorToast(t("SFTP"));
     }
 
     if (current == "Price") {
@@ -151,7 +149,7 @@ const Shop = () => {
                   bgColor="white"
                 >
                   <Heading p="20px" textAlign="center">
-                    No products available!
+                    {t("NO_PRODUCTS_AVAILABLE")}
                   </Heading>
                 </Box>
               </Flex>

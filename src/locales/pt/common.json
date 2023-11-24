@@ -148,5 +148,7 @@
     "LOGIN_REQUIRED_TEXT": "Login Necessário",
     "SEARCH_PRODUCTS_ORDERS_OFFERS": "Pesquise produtos, pedidos e ofertas aqui",
     "CP_MSG": "Tem um código de cupom? Entre aqui",
-    "CP2_MSG": "Coloque o código"
+    "CP2_MSG": "Coloque o código",
+    "EP": "Digite a senha",
+    "SFTP": "Selecione um filtro para aplicar!"
 }

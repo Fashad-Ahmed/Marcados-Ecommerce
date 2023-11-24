@@ -13,6 +13,7 @@ import { BASE_URL } from "../redux/config";
 const renderLoader = () => <Loader />;
 
 const TypeSearch = () => {
+  const { t } = useTranslation("common");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -119,7 +120,7 @@ const TypeSearch = () => {
               bgColor="white"
             >
               <Heading p="20px" textAlign="center">
-                No products available!
+                {t("NO_PRODUCTS_AVAILABLE")}
               </Heading>
             </Box>
           </Flex>

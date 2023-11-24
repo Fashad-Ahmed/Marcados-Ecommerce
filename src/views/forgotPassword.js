@@ -21,6 +21,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useForgetPasswordHook } from "../hooks/useForgetPasswordHook";
 import { useVerifyOtpHook } from "../hooks/useVerifyOtpHook";
 import { useSetPasswordHook } from "../hooks/useSetPasswordHook";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
   const [type, setType] = useState(true);
@@ -37,6 +38,7 @@ const ForgotPassword = () => {
     setValue,
     getValues,
   } = useForm();
+  const { t } = useTranslation("common");
 
   const onSubmit = (values) => {
     if (counter === 1 || counter === 0) {
@@ -74,22 +76,22 @@ const ForgotPassword = () => {
     <Flex m="20px" justify="center" fontSize="14px">
       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-          <Heading textAlign="center">Forgot Password</Heading>
+          <Heading textAlign="center">{t("FORGOT_PASSWORD")}</Heading>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             {counter === 0 ? (
               <FormControl mt="4">
-                <FormLabel fontSize="14px">Email address </FormLabel>
+                <FormLabel fontSize="14px">{t("EMAIL_ADDRESS")} </FormLabel>
 
                 <Controller
                   name="email"
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: "Email is required",
+                    required: t("EMAIL_ADDRESS_REQUIRED"),
                     pattern: {
                       value: /^\S+@\S+$/i,
-                      message: "Invalid email address",
+                      message: t("INVALID_EMAIL_ADDRESS"),
                     },
                   }}
                   render={({ field }) => (
@@ -116,7 +118,7 @@ const ForgotPassword = () => {
                         fontSize="14px"
                         borderRadius="0"
                         border="none"
-                        placeholder="Enter your email address"
+                        placeholder={t("ENTER_EMAIL_FOR_OTP")}
                         {...field}
                       />
                     </Flex>
@@ -130,13 +132,13 @@ const ForgotPassword = () => {
               </FormControl>
             ) : counter === 1 ? (
               <FormControl mt="4">
-                <FormLabel fontSize="14px">OTP</FormLabel>
+                <FormLabel fontSize="14px">{t("OTP")}</FormLabel>
                 <Controller
                   name="otp"
                   control={control}
                   defaultValue=""
                   rules={{
-                    required: "OTP is required",
+                    required: t("OTP_REQUIRED"),
                   }}
                   render={({ field }) => (
                     <Flex
@@ -162,7 +164,7 @@ const ForgotPassword = () => {
                         fontSize="14px"
                         borderRadius="0"
                         border="none"
-                        placeholder="Enter the OTP received on your email address"
+                        placeholder={t("ENTER_OTP")}
                         {...field}
                       />
                     </Flex>
@@ -177,14 +179,14 @@ const ForgotPassword = () => {
             ) : (
               <>
                 <FormControl mt="4">
-                  <FormLabel fontSize="14px">Password </FormLabel>
+                  <FormLabel fontSize="14px">{t("PASSWORD")} </FormLabel>
 
                   <Controller
                     name="password"
                     control={control}
                     defaultValue=""
                     rules={{
-                      required: "Password is required",
+                      required: t("PASSWORD_REQUIRED"),
                       // minLength: {
                       //   value: 6,
                       //   message: "Password must be at least 6 characters",
@@ -214,7 +216,7 @@ const ForgotPassword = () => {
                           fontSize="14px"
                           borderRadius="0"
                           border="none"
-                          placeholder="Enter your new password"
+                          placeholder={t("ENTER_NEW_PASSWORD")}
                           {...field}
                         />
                         <Button
@@ -237,17 +239,19 @@ const ForgotPassword = () => {
                   )}
                 </FormControl>
                 <FormControl mt="4">
-                  <FormLabel fontSize="14px">Confirm Password </FormLabel>
+                  <FormLabel fontSize="14px">
+                    {t("CONFIRM_PASSWORD")}{" "}
+                  </FormLabel>
 
                   <Controller
                     name="confirmPassword"
                     control={control}
                     defaultValue=""
                     rules={{
-                      required: "Please confirm your password",
+                      required: t("CONFIRM_PASSWORD_REQUIRED"),
                       validate: (value) =>
                         value === getValues("password") ||
-                        "Passwords do not match",
+                        t("PASSWORDS_DO_NOT_MATCH"),
                     }}
                     render={({ field }) => (
                       <Flex
@@ -273,7 +277,7 @@ const ForgotPassword = () => {
                           fontSize="14px"
                           borderRadius="0"
                           border="none"
-                          placeholder="Enter your password again"
+                          placeholder={t("ENTER_PASSWORD_AGAIN")}
                           {...field}
                         />
                         <Button
@@ -309,7 +313,7 @@ const ForgotPassword = () => {
               mt="6"
               _hover={{ bgColor: "orange.400" }}
             >
-              Update
+              {t("key")}
             </Button>
           </form>
         </Box>
@@ -319,194 +323,3 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
-
-//   const handleForgotPassword = () => {
-//     if (counter === 1 || counter === 0) {
-//       setCounter(counter + 1);
-//     } else {
-//       navigate("/Login");
-//     }
-//   };
-
-//   return (
-//     <Flex m="20px" justify="center" fontSize="14px">
-//       <Flex justify="center" w="100%" bgColor="whiteAlpha.500">
-//         <Box w={["100%", "400px", "500px"]} p="20px" m="20px" bgColor="white">
-//           <Heading textAlign="center">Forgot Password</Heading>
-
-//           {/* <Alert status="error">
-//                         <AlertIcon/>
-//                         <AlertDescription>{errorMsg}</AlertDescription>
-//                     </Alert> */}
-//           {counter === 0 ? (
-//             <FormControl mt="4">
-//               <FormLabel fontSize="14px">Email address </FormLabel>
-
-//               <Flex
-//                 align="center"
-//                 w="100%"
-//                 p="2px"
-//                 border="1px"
-//                 borderColor="gray.100"
-//                 borderRadius="0"
-//               >
-//                 <Button
-//                   href="/"
-//                   bgColor="gray.100"
-//                   p="3"
-//                   border="1px"
-//                   borderRadius="0"
-//                   borderColor="gray.100"
-//                 >
-//                   <FaEnvelope />
-//                 </Button>
-//                 <Input
-//                   type="email"
-//                   fontSize="14px"
-//                   borderRadius="0"
-//                   border="none"
-//                   placeholder="Enter your email address"
-//                   onChange={(e) => setEmail(e.target.value)}
-//                 />
-//               </Flex>
-//             </FormControl>
-//           )
-// : counter === 1 ? (
-//             <FormControl mt="4">
-//               <FormLabel fontSize="14px">OTP </FormLabel>
-
-//               <Flex
-//                 align="center"
-//                 w="100%"
-//                 p="2px"
-//                 border="1px"
-//                 borderColor="gray.100"
-//                 borderRadius="0"
-//               >
-//                 <Button
-//                   href="/"
-//                   bgColor="gray.100"
-//                   p="3"
-//                   border="1px"
-//                   borderRadius="0"
-//                   borderColor="gray.100"
-//                 >
-//                   <FaAnchor />
-//                 </Button>
-//                 <Input
-//                   type="email"
-//                   fontSize="14px"
-//                   borderRadius="0"
-//                   border="none"
-//                   placeholder="Enter the OTP recieved on your email address"
-//                   onChange={(e) => setOtp(e.target.value)}
-//                 />
-//               </Flex>
-//             </FormControl>
-//           ) : (
-//             <>
-//               <FormControl mt="4">
-//                 <FormLabel fontSize="14px">Password </FormLabel>
-
-//                 <Flex
-//                   align="center"
-//                   w="100%"
-//                   p="2px"
-//                   border="1px"
-//                   borderColor="gray.100"
-//                   borderRadius="0"
-//                 >
-//                   <Button
-//                     href="/"
-//                     bgColor="gray.100"
-//                     p="3"
-//                     border="1px"
-//                     borderRadius="0"
-//                     borderColor="gray.100"
-//                   >
-//                     <FaLock />
-//                   </Button>
-//                   <Input
-//                     type={type ? "password" : "text"}
-//                     fontSize="14px"
-//                     borderRadius="0"
-//                     border="none"
-//                     placeholder="Enter your new password"
-//                     onChange={(e) => setPassword(e.target.value)}
-//                   />
-//                   <Button
-//                     p="3"
-//                     border="1px"
-//                     borderRadius="0"
-//                     borderColor="gray.100"
-//                     bgColor="white"
-//                     onClick={() => setType(!type)}
-//                   >
-//                     <FaEye />
-//                   </Button>
-//                 </Flex>
-//               </FormControl>
-//               <FormControl mt="4">
-//                 <FormLabel fontSize="14px">Confirm Password </FormLabel>
-
-//                 <Flex
-//                   align="center"
-//                   w="100%"
-//                   p="2px"
-//                   border="1px"
-//                   borderColor="gray.100"
-//                   borderRadius="0"
-//                 >
-//                   <Button
-//                     href="/"
-//                     bgColor="gray.100"
-//                     p="3"
-//                     border="1px"
-//                     borderRadius="0"
-//                     borderColor="gray.100"
-//                   >
-//                     <FaLock />
-//                   </Button>
-//                   <Input
-//                     type={type ? "password" : "text"}
-//                     fontSize="14px"
-//                     borderRadius="0"
-//                     border="none"
-//                     placeholder="Enter your password again"
-//                     onChange={(e) => setConfirmPassword(e.target.value)}
-//                   />
-//                   <Button
-//                     p="3"
-//                     border="1px"
-//                     borderRadius="0"
-//                     borderColor="gray.100"
-//                     bgColor="white"
-//                     onClick={() => setType(!type)}
-//                   >
-//                     <FaEye />
-//                   </Button>
-//                 </Flex>
-//               </FormControl>
-//             </>
-//           )}
-
-//           <Button
-//             fontSize="14px"
-//             borderRadius="2px"
-//             border="1px solid brand.900"
-//             bgColor="brand.900"
-//             color="white"
-//             w="100%"
-//             mt="6"
-//             _hover={{ bgColor: "orange.400" }}
-//             onClick={() => handleForgotPassword()}
-//           >
-//             Update
-//           </Button>
-//         </Box>
-//       </Flex>
-//     </Flex>
-//   );
-// };
-
-// export default ForgotPassword;

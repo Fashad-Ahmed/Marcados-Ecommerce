@@ -34,6 +34,7 @@ import {
   getZip,
 } from "../redux/slice/generalSlice";
 import { updateWislisht } from "../redux/slice/wishlistSlice";
+import { useTranslation } from "react-i18next";
 
 const Product = React.lazy(() => import("../components/product"));
 
@@ -46,6 +47,7 @@ const Home = () => {
   const token = useSelector((state) => state.data.user.userToken);
   const banner = useSelector((state) => state?.data?.general?.banner);
   const offer = useSelector((state) => state?.data?.general?.offer);
+  const { t } = useTranslation("common");
 
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -134,21 +136,17 @@ const Home = () => {
           </Suspense>
         </Box>
         <HeroSection
-          mainText={
-            banner ? banner[0]?.title : "Minimalistic and Modern Interior."
-          }
+          mainText={banner ? banner[0]?.title : t("MINIMALISTIC_INTERIOR_TEXT")}
           subText={
-            banner
-              ? banner[0]?.description
-              : "Upgrade your personality with our quality products. You can never go wrong with any of our products."
+            banner ? banner[0]?.description : t("UPGRADE_YOUR_PERSONALITY_TEXT")
           }
         />
       </Flex>
 
       <Box fontSize="14px" px={[null, "10px", "5%", "10%"]} m="5% 0 50px 0">
         <Heading
-          mainText={"GET AWESOME DISCOUNTS ON ALL PURCHASE"}
-          subText={"Offers, Incentives and discounts all for you."}
+          mainText={t("GET_AWESOME_DISCOUNTS_TEXT")}
+          subText={t("OFFERS_INCENTIVES_DISCOUNTS_TEXT")}
         />
         <Flex
           justifyContent="center"
@@ -194,8 +192,8 @@ const Home = () => {
 
       <Box px={[null, "20px", "5%", "10%"]}>
         <Heading
-          mainText={"HOT DEALS FOR YOU"}
-          subText={"Our customers most loved products you can also get."}
+          mainText={t("HOT_DEALS_TEXT")}
+          subText={t("CUSTOMERS_LOVED_PRODUCTS_TEXT")}
         />
 
         <Grid
@@ -222,10 +220,10 @@ const Home = () => {
         <Flex justify="space-between" flexWrap="wrap">
           <Box w={[null, "100%", "40%"]} p="5%" ps={["5%", "5%", 0]}>
             <Text fontSize={["20px", "30px"]} fontWeight="700" pb="15px">
-              Amazing Fresh Products.
+              {t("AMAZING_FRESH_PRODUCTS_TEXT")}
             </Text>
             <Text fontSize="14px" fontWeight="600" mb="35px">
-              Purpose of a products is to keep you comfortable and healthy
+              {t("PRODUCTS_PURPOSE_TEXT")}
             </Text>
             <Link
               href="/Shop"
@@ -235,7 +233,7 @@ const Home = () => {
               color="white"
               _hover={{ bgColor: "orange.500" }}
             >
-              Shop now
+              {t("SHOP_NOW")}
             </Link>
           </Box>
           <Image
@@ -251,7 +249,7 @@ const Home = () => {
       </Box>
 
       <Box bgColor="gray.100" p="5%" fontSize="14px">
-        <Heading mainText={"Subscribe To Our Newsletter"} />
+        <Heading mainText={t("SUBSCRIBE_TO_NEWSLETTER")} />
 
         <Flex
           justify="center"
@@ -267,7 +265,7 @@ const Home = () => {
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email..."
+            placeholder={t("ENTER_EMAIL_TO_SUBSCRIBE")}
             fontSize="14px"
             borderRadius="0"
             border="none"
@@ -283,7 +281,7 @@ const Home = () => {
               color="white"
               onClick={() => handleNewsLetter()}
             >
-              Subscribe
+              {t("SUBSCRIBE")}
             </Link>
           ) : (
             <Spinner

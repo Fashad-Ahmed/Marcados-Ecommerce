@@ -29,10 +29,13 @@ import { useForm } from "react-hook-form";
 import React from "react";
 import GetStar from "../components/getStar";
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 const SingleProduct = () => {
   const containerRef = useRef();
   const useQuery = () => new URLSearchParams(location);
   const userId = useSelector((state) => state.data.user);
+  const { t } = useTranslation("common");
 
   const id = localStorage.getItem("productId");
   const { handleSubmit } = useForm();
@@ -67,7 +70,6 @@ const SingleProduct = () => {
     setLoading(true);
     try {
       let response = await get(`${configs.endpoints.shop.productDetail}/${id}`);
-      console.log("response", response);
       setProduct(response?.data);
       setLoading(false);
     } catch (error) {
@@ -90,10 +92,6 @@ const SingleProduct = () => {
       );
       setReview(response?.data);
       for (const review of response?.data) {
-        console.log(
-          "========>",
-          review?.user?._id == userId?.email?._id
-        );
         if (review?.user?._id == userId?.email?._id) {
           setIsReviewAllowed(false);
         }
@@ -159,7 +157,7 @@ const SingleProduct = () => {
             {product?.name}
           </Text>
           <Text fontSize="18px" color="gray.500">
-            Price: ${product?.price}
+            {t("PRICE")}: ${product?.price}
             {/* ${product.price - ((product.discountPercentage / 100) * product.price)} */}
             {/* <Badge colorScheme="gray" ms="10px" textDecoration="line-through">${product.price}</Badge> */}
           </Text>
@@ -173,7 +171,7 @@ const SingleProduct = () => {
       {/*  */}
       {isReviewAllowed ? (
         <>
-          <Heading ReviewText={"Add Review"} />
+          <Heading ReviewText={Text("ADD_REVIEW")} />
 
           <Flex
             flexDirection="row"
@@ -196,7 +194,7 @@ const SingleProduct = () => {
                   ml="40px"
                   px={3}
                   pl={3}
-                  placeholder="Add a review ..."
+                  placeholder={t("ADD_REVIEW_TEXT")}
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                   _placeholder={{
@@ -233,7 +231,7 @@ const SingleProduct = () => {
                       ml="30px"
                       _hover={{ bgColor: "orange.400" }}
                     >
-                      Submit
+                      {t("SUBMIT_REVIEW")}
                     </Button>
                   )}
                 </Flex>
@@ -243,7 +241,7 @@ const SingleProduct = () => {
         </>
       ) : null}
       {/*  */}
-      <Heading ReviewText={"Testimonials"} />
+      <Heading ReviewText={t("TESTIMONIALS")} />
       {review?.length > 0 ? (
         <Flex
           flexDirection="column"
@@ -286,7 +284,7 @@ const SingleProduct = () => {
       ) : (
         <Flex justifyContent="center" alignItems="center" mb={"10"}>
           <Text fontSize="18px" fontWeight="600">
-            No Reviews Available
+            {t("NO_REVIEWS_AVAILABLE")}
           </Text>
         </Flex>
       )}
