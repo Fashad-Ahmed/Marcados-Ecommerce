@@ -9,6 +9,7 @@ import CartWishlist from "./../components/shopActions/cartWishlist";
 import Loader from "../components/loader/loader";
 import sampleImage from "../assets/imgs/sample.jpeg";
 import { BASE_URL } from "../redux/config";
+import { useTranslation } from "react-i18next";
 
 const renderLoader = () => <Loader />;
 

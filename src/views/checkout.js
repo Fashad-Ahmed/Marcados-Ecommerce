@@ -17,6 +17,7 @@ import { usePlaceOrderHook } from "../hooks/usePlaceOrderHook";
 import { errorToast } from "../utils/toast";
 import { removeDiscount, removeDiscountId } from "../redux/slice/cartSlice";
 import { useTranslation } from "react-i18next";
+import { PAYMENT_TYPE } from "../utils/stattusEnum";
 
 const Checkout = () => {
   const { t } = useTranslation("common");
@@ -116,9 +117,18 @@ const Checkout = () => {
     setCardNumber(e.target.value);
   };
 
-  const [cardType, setCardType] = useState("COD");
+  const [cardType, setCardType] = useState(PAYMENT_TYPE.COD);
   const handleCardTypeChange = (e) => {
-    setCardType(e.target.value);
+    console.log("handleCardTypeChange", e.target.value);
+    if (
+      e.target.value == "Cartão" ||
+      e.target.value == "Card" ||
+      e.target.value == PAYMENT_TYPE.CARD
+    ) {
+      setCardType(PAYMENT_TYPE.CARD);
+    } else {
+      setCardType(PAYMENT_TYPE.COD);
+    }
   };
 
   const [expiryDate, setExpiryDate] = useState("");
@@ -310,26 +320,24 @@ const Checkout = () => {
             <FormLabel fontSize="12px" color="gray.400" top="7px" left="17px">
               {t("PAYMENT_METHOD")}
             </FormLabel>
-            <Input
+            {/* <Input
               type="text"
               name="payment"
               my="1"
-              isDisabled={true}
+              isDisabled={false}
               fontSize="14px"
               borderRadius="0"
               value={cardType}
-            />
-            {/* <Select
+            /> */}
+            <Select
               onChange={handleCardTypeChange}
               name="type"
               borderRadius="0"
               my="5"
             >
-              <option>COD</option>
-              <option>Visa</option>
-              <option>Mastercard</option>
-              <option>American Express</option>
-            </Select> */}
+              <option>{t("COD")}</option>
+              <option>{t("CARD")}</option>
+            </Select>
             {/* {cardType != "COD" && (
               <>
                 <FormControl my="5">

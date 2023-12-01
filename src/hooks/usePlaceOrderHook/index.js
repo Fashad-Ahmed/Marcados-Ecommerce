@@ -1,25 +1,87 @@
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
-import { addDiscount, createOrder, logout } from "../../redux/slice/cartSlice";
+import {
+  addDiscount,
+  createOrder,
+  handleChangePayment,
+  logout,
+} from "../../redux/slice/cartSlice";
 import { useTranslation } from "react-i18next";
+import { BASE_URL } from "../../redux/config";
+import { PAYMENT_TYPE } from "../../utils/stattusEnum";
+const { io } = require("socket.io-client");
 
 export const usePlaceOrderHook = () => {
+  let openedWindow;
+  const userId = useSelector((state) => state?.data?.user?.email?._id);
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
+  const socket = io.connect(BASE_URL, { query: { userId } });
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  console.log("userId", userId);
+  function openChildWindow(response) {
+    openedWindow = window.open(
+      response?.payload?.payment_link,
+      "_blank",
+      "rel=noopener noreferrer"
+    );
+
+    // Handle case where the child window could not be opened
+    if (!openedWindow) {
+      console.error("Failed to open the child window.");
+      return;
+    }
+
+    // Store a reference to the opened window
+    window.openedWindow = openedWindow;
+  }
+
+  useEffect(() => {
+    if (!!socketConnected) {
+      socketListener();
+    }
+  }, [socketConnected]);
+
+  const socketListener = () => {
+    socket.on("payment-success", (data) => {
+      console.log("Response from payment-success: " + JSON.stringify(data));
+      navigation("/Home");
+    });
+  };
+
+  const socketSetup = (data) => {
+    socket.on("connect", () => {
+      console.log("socket.id", socket.id); // x8WIv7-mJelg7on_ALbx
+      setSocketConnected(true);
+    });
+  };
 
   const checkoutFunc = useCallback(
     async (data) => {
       try {
+        if (data?.paymentMethod == PAYMENT_TYPE.CARD) {
+          socketSetup();
+        }
+
         const response = await dispatch(createOrder(data));
 
         if (response.type === "create/order/fulfilled") {
           dispatch(addDiscount(0));
           dispatch(logout());
-          succesToast(response?.payload?.message);
-          navigation("/Home");
+
+          if (data?.paymentMethod == PAYMENT_TYPE.COD) {
+            succesToast(response?.payload?.message);
+            navigation("/Home");
+          }
+
+          if (data?.paymentMethod == PAYMENT_TYPE.CARD) {
+            handleChangePayment(true);
+            openChildWindow(response);
+          }
         }
 
         if (response.type === "create/order/rejected") {

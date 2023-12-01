@@ -4,3 +4,8 @@ export const ORDER_STATUS = {
   DELIVERED: "DELIVERED",
   CANCELED: "CANCELED",
 };
+
+export const PAYMENT_TYPE = {
+  COD: "COD",
+  CARD: "CARD",
+};

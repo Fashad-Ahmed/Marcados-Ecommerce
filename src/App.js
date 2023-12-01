@@ -1,10 +1,9 @@
 import { extendTheme, ChakraProvider } from "@chakra-ui/react";
 import RoutesProvider from "./routes";
-import { useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
-import { getDiscountBanner, getHomeBanner } from "./redux/slice/generalSlice";
+import LoadingOverlay from "react-loading-overlay-nextgen";
+import { useSelector } from "react-redux";
 
 const colors = {
   brand: {
@@ -16,14 +15,14 @@ const colors = {
 const theme = extendTheme({ colors });
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {}, []);
+  const overlayActive = useSelector((state) => state?.cart?.paymentByPaypal);
 
   return (
     <ChakraProvider theme={theme}>
-      <ToastContainer />
-      <RoutesProvider />
+      <LoadingOverlay active={overlayActive} spinner>
+        <ToastContainer />
+        <RoutesProvider />
+      </LoadingOverlay>
     </ChakraProvider>
   );
 };

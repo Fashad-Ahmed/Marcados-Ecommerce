@@ -7,11 +7,21 @@ const initialState = {
   cart: [],
   discountValue: 0,
   discountId: null,
+  paymentByPaypal: false,
 };
 
 export const getOrders = createAsyncThunk("get/order", async () => {
   try {
     let response = await get(configs.endpoints.checkout.getOrder);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+export const handlePayment = createAsyncThunk("get/payment", async (data) => {
+  try {
+    let response = await get(configs.endpoints.checkout.handlePayment, data);
     return response;
   } catch (error) {
     throw new Error(error);
@@ -55,32 +65,32 @@ export const cartSlice = createSlice({
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
       }
-      succesToast("Item added to cart");
+      // succesToast("Item added to cart");
     },
 
     removeProductFromCart: (state, action) => {
       const index = state.cart.findIndex((p) => p._id === action.payload);
       if (index !== -1) {
         state.cart.splice(index, 1);
-        errorToast("Item removed from cart");
+        // errorToast("Item removed from cart");
       }
     },
     increaseCartQuantity: (state, action) => {
       const product = state.cart.find((p) => p._id === action.payload);
       if (product && product.quantity > 0) {
         product.quantity++;
-        succesToast(
-          `${product?.name} quantity increased upto ${product?.quantity}`
-        );
+        // succesToast(
+        //   `${product?.name} quantity increased upto ${product?.quantity}`
+        // );
       }
     },
     decreaseCartQuantity: (state, action) => {
       const product = state.cart.find((p) => p._id === action.payload);
       if (product && product.quantity > 1) {
         product.quantity--;
-        errorToast(
-          `${product?.name} quantity decreased upto ${product?.quantity}`
-        );
+        // errorToast(
+        //   `${product?.name} quantity decreased upto ${product?.quantity}`
+        // );
       }
     },
     addDiscount: (state, action) => {
@@ -94,6 +104,9 @@ export const cartSlice = createSlice({
     },
     removeDiscountId: (state) => {
       state.discountId = null;
+    },
+    handleChangePayment: (state, action) => {
+      state.paymentByPaypal = action.payload;
     },
     logout: () => {
       return initialState;
@@ -110,6 +123,7 @@ export const {
   decreaseCartQuantity,
   addDiscount,
   addDiscountId,
+  handleChangePayment,
   logout,
 } = cartSlice.actions;
 

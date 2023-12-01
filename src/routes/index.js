@@ -26,6 +26,8 @@ const ChangePassword = lazy(() => import("../views/changePassword"));
 const SingleOrder = lazy(() => import("../views/singleOrder"));
 const TypeSearch = lazy(() => import("../views/typeSearch"));
 const EditProfile = lazy(() => import("../views/editProfile"));
+const PaypalLoader = lazy(() => import("../views/loader"));
+
 const RoutesProvider = () => {
   const token = useSelector((state) => state.data.user.userToken);
   return token ? (
@@ -37,6 +39,7 @@ const RoutesProvider = () => {
           <Route path="/Home" exact element={<Navigate to="/" replace />} />
           <Route path="/Login" exact element={<Login />} />
           <Route path="/Cart" exact element={<Cart />} />
+          <Route path="/redirecting" exact element={<PaypalLoader />} />
           <Route path="/Checkout" exact element={<Checkout />} />
           <Route path="/Shop" exact element={<Shop />} />
           <Route path="/Wishlist" exact element={<Wishlist />} />
