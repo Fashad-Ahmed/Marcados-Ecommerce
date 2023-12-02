@@ -19,8 +19,8 @@ export const usePlaceOrderHook = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
-  const socket = io.connect(BASE_URL, { query: { userId } });
-  const [socketConnected, setSocketConnected] = useState(false);
+  // var socket = io.connect(BASE_URL, { query: { userId } });
+  const [socket, setSocket] = useState(null);
 
   console.log("userId", userId);
   function openChildWindow(response) {
@@ -41,14 +41,15 @@ export const usePlaceOrderHook = () => {
   }
 
   useEffect(() => {
+    console.log("Opening");
     socketSetup();
   }, []);
 
   useEffect(() => {
-    if (!!socketConnected) {
+    if (!!socket?.connected) {
       socketListener();
     }
-  }, [socketConnected]);
+  }, [socket]);
 
   const socketListener = () => {
     socket.on("payment-success", (data) => {
@@ -57,11 +58,14 @@ export const usePlaceOrderHook = () => {
     });
   };
 
+  console.log("socket connection", socket);
+
   const socketSetup = (data) => {
-    socket.on("connect", () => {
-      console.log("socket.id", socket.id); // x8WIv7-mJelg7on_ALbx
-      setSocketConnected(true);
-    });
+    setSocket(io.connect(BASE_URL, { query: { userId } }));
+    // socket.on("connect", () => {
+    //   console.log("socket.id", socket.id); // x8WIv7-mJelg7on_ALbx
+    //   setSocketConnected(true);
+    // });
   };
 
   const checkoutFunc = useCallback(
