@@ -41,6 +41,10 @@ export const usePlaceOrderHook = () => {
   }
 
   useEffect(() => {
+    socketSetup();
+  }, []);
+
+  useEffect(() => {
     if (!!socketConnected) {
       socketListener();
     }
@@ -63,10 +67,6 @@ export const usePlaceOrderHook = () => {
   const checkoutFunc = useCallback(
     async (data) => {
       try {
-        if (data?.paymentMethod == PAYMENT_TYPE.CARD) {
-          socketSetup();
-        }
-
         const response = await dispatch(createOrder(data));
 
         if (response.type === "create/order/fulfilled") {
