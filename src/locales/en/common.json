@@ -151,5 +151,7 @@
     "EP": "Enter New Password",
     "SFTP": "Select a filter to apply!",
     "RD": "Redirecting",
-    "PAYMENT_FAILED": "payment by card failed."
+    "PAYMENT_FAILED": "payment by card failed.",
+    "ENGLISH": "English",
+    "PORTUGUESE": "Portuguese"
 }

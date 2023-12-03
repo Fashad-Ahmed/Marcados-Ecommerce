@@ -105,7 +105,7 @@ export const cartSlice = createSlice({
     removeDiscountId: (state) => {
       state.discountId = null;
     },
-    handleChangePayment: (state, action) => {
+    changePayment: (state, action) => {
       state.paymentByPaypal = action.payload;
     },
     logout: () => {
@@ -123,7 +123,7 @@ export const {
   decreaseCartQuantity,
   addDiscount,
   addDiscountId,
-  handleChangePayment,
+  changePayment,
   logout,
 } = cartSlice.actions;
 

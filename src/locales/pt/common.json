@@ -152,5 +152,7 @@
     "EP": "Digite a senha",
     "SFTP": "Selecione um filtro para aplicar!",
     "RD": "Redirecionando",
-    "PAYMENT_FAILED": "Falha no pagamento por cartão."
+    "PAYMENT_FAILED": "Falha no pagamento por cartão.",
+    "ENGLISH": "Inglês",
+    "PORTUGUESE": "Português"
 }

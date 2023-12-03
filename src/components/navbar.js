@@ -7,10 +7,14 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Text,
   useDisclosure,
   Box,
   Link,
+  Switch,
+  Flex,
+  Text,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
@@ -21,6 +25,7 @@ import {
   FiHeadphones,
   FiUser,
   FiList,
+  FiGlobe,
 } from "react-icons/fi";
 import SocialLinks from "./sociallinks";
 import NavLink from "./navLink";
@@ -39,11 +44,13 @@ const Navbar = () => {
   const user = useSelector((state) => state.data.user);
   const token = useSelector((state) => state.data.user.userToken);
   const { t } = useTranslation("common");
+  const { i18n } = useTranslation();
+  const { toggleColorMode } = useColorMode();
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
+  const onColor = "#00411a";
 
-  console.log(user);
   const handleLogout = () => {
     dispatch(userLogout());
     dispatch(logout());
@@ -51,6 +58,10 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.clear();
     navigation("/Login");
+  };
+
+  const handleChangeLanguage = (language) => {
+    i18n.changeLanguage(language);
   };
 
   return (
@@ -84,7 +95,6 @@ const Navbar = () => {
             borderRadius="0"
           />
           <DrawerHeader my="2" display="flex" alignItems="center">
-            <Box size="sm" me="2"></Box>
             <Box>
               {token ? (
                 user?.email?.fullName
@@ -161,6 +171,27 @@ const Navbar = () => {
                   </Box>
                 </Box>
               )}
+            </Box>
+
+            <Box fontWeight="600" my="2">
+              <Box display="flex">
+                <Switch
+                  marginTop={"0.5"}
+                  me={"3"}
+                  isChecked={i18n.language === "en"}
+                  onChange={() =>
+                    handleChangeLanguage(i18n.language === "en" ? "pt" : "en")
+                  }
+                  colorScheme="teal"
+                  size="md"
+                  trackColor={{ base: onColor }}
+                  thumbColor={useColorModeValue("white", "gray.800")}
+                />
+
+                <Text pl="0" onClick={toggleColorMode} cursor="pointer">
+                  {i18n.language === "en" ? t("ENGLISH") : t("PORTUGUESE")}
+                </Text>
+              </Box>
             </Box>
 
             <Box py="2" mt="4">

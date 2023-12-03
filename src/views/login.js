@@ -170,7 +170,7 @@ const Login = () => {
           </form>
 
           <Text mt="4">
-            {t("NO_ACCOUNT")}
+            {t("NO_ACCOUNT")} 
             <Link href="/Register" color="brand.900">
               {t("SIGN_UP")}
             </Link>

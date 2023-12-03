@@ -93,10 +93,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { get } from "../api";
 import configs from "../redux/config";
-import { handleChangePayment } from "../redux/slice/cartSlice";
+import { changePayment } from "../redux/slice/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Loader = () => {
   const { t } = useTranslation("common");
+  const dispatch = useDispatch();
 
   const [searchParams] = useSearchParams();
 
@@ -111,10 +113,9 @@ const Loader = () => {
   const handlePayment = async (data) => {
     try {
       let response = await get(configs.endpoints.checkout.handlePayment, data);
-      console.log("response", response);
       if (!!response?.success) {
         window.close();
-        handleChangePayment(false);
+        dispatch(changePayment(false));
       }
     } catch (error) {
       console.log("error", error);

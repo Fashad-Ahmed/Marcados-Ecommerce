@@ -4,8 +4,8 @@ import { succesToast, errorToast } from "../../utils/toast";
 import { useNavigate } from "react-router-dom";
 import {
   addDiscount,
+  changePayment,
   createOrder,
-  handleChangePayment,
   logout,
 } from "../../redux/slice/cartSlice";
 import { useTranslation } from "react-i18next";
@@ -87,7 +87,7 @@ export const usePlaceOrderHook = () => {
           }
 
           if (data?.paymentMethod == PAYMENT_TYPE.CARD) {
-            handleChangePayment(true);
+            dispatch(changePayment(true));
             openChildWindow(response);
           }
         }
