@@ -8,7 +8,7 @@ i18n.use(initReactI18next).init({
     en: { common: commonEn },
     pt: { common: commonPt },
   },
-  lng: "pt", // Default language
+  lng: "en", // Default language
   fallbackLng: "en", // Fallback language if the translation is missing
   interpolation: {
     escapeValue: false, // React already escapes values, so no need to escape again

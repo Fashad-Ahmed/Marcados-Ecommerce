@@ -19,10 +19,8 @@ export const usePlaceOrderHook = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation("common");
-  // var socket = io.connect(BASE_URL, { query: { userId } });
   const [socket, setSocket] = useState(null);
 
-  console.log("userId", userId);
   function openChildWindow(response) {
     openedWindow = window.open(
       response?.payload?.payment_link,
@@ -41,12 +39,11 @@ export const usePlaceOrderHook = () => {
   }
 
   useEffect(() => {
-    console.log("Opening");
     socketSetup();
   }, []);
 
   useEffect(() => {
-    if (!!socket?.connected) {
+    if (!!socket) {
       socketListener();
     }
   }, [socket]);
@@ -54,14 +51,22 @@ export const usePlaceOrderHook = () => {
   const socketListener = () => {
     socket.on("payment-success", (data) => {
       console.log("Response from payment-success: " + JSON.stringify(data));
-      navigation("/Home");
+      if (!!data?.success) {
+        dispatch(addDiscount(0));
+        dispatch(logout());
+        navigation("/Home");
+      } else {
+        console.log("payment by card failed");
+        errorToast(t("PAYMENT_FAILED"));
+      }
     });
   };
 
-  console.log("socket connection", socket);
+  // console.log("socket connection", socket);
 
   const socketSetup = (data) => {
     setSocket(io.connect(BASE_URL, { query: { userId } }));
+
     // socket.on("connect", () => {
     //   console.log("socket.id", socket.id); // x8WIv7-mJelg7on_ALbx
     //   setSocketConnected(true);
@@ -74,10 +79,9 @@ export const usePlaceOrderHook = () => {
         const response = await dispatch(createOrder(data));
 
         if (response.type === "create/order/fulfilled") {
-          dispatch(addDiscount(0));
-          dispatch(logout());
-
           if (data?.paymentMethod == PAYMENT_TYPE.COD) {
+            dispatch(addDiscount(0));
+            dispatch(logout());
             succesToast(response?.payload?.message);
             navigation("/Home");
           }

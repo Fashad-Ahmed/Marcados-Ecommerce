@@ -150,5 +150,6 @@
     "CP2_MSG": "Enter code",
     "EP": "Enter New Password",
     "SFTP": "Select a filter to apply!",
-    "RD": "Redirecting"
+    "RD": "Redirecting",
+    "PAYMENT_FAILED": "payment by card failed."
 }

@@ -15,8 +15,11 @@ const colors = {
 const theme = extendTheme({ colors });
 
 const App = () => {
-  const overlayActive = useSelector((state) => state?.cart?.paymentByPaypal);
+  const overlayActive = useSelector(
+    (state) => state?.data?.cart?.paymentByPaypal
+  );
 
+  console.log("Overlay active", overlayActive);
   return (
     <ChakraProvider theme={theme}>
       <LoadingOverlay active={overlayActive} spinner>
