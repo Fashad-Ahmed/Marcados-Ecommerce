@@ -52,6 +52,7 @@ export const usePlaceOrderHook = () => {
     socket.on("payment-success", (data) => {
       console.log("Response from payment-success: " + JSON.stringify(data));
       if (!!data?.success) {
+        console.log("Response from payment-success", window.openedWindow);
         dispatch(addDiscount(0));
         dispatch(logout());
         navigation("/Home");
