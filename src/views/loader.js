@@ -105,9 +105,10 @@ const Loader = () => {
   const paymentId = searchParams.get("paymentId");
   const token = searchParams.get("token");
   const PayerID = searchParams.get("PayerID");
+  const orderId = searchParams.get("order_id");
 
   useEffect(() => {
-    handlePayment({ paymentId, token, PayerID });
+    handlePayment({ paymentId, token, PayerID, orderId });
   }, []);
 
   const handlePayment = async (data) => {
