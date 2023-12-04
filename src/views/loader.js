@@ -108,7 +108,7 @@ const Loader = () => {
   const order_id = searchParams.get("order_id");
 
   useEffect(() => {
-    handlePayment({ paymentId, token, PayerID, order_id });
+    handlePayment({ order_id, paymentId, token, PayerID });
   }, []);
 
   const handlePayment = async (data) => {
