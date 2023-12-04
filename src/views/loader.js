@@ -113,7 +113,17 @@ const Loader = () => {
 
   const handlePayment = async (data) => {
     try {
-      let response = await get(configs.endpoints.checkout.handlePayment, data);
+      let response = await get(
+        configs.endpoints.checkout.handlePayment +
+          "?order_id=" +
+          data?.order_id +
+          "&paymentId=" +
+          data?.paymentId +
+          "&token=" +
+          data?.token +
+          "&PayerID=" +
+          data?.PayerID
+      );
       console.log("response: " + JSON.stringify(response));
       console.log("window", window);
 
