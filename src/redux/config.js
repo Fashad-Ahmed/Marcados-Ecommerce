@@ -39,7 +39,7 @@ export const endpoints = {
     discountBanner: "/banner/get?type=offer",
   },
   checkout: {
-    handlePayment: "/order/handle-payment",
+    handlePayment: "/order/success",
     getOrder: "/order/get",
     singleOrder: "/order/get/",
     createOrder: "/order/create",
