@@ -117,13 +117,13 @@ const Loader = () => {
       console.log("response: " + JSON.stringify(response));
       console.log("window", window);
 
-      window.close();
-      dispatch(changePayment(false));
+      // window.close();
+      // dispatch(changePayment(false));
 
       console.log("response?.success", response?.success);
-      if (!!response?.success) {
-        // window.close();
-        // dispatch(changePayment(false));
+      if (response?.success) {
+        window.close();
+        dispatch(changePayment(false));
       }
     } catch (error) {
       console.log("error", error);
